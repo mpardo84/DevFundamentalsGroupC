@@ -1,5 +1,5 @@
 /*
- *     1 21/03/18
+ * 21/03/18
  *
  * Copyright (c) 2018 Sun Microsystems, Inc.
  * All rights reserved.
@@ -12,22 +12,21 @@
  *
  */
 
-package com.jalasoft.search.view;
+package com.jalasoft.search;
 
-import javax.swing.*;
-import java.awt.Color;
+
 /**
  *
- This class represent the panel that will contains the results for search Files
+ This class is the Main class that will allows to execute the code
  *
  * @version
 1.0 21 Mar 2018  * @author
-Monica Pardo */
-public class SearchPanelResults extends JPanel {
+Monica Pardo  */
+public class MainApplicationProject {
 
-    public SearchPanelResults() {
-        super();
-        setBackground(Color.white);
+    public static void main(String[] args) {
+
+
+
     }
 }
-
