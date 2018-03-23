@@ -51,7 +51,7 @@ public class Gui extends JFrame implements InterfazGui{
         result.setText(res);
     }
 
-    public  String getQuery(){
+    public  String getFileName(){
         return query.getText();
     }
 

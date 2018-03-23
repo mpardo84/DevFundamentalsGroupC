@@ -27,7 +27,7 @@ public class SearchController implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event){
-        String fileName= vista.getQuery();
+        String fileName= vista.getFileName();
         vista.displayResult(modelo.search(fileName));
     }
 }

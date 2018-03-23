@@ -4,7 +4,7 @@ import com.jalasoft.search.controller.SearchController;
 
 public interface InterfazGui {
     void display();
-    String getQuery();
+    String getFileName();
     void displayResult(String res);
     void setControler(SearchController controler);
 
