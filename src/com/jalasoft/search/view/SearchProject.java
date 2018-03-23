@@ -16,7 +16,8 @@ package com.jalasoft.search.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import java.awt.*;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 /**
  *
@@ -62,6 +63,7 @@ public class SearchProject extends JFrame{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(w, h);
         window.setVisible(true);
+        window.setResizable(false);
     }
 
 }
