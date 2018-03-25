@@ -18,13 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import javax.swing.ImageIcon;
 
 /**
  *
  This class is the main dialog that contains the tabs for each type of ObjectFile that we could have in the application
  *
  * @version
-1.0 21 Mar 2018  * @author
+1.1 25 Mar 2018  * @author
 Monica Pardo */
 public class SearchProject extends JFrame{
     public JFrame window;
@@ -32,6 +33,9 @@ public class SearchProject extends JFrame{
     private JPanel directoryPanel;
     private JPanel multimediaPanel;
     private JTabbedPane tabbedPane;
+    private  ImageIcon fileIcon;
+    private  ImageIcon directoryIcon;
+    private  ImageIcon multimediaIcon;
     private static int w;
     private static int h;
 
@@ -40,13 +44,21 @@ public class SearchProject extends JFrame{
         //initialize variables for tab panel
         tabbedPane = new JTabbedPane();
         filePanel=new FilePanel();
-        directoryPanel=new JPanel();
+        directoryPanel=new DirectoryPanel();
         multimediaPanel=new JPanel();
 
+        fileIcon = new ImageIcon(
+                this.getClass().getResource("/images/file.jpg"));
+        directoryIcon = new ImageIcon(
+                this.getClass().getResource("/images/directory.jpg"));
+       multimediaIcon = new ImageIcon(
+                this.getClass().getResource("/images/multimedia.png"));
+
+
         //Add tabs to the tab panel
-        tabbedPane.add("File",filePanel);
-        tabbedPane.add("Directory",directoryPanel);
-        tabbedPane.add("Multimedia",multimediaPanel);
+        tabbedPane.addTab("File",fileIcon,filePanel);
+        tabbedPane.addTab("Directory",directoryIcon,directoryPanel);
+        tabbedPane.addTab("Multimedia",multimediaIcon,multimediaPanel);
         // add the tab panel to the frame
         this.add(tabbedPane);
 

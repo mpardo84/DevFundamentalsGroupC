@@ -11,43 +11,39 @@
  *  with Sun.
  *
  */
-
 package com.jalasoft.search.view;
 
-        import javax.swing.JLabel;
-        import javax.swing.JTextField;
-        import javax.swing.JSeparator;
-        import javax.swing.JButton;
-        import javax.swing.JFileChooser;
-        import javax.swing.JComboBox;
-        import javax.swing.JPanel;
-        import java.awt.Font;
-        import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
-        import java.util.Calendar;
-        import java.util.Date;
-
-        import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JSeparator;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
- This class contains the fields that are part of the search criteria for a File
+ This class represent the panel that will contains the results and search criteria options for the File
  *
  * @version
-1.1 25 Mar 2018  * @author
+1.0 25 Mar 2018  * @author
 Monica Pardo */
 
-public class SearchPanelCriteria extends JPanel {
+public class SearchDirectoryPanelCriteria extends JPanel {
     private JLabel title;
     private JLabel nameLabel;
-    private JLabel typeLabel;
-    private JLabel containsLabel;
     private JLabel ownerLabel;
     private JLabel attributesLabel;
     private JLabel readOnlyLabel;
     private JLabel pathLabel;
     private JLabel hiddenLabel;
-    private JLabel fileTimeLabel;
+    private JLabel directoryTimeLabel;
     private JLabel createdLabel;
     private JLabel modifiedLabel;
     private JLabel accessedLabel;
@@ -58,8 +54,6 @@ public class SearchPanelCriteria extends JPanel {
     private JLabel fromAccessedLabel;
     private JLabel toAccessedLabel;
     private JTextField  nameField;
-    private JTextField typeField;
-    private JTextField containsField;
     private JTextField ownerField;
     private JTextField pathValue;
     private JFileChooser chooser;
@@ -82,7 +76,7 @@ public class SearchPanelCriteria extends JPanel {
     private JDateChooser toAccessedDate;
     private  String[] comboBoxTimeValues;
 
-    public SearchPanelCriteria() {
+    public SearchDirectoryPanelCriteria() {
         super();
         setLayout(null);
         comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
@@ -106,13 +100,6 @@ public class SearchPanelCriteria extends JPanel {
         return ownerField.getText();
     }
 
-    public String getTypeField() {
-        return typeField.getText();
-    }
-
-    public String getContainsField() {
-        return containsField.getText();
-    }
     public String getReadOnlyOptions() {
         return (String)readOnlyOptions.getSelectedItem();
     }
@@ -122,7 +109,7 @@ public class SearchPanelCriteria extends JPanel {
     }
 
     public String getCreatedOptions() {
-         return (String)createdOptions.getSelectedItem();
+        return (String)createdOptions.getSelectedItem();
     }
 
     public String getModifiedOptions() {
@@ -158,7 +145,7 @@ public class SearchPanelCriteria extends JPanel {
     }
 
     //This method allows to select a file
-    public void browseFileAction(){
+    public void browseDirectoryAction(){
         browseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 chooser = new JFileChooser();
@@ -167,8 +154,8 @@ public class SearchPanelCriteria extends JPanel {
                 chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 chooser.setAcceptAllFileFilterUsed(false);
                 if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    String filePath=chooser.getSelectedFile().getPath();
-                    pathValue.setText(filePath);
+                    String directoryPath=chooser.getSelectedFile().getPath();
+                    pathValue.setText(directoryPath);
                 }
             }
         });
@@ -181,29 +168,19 @@ public class SearchPanelCriteria extends JPanel {
         pathLabel = new JLabel(" Search Path:");
         pathLabel.setBounds(30, 50, 80, 20);
         pathValue = new JTextField();
-        pathValue.setBounds(120, 50, 200, 25);
+        pathValue.setBounds(130, 50, 200, 25);
         browseButton = new JButton("browse");
         browseButton.setBounds(340,50,80,20);
 
-        nameLabel = new JLabel("File Name:");
-        nameLabel.setBounds(30, 85, 80, 20);
+        nameLabel = new JLabel("Directory Name:");
+        nameLabel.setBounds(30, 85, 100, 20);
         nameField = new JTextField();
-        nameField.setBounds(120, 85, 200, 25);
+        nameField.setBounds(130, 85, 200, 25);
 
-        typeLabel =new JLabel("File Type:");
-        typeLabel.setBounds(30, 120, 80, 20);
-        typeField = new JTextField();
-        typeField.setBounds(120, 120, 100, 25);
-
-        containsLabel = new JLabel("File Contains:");
-        containsLabel.setBounds(30, 155, 80, 20);
-        containsField = new JTextField();
-        containsField.setBounds(120, 155, 200, 25);
-
-        ownerLabel = new JLabel("File Owner:");
-        ownerLabel.setBounds(30, 190, 80, 20);
+        ownerLabel = new JLabel("Directory Owner:");
+        ownerLabel.setBounds(30, 120, 100, 20);
         ownerField = new JTextField();
-        ownerField.setBounds(120, 190, 150, 25);
+        ownerField.setBounds(130, 120, 100, 25);
 
         separator=new JSeparator();
         separator.setBounds(0, 240, 500, 20);
@@ -214,14 +191,10 @@ public class SearchPanelCriteria extends JPanel {
         add(browseButton);
         add(nameLabel);
         add(nameField);
-        add(typeLabel);
-        add(typeField);
-        add(containsLabel);
-        add(containsField);
         add(ownerLabel);
         add(ownerField);
         add(separator);
-        browseFileAction();
+        browseDirectoryAction();
     }
 
     //This method contains the components for the Attribute section in UI
@@ -254,21 +227,18 @@ public class SearchPanelCriteria extends JPanel {
     //This method contains the components for the File Time section in UI
     public void searchFileTimeSection(){
 
-        fileTimeLabel=new JLabel("FILE TIME");
+        directoryTimeLabel=new JLabel("DIRECTORY TIME");
         negritaFont=new Font("ITALIC", Font.BOLD, 13);
-        fileTimeLabel.setBounds(0,380,80,20);
-        fileTimeLabel.setFont(negritaFont);
-        //Created Date section method
+        directoryTimeLabel.setBounds(0,380,120,20);
+        directoryTimeLabel.setFont(negritaFont);
         createdDateSection();
-        //Modified Date section method
         modifiedDateSection();
-        // accessed Date section methof
         accessedDateSection();
 
         separator=new JSeparator();
         separator.setBounds(0, 540, 500, 20);
 
-        add(fileTimeLabel);
+        add(directoryTimeLabel);
         add(createdLabel);
         add(createdOptions);
         add(fromCreatedLabel);
@@ -451,8 +421,6 @@ public class SearchPanelCriteria extends JPanel {
                 System.out.println("Name value inserted by the user is: " + getNameField());
                 System.out.println("Path value inserted by the user is: " + getPathValue());
                 System.out.println("Owner value inserted by the user is: " + getOwnerField());
-                System.out.println("Type value inserted by the user is: " + getTypeField());
-                System.out.println("The contains value is: " + getContainsField());
                 System.out.println("Read Only value selected: " + getReadOnlyOptions());
                 System.out.println("Hidden value selected: " + getHiddenOptions());
 
@@ -462,6 +430,3 @@ public class SearchPanelCriteria extends JPanel {
     }
 
 }
-
-
-
