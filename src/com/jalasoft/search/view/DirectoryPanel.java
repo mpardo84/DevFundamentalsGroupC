@@ -11,7 +11,6 @@
  *  with Sun.
  *
  */
-
 package com.jalasoft.search.view;
 
 import javax.swing.JPanel;
@@ -23,26 +22,25 @@ import java.awt.GridLayout;
  This class represent the panel that will contains the results and search criteria options for the File
  *
  * @version
-1.0 21 Mar 2018  * @author
+1.0 25 Mar 2018  * @author
 Monica Pardo */
 
-public class FilePanel extends JPanel{
-    private JPanel searchPanelCriteria;
+public class DirectoryPanel extends JPanel{
+    private JPanel searchDirectoryCriteria;
     private JPanel searchPanelResults;
 
-    public FilePanel(){
+    public DirectoryPanel(){
         super();
         initializeDialog();
-
     }
+
     //This method allows to initialize the Panel
     public void initializeDialog(){
         setBackground(Color.white);
         this.setLayout(new GridLayout(1, 2));
-        searchPanelCriteria=new SearchPanelCriteria();
+        searchDirectoryCriteria=new SearchDirectoryPanelCriteria();
         searchPanelResults=new SearchPanelResults();
-        this.add(searchPanelCriteria);
+        this.add(searchDirectoryCriteria);
         this.add(searchPanelResults);
     }
-
 }
