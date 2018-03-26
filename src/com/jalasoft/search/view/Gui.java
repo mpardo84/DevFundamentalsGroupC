@@ -55,6 +55,22 @@ public class Gui extends JFrame implements InterfazGui{
         return query.getText();
     }
 
+    public  String getFilePath(){
+        return query.getText();
+    }
+
+    public String getOowner(){
+        return  query.getText();
+    }
+
+    public boolean getIsHidden() {
+        return false;
+    }
+
+    public boolean getIsReadOnly() {
+        return false;
+    }
+
     public void setControler(SearchController controler){
         this.control = controler;
         startSearch.addActionListener(this.control);

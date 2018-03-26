@@ -1,6 +1,7 @@
 package com.jalasoft.search.controller;
 
 import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,20 +33,38 @@ import java.util.regex.Pattern;
 
     public boolean isValidFileName(String fileName){
         Pattern pattern = Pattern.compile("^(?!(COM[0-9]|LPT[0-9]|CON|PRN|AUX|CLOCK\\$|NUL)$)[^./\\:*?\"<>|]+$",Pattern.CASE_INSENSITIVE);
-        return !pattern.matcher(fileName).find();
+        Matcher matcher = pattern.matcher((fileName));
+        boolean isValid = matcher.matches();
+        return isValid;
     }
+    //"(?!(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\\.[^.]*)?$)[^<>:\"/\\\\|?*\\x00-\\x1F]* ^<>:\"/\\\\|?*\\x00-\\x1F\\ .]$"
+    //"^(?!(COM[0-9]|LPT[0-9]|CON|PRN|AUX|CLOCK\\$|NUL)$)[^./\\:*?\"<>|]+$"
+    /**
+    *
+    * isValidPath method checks if a string is a valid path.
+    *
+    */
+    public boolean isValidPath(String path) {
 
-     /**
-     *
-     * isValidPath method checks if a string is a valid path.
-     *
-     */
-        public static boolean isValidPath(String path) {
-            try {
-                Paths.get(path);
-            } catch (InvalidPathException | NullPointerException ex) {
-                return false;
-            }
+           try {
+               Path path1 = Paths.get(path);
+           }
+           catch (InvalidPathException | NullPointerException ex) {
+
+               return false;
+           }
             return true;
         }
+
+    /**
+    *
+    * areRequiredFieldsFilled method checks if requiered data were filled by the user in UI.
+    *
+    */
+   public boolean areRequiredFieldsFilled(String fileName, String filePath){
+       if (fileName.trim() == null && filePath.trim() == null){
+           return false;
+       }
+       else return true;
+   }
 }

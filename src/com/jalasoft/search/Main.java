@@ -6,7 +6,7 @@ import com.jalasoft.search.model.SearchProcess;
 
 class programToSearchFiles {
 
-    public  static  void main(String[] args){
+    public static  void main(String[] args){
         InterfazGui vista = new Gui();
         SearchProcess modelo = new SearchProcess();
         SearchController control = new SearchController(vista, modelo);

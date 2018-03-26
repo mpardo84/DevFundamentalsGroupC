@@ -8,10 +8,12 @@ public class SearchProcess {
 
         Validator validator = new Validator();
 
-        //if (validator.isValidPath(string)) {
-        if (validator.isValidFileName(string)) {
-        return ("Invalid data");
-    }
-    else return "Valid data";
+        //if (validator.isValidFileName(string)== true) {
+        if (validator.isValidPath(string)) {
+            return ("valid data");
+         }
+         else {
+            return "inValid data";
+        }
 }
 }
