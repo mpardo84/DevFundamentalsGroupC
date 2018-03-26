@@ -7,9 +7,9 @@ public interface InterfazGui {
     String getFileName();
     String getFilePath();
     String getOowner();
-    boolean getIsHidden();
-    boolean getIsReadOnly();
-    void displayResult(String res);
+    String getIsHidden();
+    String getIsReadOnly();
+    void displayValidationResult(String res);
     void setControler(SearchController controler);
 
 }

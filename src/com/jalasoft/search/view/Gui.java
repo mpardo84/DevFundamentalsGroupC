@@ -47,7 +47,7 @@ public class Gui extends JFrame implements InterfazGui{
         setVisible(true);
     }
 
-    public void displayResult(String res) {
+    public void displayValidationResult(String res) {
         result.setText(res);
     }
 
@@ -63,12 +63,12 @@ public class Gui extends JFrame implements InterfazGui{
         return  query.getText();
     }
 
-    public boolean getIsHidden() {
-        return false;
+    public String getIsHidden() {
+        return "yes";
     }
 
-    public boolean getIsReadOnly() {
-        return false;
+    public String  getIsReadOnly() {
+        return "yes";
     }
 
     public void setControler(SearchController controler){

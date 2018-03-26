@@ -25,7 +25,7 @@ import java.nio.file.Paths;
  *
  * @version 1 22 Mar 2018  * @author Marco Mendieta
  */
-class Search
+public class Search
 {
 
     /**
