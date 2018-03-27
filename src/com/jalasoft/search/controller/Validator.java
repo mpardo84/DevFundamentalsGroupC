@@ -37,7 +37,8 @@ import java.util.regex.Pattern;
         boolean isValid = matcher.matches();
         return isValid;
     }
-
+    //"(?!(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\\.[^.]*)?$)[^<>:\"/\\\\|?*\\x00-\\x1F]* ^<>:\"/\\\\|?*\\x00-\\x1F\\ .]$"
+    //"^(?!(COM[0-9]|LPT[0-9]|CON|PRN|AUX|CLOCK\\$|NUL)$)[^./\\:*?\"<>|]+$"
     /**
     *
     * isValidPath method checks if a string is a valid path.
@@ -59,9 +60,10 @@ import java.util.regex.Pattern;
     *
     * areRequiredFieldsFilled method checks if requiered data were filled by the user in UI.
     *
-    */
-   public boolean areRequiredFieldsFilled( String filePath){
-       if ( filePath.trim() == null){
+     * @param filePath
+     */
+   public boolean areRequiredFieldsFilled(String filePath){
+       if (filePath.isEmpty()){
            return false;
        }
        else return true;

@@ -1,8 +1,8 @@
 package com.jalasoft.search.controller;
 
-import com.jalasoft.search.model.Search;
 import com.jalasoft.search.model.SearchCriterial;
-import com.jalasoft.search.view.SearchProject;
+import com.jalasoft.search.view.InterfazGui;
+import com.jalasoft.search.model.SearchProcess;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,15 +19,15 @@ import java.awt.event.ActionListener;
  */
 
 public class SearchController implements ActionListener {
-    private SearchProject vista;
-    private Search modelo;
+    private InterfazGui vista;
+    private  SearchProcess modelo;
 
     /**
     *
     * Init method where link with View and Model is created
     *
     */
-    public SearchController(SearchProject vista, Search modelo){
+    public SearchController(InterfazGui vista, SearchProcess modelo){
         this.vista = vista;
         this.modelo = modelo;
     }
@@ -39,7 +39,7 @@ public class SearchController implements ActionListener {
     */
     public String validateData(){
         Validator validator = new Validator();
-        if (validator.areRequiredFieldsFilled(vista.getFileName(), vista.getFilePath()) == true) {
+        if (validator.areRequiredFieldsFilled(vista.getFileName())){
             if (validator.isValidFileName(vista.getFileName()) == true) {
                 if (validator.isValidPath(vista.getFilePath()) == true) {
                     return null;
@@ -54,7 +54,7 @@ public class SearchController implements ActionListener {
 
     /*
      *
-     * configureSearchCriterial method gets data view side and  set the same data in model side
+     * getDataFromViewAndSentToModel method that listen action in UI from user and according to action send operation commands to model
      *
      */
      public void configureSearchCriterial(){
@@ -62,18 +62,19 @@ public class SearchController implements ActionListener {
          searchCriterial.setFileName(vista.getFileName());
          searchCriterial.setFilePath(vista.getFilePath());
          searchCriterial.setOwner(vista.getOowner());
-         if (vista.getHidden().trim()=="yes"){
+         if (vista.getIsHidden() =="yes"){
              searchCriterial.setIsHidden(true);
          }
-         else {
+         else{
              searchCriterial.setIsHidden(false);
          }
-         if (vista.getReadOnly().trim()=="yes"){
+         if (vista.getIsReadOnly() =="yes"){
              searchCriterial.setIsReadOnly(true);
          }
-         else {
+         else{
              searchCriterial.setIsReadOnly(false);
          }
+
      }
 
     /*
@@ -84,7 +85,8 @@ public class SearchController implements ActionListener {
         String validateResult = validateData();
         if (validateResult == null) {
             configureSearchCriterial();
-            // code to execute search in model side and get the results to be displayed in view side
+            //vista.displayValidationResult(modelo.search(string));
+            vista.displayValidationResult("Data were sent to model");
         } else {
             vista.displayValidationResult(validateResult);
         }

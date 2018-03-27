@@ -11,6 +11,6 @@ class programToSearchFiles {
         SearchProcess modelo = new SearchProcess();
         SearchController control = new SearchController(vista, modelo);
         vista.setControler(control);
-        vista.i();
+        vista.display();
     }
 }
