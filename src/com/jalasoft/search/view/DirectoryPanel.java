@@ -26,11 +26,11 @@ import java.awt.GridLayout;
 Monica Pardo */
 
 public class DirectoryPanel extends JPanel{
-    private JPanel searchDirectoryCriteria;
-    private JPanel searchPanelResults;
+    private SearchDirectoryPanelCriteria searchDirectoryCriteria;
+    private SearchPanelResults searchPanelResults;
 
     public DirectoryPanel(){
-        super();
+        //super();
         initializeDialog();
     }
 

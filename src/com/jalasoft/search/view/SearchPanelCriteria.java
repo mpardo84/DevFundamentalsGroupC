@@ -81,9 +81,10 @@ public class SearchPanelCriteria extends JPanel {
     private JDateChooser fromAccessedDate;
     private JDateChooser toAccessedDate;
     private  String[] comboBoxTimeValues;
+    private String typeObject;
 
     public SearchPanelCriteria() {
-        super();
+        //super();
         setLayout(null);
         comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
         generalSearchCriteria();
@@ -93,66 +94,85 @@ public class SearchPanelCriteria extends JPanel {
         sendSearchOptions();
     }
 
-    //Get method for the fields that the user will insert data
+    //Get method to get the path value from UI
     public String getPathValue() {
         return pathValue.getText();
     }
 
+    //Get method to get the file name value from UI
     public String getNameField() {
         return nameField.getText();
     }
 
+    //Get method to get the file owner value from UI
     public String getOwnerField() {
         return ownerField.getText();
     }
 
+    //Get method to get the file type value from UI
     public String getTypeField() {
         return typeField.getText();
     }
 
+    //Get method to get the file contains value from UI
     public String getContainsField() {
         return containsField.getText();
     }
+
+    //Get method to get if te file is read only value from UI
     public String getReadOnlyOptions() {
         return (String)readOnlyOptions.getSelectedItem();
     }
 
+    //Get method to get if te file is hidden value from UI
     public String getHiddenOptions() {
         return (String)hiddenOptions.getSelectedItem();
     }
+    public String getTypeObject(){
+        return typeObject="File";
+    }
 
+    //Get method to get the created option selected from UI
     public String getCreatedOptions() {
          return (String)createdOptions.getSelectedItem();
     }
 
+    //Get method to get the modified option selected from UI
     public String getModifiedOptions() {
         return (String)modifiedOptions.getSelectedItem();
     }
 
+    //Get method to get the acessed option selected from UI
     public String getAccessedOptions() {
         return (String)accessedOptions.getSelectedItem();
     }
 
+    //Get method to get the  range for the created option selected from UI
     public Date getFromCreatedDate() {
         return fromCreatedDate.getDate();
     }
 
+    //Get method to get the range for the  created option selected from UI
     public Date getToCreatedDate() {
         return toCreatedDate.getDate();
     }
 
+    //Get method to get the range for the modified option selected from UI
     public Date getFromModifiedDate() {
         return fromModifiedDate.getDate();
     }
 
+    //Get method to get the range for the modified option selected from UI
     public Date getToModifiedDate() {
         return toModifiedDate.getDate();
     }
 
+    //Get method to get the range for the accessed option selected from UI
     public Date getFromAccessedDate() {
         return fromAccessedDate.getDate();
     }
 
+    //Get method to get the range for the accessed option selected from UI
     public Date getToAccessedDate() {
         return toAccessedDate.getDate();
     }
@@ -294,11 +314,11 @@ public class SearchPanelCriteria extends JPanel {
     public void searchPanelButtons(){
 
         saveButton=new JButton("Save");
-        saveButton.setBounds(110,800,80,20);
+        saveButton.setBounds(110,600,80,20);
         searchButton=new JButton("Search");
-        searchButton.setBounds(210,800,80,20);
+        searchButton.setBounds(210,600,80,20);
         cancelButton=new JButton("Cancel");
-        cancelButton.setBounds(310,800,80,20);
+        cancelButton.setBounds(310,600,80,20);
         add(saveButton);
         add(searchButton);
         add(cancelButton);
@@ -448,6 +468,7 @@ public class SearchPanelCriteria extends JPanel {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("Name value inserted by the user is: " + getNameField());
                 System.out.println("Path value inserted by the user is: " + getPathValue());
                 System.out.println("Owner value inserted by the user is: " + getOwnerField());
