@@ -27,11 +27,11 @@ import java.awt.GridLayout;
 Monica Pardo */
 
 public class FilePanel extends JPanel{
-    private JPanel searchPanelCriteria;
-    private JPanel searchPanelResults;
+    private SearchPanelCriteria searchPanelCriteria;
+    private SearchPanelResults searchPanelResults;
 
     public FilePanel(){
-        super();
+        //super();
         initializeDialog();
 
     }
@@ -43,6 +43,46 @@ public class FilePanel extends JPanel{
         searchPanelResults=new SearchPanelResults();
         this.add(searchPanelCriteria);
         this.add(searchPanelResults);
+
     }
 
+    //Method that allows to get the name for the field from the SearchPanelCriteria class
+    public String getFileName(){
+        return searchPanelCriteria.getNameField();
+    }
+
+    //Method that allows to get the path for the field from the SearchPanelCriteria class
+    public String getFilePath(){
+        return searchPanelCriteria.getPathValue();
+    }
+
+    //Method that allows to get the owner for the field from the SearchPanelCriteria class
+    public String getOwner(){
+        return searchPanelCriteria.getOwnerField();
+    }
+
+    //Method that allows to get the hidden option from the SearchPanelCriteria class
+    public String getHidden(){
+        return searchPanelCriteria.getHiddenOptions();
+    }
+
+    //Method that allows to get the readOnly option from the SearchPanelCriteria class
+    public String getReadOnly(){
+        return searchPanelCriteria.getReadOnlyOptions();
+    }
+
+    //Method that allows to get the type option from the SearchPanelCriteria class
+    public String getTypeFile(){
+        return searchPanelCriteria.getTypeField();
+    }
+
+    //Method that allows to get the contains value from the SearchPanelCriteria class
+    public String getContains(){
+        return searchPanelCriteria.getContainsField();
+    }
+
+    //Method that allows to get if the type is a File from the SearchPanelCriteria class
+    public String getIsFile(){
+        return searchPanelCriteria.getTypeObject();
+    }
 }

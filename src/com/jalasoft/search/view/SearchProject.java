@@ -29,8 +29,8 @@ import javax.swing.ImageIcon;
 Monica Pardo */
 public class SearchProject extends JFrame{
     public JFrame window;
-    private JPanel filePanel;
-    private JPanel directoryPanel;
+    private FilePanel filePanel;
+    private DirectoryPanel directoryPanel;
     private JPanel multimediaPanel;
     private JTabbedPane tabbedPane;
     private  ImageIcon fileIcon;
@@ -47,6 +47,7 @@ public class SearchProject extends JFrame{
         directoryPanel=new DirectoryPanel();
         multimediaPanel=new JPanel();
 
+        //add icons to the tabs
         fileIcon = new ImageIcon(
                 this.getClass().getResource("/images/file.jpg"));
         directoryIcon = new ImageIcon(
@@ -54,8 +55,7 @@ public class SearchProject extends JFrame{
        multimediaIcon = new ImageIcon(
                 this.getClass().getResource("/images/multimedia.png"));
 
-
-        //Add tabs to the tab panel
+        //Add tabs to the panel
         tabbedPane.addTab("File",fileIcon,filePanel);
         tabbedPane.addTab("Directory",directoryIcon,directoryPanel);
         tabbedPane.addTab("Multimedia",multimediaIcon,multimediaPanel);
@@ -78,4 +78,41 @@ public class SearchProject extends JFrame{
         window.setResizable(false);
     }
 
+    //Method that allows to get the name for the field from UI
+    public String getFileName(){
+        String fileName=filePanel.getFileName();
+        return fileName;
+
+    }
+
+    //Method that allows to get the path for the field from UI
+    public String getPathName(){
+        return filePanel.getFilePath();
+
+    }
+
+    //Method that allows to get the readOnly for the field from UI
+    public String getReadOnly(){
+        return filePanel.getReadOnly();
+    }
+
+    //Method that allows to get the hidden option for the field from UI
+    public String getHidden(){
+        return filePanel.getHidden();
+    }
+
+    //Method that allows to get the owner value for the field from UI
+    public String getOwnerValue(){
+        return filePanel.getOwner();
+    }
+
+    //Method that allows to get the contains value for the field from UI
+    public String getContains(){
+        return filePanel.getContains();
+    }
+
+    //Method that allows to get if the type is a File
+    public String getIsFile(){
+        return filePanel.getIsFile();
+    }
 }

@@ -81,9 +81,10 @@ public class SearchPanelCriteria extends JPanel {
     private JDateChooser fromAccessedDate;
     private JDateChooser toAccessedDate;
     private  String[] comboBoxTimeValues;
+    private String typeObject;
 
     public SearchPanelCriteria() {
-        super();
+        //super();
         setLayout(null);
         comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
         generalSearchCriteria();
@@ -119,6 +120,9 @@ public class SearchPanelCriteria extends JPanel {
 
     public String getHiddenOptions() {
         return (String)hiddenOptions.getSelectedItem();
+    }
+    public String getTypeObject(){
+        return typeObject="File";
     }
 
     public String getCreatedOptions() {
@@ -294,11 +298,11 @@ public class SearchPanelCriteria extends JPanel {
     public void searchPanelButtons(){
 
         saveButton=new JButton("Save");
-        saveButton.setBounds(110,800,80,20);
+        saveButton.setBounds(110,600,80,20);
         searchButton=new JButton("Search");
-        searchButton.setBounds(210,800,80,20);
+        searchButton.setBounds(210,600,80,20);
         cancelButton=new JButton("Cancel");
-        cancelButton.setBounds(310,800,80,20);
+        cancelButton.setBounds(310,600,80,20);
         add(saveButton);
         add(searchButton);
         add(cancelButton);
@@ -448,6 +452,7 @@ public class SearchPanelCriteria extends JPanel {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("Name value inserted by the user is: " + getNameField());
                 System.out.println("Path value inserted by the user is: " + getPathValue());
                 System.out.println("Owner value inserted by the user is: " + getOwnerField());

@@ -77,8 +77,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     private  String[] comboBoxTimeValues;
 
     public SearchDirectoryPanelCriteria() {
-        super();
-        setLayout(null);
+         setLayout(null);
         comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
         generalSearchCriteria();
         searchAttributesSection();
@@ -264,11 +263,11 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     public void searchPanelButtons(){
 
         saveButton=new JButton("Save");
-        saveButton.setBounds(110,800,80,20);
+        saveButton.setBounds(110,600,80,20);
         searchButton=new JButton("Search");
-        searchButton.setBounds(210,800,80,20);
+        searchButton.setBounds(210,600,80,20);
         cancelButton=new JButton("Cancel");
-        cancelButton.setBounds(310,800,80,20);
+        cancelButton.setBounds(310,600,80,20);
         add(saveButton);
         add(searchButton);
         add(cancelButton);
