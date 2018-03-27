@@ -21,82 +21,141 @@ import java.nio.file.Paths;
 
 /**
  *
- Class description goes here.
+ * This class is going to perform the file search
  *
  * @version 1 22 Mar 2018  * @author Marco Mendieta
  */
-class Search
+public class Search
 {
+    private String fileName;
+    private String fileType;
+    private File fileDirectory;
+    private String ownerName;
+    private boolean readOnly;
+    private boolean hidden;
+    private FileObject fileObject;
 
-    /**
-     *
-     * This method is going to search a file in one path location.
-     *
-     * @param name String with the file name
-     * @param file String with the file path
-     * @param readOnly boolean that shows weather the file is read only
-     * @param hidden boolean that shows weather the file is hidden
-     */
-    public void searchFile(String name,String file, boolean readOnly, boolean hidden)
+    public Search()
     {
-    File directory = new File(file);
-    File[] list = directory.listFiles();
-    if(list!=null)
-        for (File fil : list)
-        {
-            if (fil.isDirectory())
-            {
-                searchFile(name,fil.getPath(), readOnly, hidden);
-            }
-            else if (name.equalsIgnoreCase(fil.getName()))
-            {
-                if (fil.isHidden() == hidden)
-                {
-                    if (fil.canWrite() != readOnly)
-                    {
-                        System.out.println("Found");
-                        System.out.println("File found at : "+fil.getParentFile());
-                        System.out.println("Path directory: "+fil.getAbsolutePath());
-                    }
-                }
-            }
-        }
+        this.fileName = "";
+        this.fileType = "";
+        this.fileDirectory = new File("c:\\");
+        this.readOnly = false;
+        this.hidden = false;
+        this.ownerName = "";
     }
 
     /**
+     * This method is going to set the file name to search
      *
-     * This method is going to search a file in one path location by onwer.
+     * @param filename  the name of the file to search
      *
-     * @param name String with the file name
-     * @param file String with the file path
-     * @param owner String with the owner name
-     * @param readOnly boolean that shows weather the file is read only
-     * @param hidden boolean that shows weather the file is hidden
      */
-    public void searchFileByOwner(String name,String file, String owner, boolean readOnly, boolean hidden)
+    public void setFileName(String filename)
     {
-        File directory = new File(file);
-        File[] list = directory.listFiles();
+        this.fileName = filename;
+    }
+
+    /**
+     * This method is going to set the file extension
+     *
+     * @param fileType  the name of the file extension
+     */
+    public void setFileType(String fileType)
+    {
+        this.fileType = fileType;
+    }
+
+    /**
+     * This method is going to set the file directiory
+     *
+     * @param fileDirectory  the name of the directory to search the file
+     */
+    public void setFileDirectory(String fileDirectory)
+    {
+        this.fileDirectory = new File(fileDirectory);
+    }
+
+    /**
+     * This method is going to set the file owner name
+     *
+     * @param ownerName  the owner name of the file
+     */
+    public void setOwnerName(String ownerName)
+    {
+        this.ownerName = ownerName;
+    }
+
+    /**
+     * This method is going to set the file readOnly option
+     *
+     * @param readOnly  the readOnly file option
+     */
+    public void setReadOnly(boolean readOnly)
+    {
+        this.readOnly = readOnly;
+    }
+
+    /**
+     * This method is going to set the file hidden option
+     *
+     * @param hidden  the hidden file option
+     */
+    public void setHidden(boolean hidden)
+    {
+        this.hidden = hidden;
+    }
+
+    /**
+     * This method is going to search a file in a given folder
+     *
+     * @param fileDir  the name of the directory to search the file
+     * */
+    public void searchFile(String fileDir)
+    {
+        setFileDirectory(fileDir);
+        File[] list = fileDirectory.listFiles();
         if(list!=null)
-            for (File fil : list)
+            for (File file : list)
             {
-                if (fil.isDirectory())
+                if (file.isDirectory())
                 {
-                    searchFileByOwner(name,fil.getPath(), owner, readOnly, hidden);
+                    searchFile(file.getAbsolutePath());
                 }
-                else if (name.equalsIgnoreCase(fil.getName()))
+                else if (file.getName().toLowerCase().toLowerCase().contains((fileName + fileType).toLowerCase()))
                 {
-                    if (fil.isHidden() == hidden)
+
+                    if (file.isHidden() == hidden)
                     {
-                        if (fil.canWrite() != readOnly)
+                        if (file.canWrite() != readOnly)
                         {
                             try {
-                                if (owner.equals(Files.getOwner(Paths.get(fil.getAbsolutePath())).getName()))
+                                if (ownerName == "")
                                 {
+                                    fileObject = new FileObject();
+                                    fileObject.setFileName(file.getName());
+                                    fileObject.setFileDirectory(file.getParent());
+                                    fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
+                                    fileObject.setReadOnly(readOnly);
+                                    fileObject.setHidden(hidden);
+                                    System.out.println("Found :" + file.getParent());
+                                    System.out.println("File found at : "+file.getParentFile());
+                                    System.out.println("Path directory: "+file.getAbsolutePath());
+                                    System.out.println("Owner: "+Files.getOwner(Paths.get(file.getAbsolutePath())));
+                                }
+                                else if (Files.getOwner(Paths.get(file.getAbsolutePath())).getName().toLowerCase()
+                                        .contains(ownerName.toLowerCase()))
+                                {
+                                    fileObject = new FileObject();
+                                    fileObject.setFileName(file.getName());
+                                    fileObject.setFileDirectory(file.getParent());
+                                    fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
+                                    fileObject.setReadOnly(readOnly);
+                                    fileObject.setHidden(hidden);
                                     System.out.println("Found");
-                                    System.out.println("File found at : "+fil.getParentFile());
-                                    System.out.println("Path directory: "+fil.getAbsolutePath());
-                                    System.out.println("Owner: "+Files.getOwner(Paths.get(fil.getAbsolutePath())));
+                                    System.out.println("File found at : "+file.getParentFile());
+                                    System.out.println("Path directory: "+file.getAbsolutePath());
+                                    System.out.println("Owner: "+Files.getOwner(Paths.get(file.getAbsolutePath())));
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
