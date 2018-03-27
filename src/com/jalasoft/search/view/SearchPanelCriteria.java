@@ -94,30 +94,37 @@ public class SearchPanelCriteria extends JPanel {
         sendSearchOptions();
     }
 
-    //Get method for the fields that the user will insert data
+    //Get method to get the path value from UI
     public String getPathValue() {
         return pathValue.getText();
     }
 
+    //Get method to get the file name value from UI
     public String getNameField() {
         return nameField.getText();
     }
 
+    //Get method to get the file owner value from UI
     public String getOwnerField() {
         return ownerField.getText();
     }
 
+    //Get method to get the file type value from UI
     public String getTypeField() {
         return typeField.getText();
     }
 
+    //Get method to get the file contains value from UI
     public String getContainsField() {
         return containsField.getText();
     }
+
+    //Get method to get if te file is read only value from UI
     public String getReadOnlyOptions() {
         return (String)readOnlyOptions.getSelectedItem();
     }
 
+    //Get method to get if te file is hidden value from UI
     public String getHiddenOptions() {
         return (String)hiddenOptions.getSelectedItem();
     }
@@ -125,38 +132,47 @@ public class SearchPanelCriteria extends JPanel {
         return typeObject="File";
     }
 
+    //Get method to get the created option selected from UI
     public String getCreatedOptions() {
          return (String)createdOptions.getSelectedItem();
     }
 
+    //Get method to get the modified option selected from UI
     public String getModifiedOptions() {
         return (String)modifiedOptions.getSelectedItem();
     }
 
+    //Get method to get the acessed option selected from UI
     public String getAccessedOptions() {
         return (String)accessedOptions.getSelectedItem();
     }
 
+    //Get method to get the  range for the created option selected from UI
     public Date getFromCreatedDate() {
         return fromCreatedDate.getDate();
     }
 
+    //Get method to get the range for the  created option selected from UI
     public Date getToCreatedDate() {
         return toCreatedDate.getDate();
     }
 
+    //Get method to get the range for the modified option selected from UI
     public Date getFromModifiedDate() {
         return fromModifiedDate.getDate();
     }
 
+    //Get method to get the range for the modified option selected from UI
     public Date getToModifiedDate() {
         return toModifiedDate.getDate();
     }
 
+    //Get method to get the range for the accessed option selected from UI
     public Date getFromAccessedDate() {
         return fromAccessedDate.getDate();
     }
 
+    //Get method to get the range for the accessed option selected from UI
     public Date getToAccessedDate() {
         return toAccessedDate.getDate();
     }
