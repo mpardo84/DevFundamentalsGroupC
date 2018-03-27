@@ -4,8 +4,20 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+
+/**
+ *
+ ValidatorTest class provides positive and negative test for each validation method og Validator class.
+ *
+ * @version
+23 Mar 2018
+ *
+ *  @author
+Gretta Rocha
+ */
 public class ValidatorTest {
 
+    //Test to validate that special char  * is not valid for file name
     @Test
     public void specialCharAsteriskIsNotValidForFileName(){
         Validator validator = new Validator();
@@ -13,12 +25,11 @@ public class ValidatorTest {
         assertFalse(validator.isValidFileName(invalidName));
     }
 
-    @Test
+    //Test to validate that reserved word "aux" is not valid for file name
+     @Test
     public  void reservedWordAUXisNotValidForFileName(){
         String invalidName = "aux";
         Validator validator = new Validator();
         assertFalse(validator.isValidFileName(invalidName));
     }
-
-
-}
+ }

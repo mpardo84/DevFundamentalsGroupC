@@ -61,18 +61,18 @@ public class SearchController implements ActionListener {
          SearchCriterial searchCriterial = new SearchCriterial();
          searchCriterial.setFileName(vista.getFileName());
          searchCriterial.setFilePath(vista.getFilePath());
-         searchCriterial.setOwner(vista.getOowner());
+         searchCriterial.setOwner(vista.getOwner());
          if (vista.getHidden().trim()=="yes"){
-             searchCriterial.setIsHidden(true);
+             searchCriterial.setHidden(true);
          }
          else {
-             searchCriterial.setIsHidden(false);
+             searchCriterial.setHidden(false);
          }
          if (vista.getReadOnly().trim()=="yes"){
-             searchCriterial.setIsReadOnly(true);
+             searchCriterial.setReadOnly(true);
          }
          else {
-             searchCriterial.setIsReadOnly(false);
+             searchCriterial.setReadOnly(false);
          }
      }
 
