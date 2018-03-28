@@ -52,9 +52,9 @@ public class SearchController implements ActionListener {
     */
     public String validateData(){
         Validator validator = new Validator();
-        if (validator.areRequiredFieldsFilled(vista.getFileName(), vista.getFilePath()) == true) {
+        if (validator.areRequiredFieldsFilled(vista.getPathName()) == true) {
             if (validator.isValidFileName(vista.getFileName()) == true) {
-                if (validator.isValidPath(vista.getFilePath()) == true) {
+                if (validator.isValidPath(vista.getPathName()) == true) {
                     return null;
                 } else {
                     return "File path is invalid";
@@ -73,8 +73,8 @@ public class SearchController implements ActionListener {
      public void configureSearchCriterial(){
          SearchCriterial searchCriterial = new SearchCriterial();
          searchCriterial.setFileName(vista.getFileName());
-         searchCriterial.setFilePath(vista.getFilePath());
-         searchCriterial.setOwner(vista.getOwner());
+         searchCriterial.setFilePath(vista.getPathName());
+         searchCriterial.setOwner(vista.getOwnerValue());
          if (vista.getHidden().trim()=="yes"){
              searchCriterial.setHidden(true);
          }
@@ -99,7 +99,7 @@ public class SearchController implements ActionListener {
             configureSearchCriterial();
             // code to execute search in model side and get the results to be displayed in view side
         } else {
-            vista.displayValidationResult(validateResult);
+            System.out.println (validateResult);
         }
     }
 }
