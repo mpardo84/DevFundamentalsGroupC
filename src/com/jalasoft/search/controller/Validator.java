@@ -73,8 +73,8 @@ import java.util.regex.Pattern;
     * areRequiredFieldsFilled method checks if requiered data were filled by the user in UI.
     *
     */
-   public boolean areRequiredFieldsFilled( String filePath){
-       if ( filePath.trim() == null){
+   public boolean areRequiredFieldsFilled( String pathName){
+       if ( pathName.isEmpty()){
            return false;
        }
        else return true;
