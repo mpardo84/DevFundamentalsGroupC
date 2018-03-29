@@ -15,10 +15,11 @@
 package com.jalasoft.search.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
+import javax.swing.JButton;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -114,5 +115,10 @@ public class SearchProject extends JFrame{
     //Method that allows to get if the type is a File
     public String getIsFile(){
         return filePanel.getIsFile();
+    }
+
+    //Method that allows to get the search button
+    public JButton getSearchButton(){
+        return filePanel.getButtonSearch();
     }
 }

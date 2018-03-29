@@ -15,6 +15,7 @@
 package com.jalasoft.search.view;
 
 import javax.swing.JPanel;
+import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -84,5 +85,10 @@ public class FilePanel extends JPanel{
     //Method that allows to get if the type is a File from the SearchPanelCriteria class
     public String getIsFile(){
         return searchPanelCriteria.getTypeObject();
+    }
+
+    //Method that allows to get the search button
+    public JButton getButtonSearch(){
+        return searchPanelCriteria.getSearchButton();
     }
 }
