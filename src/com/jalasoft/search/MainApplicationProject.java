@@ -15,6 +15,10 @@
 package com.jalasoft.search;
 
 
+import com.jalasoft.search.controller.SearchController;
+import com.jalasoft.search.model.Search;
+import com.jalasoft.search.view.SearchProject;
+
 /**
  *
  This class is the Main class that will allows to execute the code
@@ -25,8 +29,9 @@ Monica Pardo  */
 public class MainApplicationProject {
 
     public static void main(String[] args) {
-
-
+        SearchProject vista = new SearchProject();
+        Search modelo = new Search();
+        SearchController control = new SearchController(vista, modelo);
 
     }
 }

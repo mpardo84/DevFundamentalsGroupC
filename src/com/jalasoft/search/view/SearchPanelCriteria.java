@@ -15,7 +15,6 @@
 package com.jalasoft.search.view;
 
         import javax.swing.JLabel;
-        import javax.swing.JOptionPane;
         import javax.swing.JTextField;
         import javax.swing.JSeparator;
         import javax.swing.JButton;
@@ -23,11 +22,12 @@ package com.jalasoft.search.view;
         import javax.swing.JComboBox;
         import javax.swing.JPanel;
         import java.awt.Font;
-        import java.awt.Color;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
         import java.util.Calendar;
         import java.util.Date;
+        import java.awt.Color;
+        import javax.swing.JOptionPane;
         import com.toedter.calendar.JDateChooser;
 
 /**
@@ -86,15 +86,15 @@ public class SearchPanelCriteria extends JPanel {
     private String message;
 
     public SearchPanelCriteria() {
-        //super();
         setLayout(null);
         comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
-        setBackground(new Color(224, 224, 224));
+        this.setBackground(new Color(224, 224, 224));
         generalSearchCriteria();
         searchAttributesSection();
         searchFileTimeSection();
         searchPanelButtons();
-        sendSearchOptions();
+
+
     }
 
     //Get method to get the path value from UI
@@ -131,6 +131,8 @@ public class SearchPanelCriteria extends JPanel {
     public String getHiddenOptions() {
         return (String)hiddenOptions.getSelectedItem();
     }
+
+    //Get Method to set the type of the objetct is this is a File or not
     public String getTypeObject(){
         return typeObject="File";
     }
@@ -188,7 +190,6 @@ public class SearchPanelCriteria extends JPanel {
     //method to allows set the message value
     public void setMessage(String message) {
         this.message = message;
-
     }
 
     //This method allows to select a file
@@ -477,28 +478,15 @@ public class SearchPanelCriteria extends JPanel {
         });
     }
 
-    //we will delete this oncce this is integrate with the controller
-    public void sendSearchOptions() {
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               validateRequiredField();
-
-            }
-        });
-
-    }
-
-    //Method to allows validate if the required field is empty
-    public void validateRequiredField() {
-        if (pathValue.getText().equals("")) {
-           JOptionPane.showMessageDialog(null,"Please insert a path value");
-
+   //Method to allows validate if the required field is empty
+   public void validateRequiredField() {
+       if (message!="") {
+          JOptionPane.showMessageDialog(null,message);
         }
     }
 
-
 }
+
 
 
 
