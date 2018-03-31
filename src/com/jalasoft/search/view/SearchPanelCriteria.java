@@ -15,6 +15,7 @@
 package com.jalasoft.search.view;
 
         import javax.swing.JLabel;
+        import javax.swing.JOptionPane;
         import javax.swing.JTextField;
         import javax.swing.JSeparator;
         import javax.swing.JButton;
@@ -22,11 +23,11 @@ package com.jalasoft.search.view;
         import javax.swing.JComboBox;
         import javax.swing.JPanel;
         import java.awt.Font;
+        import java.awt.Color;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
         import java.util.Calendar;
         import java.util.Date;
-
         import com.toedter.calendar.JDateChooser;
 
 /**
@@ -82,11 +83,13 @@ public class SearchPanelCriteria extends JPanel {
     private JDateChooser toAccessedDate;
     private  String[] comboBoxTimeValues;
     private String typeObject;
+    private String message;
 
     public SearchPanelCriteria() {
         //super();
         setLayout(null);
         comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
+        setBackground(new Color(224, 224, 224));
         generalSearchCriteria();
         searchAttributesSection();
         searchFileTimeSection();
@@ -175,6 +178,17 @@ public class SearchPanelCriteria extends JPanel {
     //Get method to get the range for the accessed option selected from UI
     public Date getToAccessedDate() {
         return toAccessedDate.getDate();
+    }
+
+    //Get the search button
+    public JButton getSearchButton() {
+        return searchButton;
+    }
+
+    //method to allows set the message value
+    public void setMessage(String message) {
+        this.message = message;
+
     }
 
     //This method allows to select a file
@@ -463,24 +477,26 @@ public class SearchPanelCriteria extends JPanel {
         });
     }
 
-    //method that allows to get the fields values and send this when the user click on search button
+    //we will delete this oncce this is integrate with the controller
     public void sendSearchOptions() {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println("Name value inserted by the user is: " + getNameField());
-                System.out.println("Path value inserted by the user is: " + getPathValue());
-                System.out.println("Owner value inserted by the user is: " + getOwnerField());
-                System.out.println("Type value inserted by the user is: " + getTypeField());
-                System.out.println("The contains value is: " + getContainsField());
-                System.out.println("Read Only value selected: " + getReadOnlyOptions());
-                System.out.println("Hidden value selected: " + getHiddenOptions());
+               validateRequiredField();
 
             }
         });
 
     }
+
+    //Method to allows validate if the required field is empty
+    public void validateRequiredField() {
+        if (pathValue.getText().equals("")) {
+           JOptionPane.showMessageDialog(null,"Please insert a path value");
+
+        }
+    }
+
 
 }
 
