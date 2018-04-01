@@ -32,6 +32,5 @@ public class MainApplicationProject {
         SearchProject vista = new SearchProject();
         Search modelo = new Search();
         SearchController control = new SearchController(vista, modelo);
-
     }
 }

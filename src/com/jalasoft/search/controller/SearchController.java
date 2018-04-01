@@ -59,6 +59,7 @@ public class SearchController {
                 }
             } else {
                 return "File name is not provided or is invalid";
+
             }
         }else { return "Required data should be filled";}
      }
@@ -94,6 +95,7 @@ public class SearchController {
     public void searchButtonActionListener() {
         String validateResult = validateData();
         System.out.println("listener is in the controller");
+
         if (validateResult == null) {
             configureSearchCriterial();
             // code to execute search in model side and get the results to be displayed in view side
