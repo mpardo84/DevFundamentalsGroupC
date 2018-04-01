@@ -15,11 +15,11 @@
 package com.jalasoft.search.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.ImageIcon;
-import javax.swing.JTabbedPane;
 import javax.swing.JButton;
+import javax.swing.JTabbedPane;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,7 +29,6 @@ import java.awt.GraphicsEnvironment;
 1.1 25 Mar 2018  * @author
 Monica Pardo */
 public class SearchProject extends JFrame{
-    public JFrame window;
     private FilePanel filePanel;
     private DirectoryPanel directoryPanel;
     private JPanel multimediaPanel;
@@ -40,8 +39,12 @@ public class SearchProject extends JFrame{
     private static int w;
     private static int h;
 
-    public SearchProject(String title){
-        super(title);
+    public SearchProject(){
+        initializeDialog("Search Application");
+    }
+
+    //Define the parameters for the dialog
+    public void initializeDialog(String title){
         //initialize variables for tab panel
         tabbedPane = new JTabbedPane();
         filePanel=new FilePanel();
@@ -53,7 +56,7 @@ public class SearchProject extends JFrame{
                 this.getClass().getResource("/images/file.jpg"));
         directoryIcon = new ImageIcon(
                 this.getClass().getResource("/images/directory.jpg"));
-       multimediaIcon = new ImageIcon(
+        multimediaIcon = new ImageIcon(
                 this.getClass().getResource("/images/multimedia.png"));
 
         //Add tabs to the panel
@@ -62,21 +65,17 @@ public class SearchProject extends JFrame{
         tabbedPane.addTab("Multimedia",multimediaIcon,multimediaPanel);
         // add the tab panel to the frame
         this.add(tabbedPane);
-
-    }
-    //Define the parameters for the dialog
-    public void initializeDialog(String title){
-        window = new SearchProject(title);
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
                 .getDefaultScreenDevice();
         w = gd.getDisplayMode().getWidth();
         h = gd.getDisplayMode().getHeight();
 
         this.setBounds(0, 0,w,h);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(w, h);
-        window.setVisible(true);
-        window.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(w, h);
+        this.setTitle(title);
+        this.setVisible(true);
+        this.setResizable(false);
     }
 
     //Method that allows to get the name for the field from UI
@@ -119,6 +118,12 @@ public class SearchProject extends JFrame{
 
     //Method that allows to get the search button
     public JButton getSearchButton(){
-        return filePanel.getButtonSearch();
+       return filePanel.getButtonSearch();
+    }
+
+    //method to allows set the message value
+    public void setMessage(String message) {
+        filePanel.setMessage(message);
     }
 }
+

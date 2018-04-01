@@ -29,11 +29,8 @@ Monica Pardo  */
 public class MainApplicationProject {
 
     public static void main(String[] args) {
-        SearchProject vista = new SearchProject("Search Application");
+        SearchProject vista = new SearchProject();
         Search modelo = new Search();
         SearchController control = new SearchController(vista, modelo);
-        vista.initializeDialog("Search Application");
-
-
     }
 }

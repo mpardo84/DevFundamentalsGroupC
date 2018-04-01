@@ -17,9 +17,6 @@ import com.jalasoft.search.model.Search;
 import com.jalasoft.search.model.SearchCriterial;
 import com.jalasoft.search.view.SearchProject;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 /**
  *
  The SearchController class interacts with model and view classes.
@@ -31,7 +28,7 @@ import java.awt.event.ActionListener;
         Gretta Rocha
  */
 
-public class SearchController implements ActionListener {
+public class SearchController {
     private SearchProject vista;
     private Search modelo;
 
@@ -43,6 +40,7 @@ public class SearchController implements ActionListener {
     public SearchController(SearchProject vista, Search modelo){
         this.vista = vista;
         this.modelo = modelo;
+        this.vista.getSearchButton().addActionListener(e -> searchButtonActionListener());
     }
 
     /**
@@ -57,10 +55,11 @@ public class SearchController implements ActionListener {
                 if (validator.isValidPath(vista.getPathName()) == true) {
                     return null;
                 } else {
-                    return "File path is invalid";
+                    return "File path is not provided or is invalid";
                 }
             } else {
-                return "File name is invalid";
+                return "File name is not provided or is invalid";
+
             }
         }else { return "Required data should be filled";}
      }
@@ -91,14 +90,17 @@ public class SearchController implements ActionListener {
 
     /*
     *
-    * actionPerformed method that listen action in UI from user and according to action send operation commands to model    *
+    *  method that listen action in UI from user and according to action send operation commands to model    *
     */
-    public void actionPerformed(ActionEvent event) {
+    public void searchButtonActionListener() {
         String validateResult = validateData();
+        System.out.println("listener is in the controller");
+
         if (validateResult == null) {
             configureSearchCriterial();
             // code to execute search in model side and get the results to be displayed in view side
         } else {
+            this.vista.setMessage(validateResult);
             System.out.println (validateResult);
         }
     }
