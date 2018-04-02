@@ -29,6 +29,9 @@ public class SearchCriterial {
     private String fileName;
     private String filePath;
     private String owner;
+    private String contains;
+    private String fileType;
+    private boolean isFile;
     private boolean hidden;
     private boolean readOnly;
 
@@ -66,6 +69,16 @@ public class SearchCriterial {
         return this.readOnly;
     }
 
+    //method to get the value of contains field
+    public String getContains() {
+        return this.contains;
+    }
+
+    //method to get informatimationabout type
+    public boolean getIsFile() {
+        return this.getIsFile();
+    }
+
     //method to set the value fileName
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -89,5 +102,20 @@ public class SearchCriterial {
     //method to set the value of read only property
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
+    }
+
+    //method to set the value of contains roperty
+    public void setContains(String contains) {
+        this.contains = contains;
+    }
+
+    //method to set the value isFile property
+    public void setIsFile(boolean isFile) {
+        this.isFile = isFile;
+    }
+
+    //method to set the value of extension property
+    public void setFileType() {
+        this.fileType = "";
     }
 }

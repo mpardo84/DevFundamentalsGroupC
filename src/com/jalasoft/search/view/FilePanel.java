@@ -14,10 +14,10 @@
 
 package com.jalasoft.search.view;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.GridLayout;
-import javax.swing.JButton;
 
 /**
  *
@@ -94,6 +94,10 @@ public class FilePanel extends JPanel{
     public void setMessage(String message) {
         searchPanelCriteria.setMessage(message);
         searchPanelCriteria.validateRequiredField();
+    }
+
+    public DefaultTableModel getTable() {
+        return searchPanelResults.getTable();
     }
 
 }
