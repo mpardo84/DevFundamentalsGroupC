@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,6 +29,7 @@ import java.nio.file.Paths;
  */
 public class Search
 {
+    private List<FileObject> fileObjectList = new ArrayList<FileObject>();
     private String fileName;
     private String fileType;
     private File fileDirectory;
@@ -106,6 +109,11 @@ public class Search
         this.hidden = hidden;
     }
 
+    public List<FileObject> getFileObjectList()
+    {
+        return this.fileObjectList;
+    }
+
     /**
      * This method is going to search a file in a given folder
      *
@@ -138,6 +146,7 @@ public class Search
                                     fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
                                     fileObject.setReadOnly(readOnly);
                                     fileObject.setHidden(hidden);
+                                    fileObjectList.add(fileObject);
                                     System.out.println("Found :" + file.getParent());
                                     System.out.println("File found at : "+file.getParentFile());
                                     System.out.println("Path directory: "+file.getAbsolutePath());
@@ -152,6 +161,7 @@ public class Search
                                     fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
                                     fileObject.setReadOnly(readOnly);
                                     fileObject.setHidden(hidden);
+                                    fileObjectList.add(fileObject);
                                     System.out.println("Found");
                                     System.out.println("File found at : "+file.getParentFile());
                                     System.out.println("Path directory: "+file.getAbsolutePath());

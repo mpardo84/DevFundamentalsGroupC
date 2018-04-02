@@ -39,9 +39,18 @@ public class FileObject {
         this.fileName = filename;
     }
 
+    public String  getFileName()
+    {
+        return this.fileName;
+    }
+
     public void setFileType(String fileType)
     {
         this.fileType = fileType;
+    }
+
+    public String getFileType() {
+        return fileType;
     }
 
     public void setFileDirectory(String fileDirectory)
@@ -49,9 +58,17 @@ public class FileObject {
         this.fileDirectory = new File(fileDirectory);
     }
 
+    public File getFileDirectory() {
+        return fileDirectory;
+    }
+
     public void setOwnerName(String ownerName)
     {
         this.ownerName = ownerName;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
     }
 
     public void setReadOnly(boolean readOnly)
@@ -59,8 +76,17 @@ public class FileObject {
         this.readOnly = readOnly;
     }
 
+    public boolean isReadOnly()
+    {
+        return readOnly;
+    }
+
     public void setHidden(boolean hidden)
     {
         this.hidden = hidden;
+    }
+
+    public boolean isHidden() {
+        return hidden;
     }
 }
