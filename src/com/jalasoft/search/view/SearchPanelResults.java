@@ -20,6 +20,8 @@ import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -30,40 +32,45 @@ import javax.swing.JScrollPane;
 Monica Pardo */
 public class SearchPanelResults extends JPanel {
     private JTable table;
-
+    private Object[][] data;
+    private String[] columnNames;
+    private DefaultTableModel tableModel;
     public SearchPanelResults() {
-        //super();
         super(new GridLayout(1,0));
         setBackground(Color.white);
-        addTableResult();
+        initializeTableResult();
     }
 
-    public void addTableResult(){
-        String[] columnNames = {"Name",
+    public void setTable(Object[][] data) {
+        this.data = data;
+
+    }
+
+    public DefaultTableModel getTable() {
+        return tableModel;
+    }
+
+    public void setColumnNames(String[] columnNames) {
+        this.columnNames = columnNames;
+    }
+
+    public void initializeTableResult() {
+
+        String[]columnNames = {"Name",
                 "Location",
                 "Extension",
                 "Date Modified",
                 "Size"};
 
         Object[][] data = {
-                {"File1", "Directory1",
-                        "txt", "22-05-2018", "20 MB"},
-                {"File1", "Directory1",
-                        "txt", "22-05-2018", "20 MB"},
-                {"File1", "Directory1",
-                        "txt", "22-05-2018", "20 MB"},
-                {"File1", "Directory1",
-                        "txt", "22-05-2018", "20 MB"},
-                {"File1", "Directory1",
-                        "txt", "22-05-2018", "20 MB"}
-        };
-
-        final JTable table = new JTable(data, columnNames);
+                {"", "","", "", ""}   };
+        tableModel= new DefaultTableModel(data, columnNames);
+        table = new JTable(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
-        //Add the scroll pane to this panel.
         add(scrollPane);
     }
+
 
 }

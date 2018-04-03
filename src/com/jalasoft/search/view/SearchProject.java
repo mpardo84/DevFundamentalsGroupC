@@ -13,13 +13,10 @@
  */
 
 package com.jalasoft.search.view;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -124,6 +121,10 @@ public class SearchProject extends JFrame{
     //method to allows set the message value
     public void setMessage(String message) {
         filePanel.setMessage(message);
+    }
+
+    public DefaultTableModel getTable() {
+        return filePanel.getTable();
     }
 }
 

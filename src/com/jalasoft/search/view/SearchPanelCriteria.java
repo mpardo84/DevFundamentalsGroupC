@@ -14,21 +14,24 @@
 
 package com.jalasoft.search.view;
 
-        import javax.swing.JLabel;
-        import javax.swing.JTextField;
-        import javax.swing.JSeparator;
-        import javax.swing.JButton;
-        import javax.swing.JFileChooser;
-        import javax.swing.JComboBox;
-        import javax.swing.JPanel;
-        import java.awt.Font;
-        import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
-        import java.util.Calendar;
-        import java.util.Date;
-        import java.awt.Color;
-        import javax.swing.JOptionPane;
-        import com.toedter.calendar.JDateChooser;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JSeparator;
+import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.awt.Color;
+import java.util.Date;
+
+import com.toedter.calendar.JDateChooser;
 
 /**
  *
@@ -58,11 +61,15 @@ public class SearchPanelCriteria extends JPanel {
     private JLabel toModifedLabel;
     private JLabel fromAccessedLabel;
     private JLabel toAccessedLabel;
+    private JLabel extensionLabel;
+    private JLabel sizeLabel;
+    private JLabel defaultSize;
     private JTextField  nameField;
     private JTextField typeField;
-    private JTextField containsField;
+    private JTextArea containsField;
     private JTextField ownerField;
     private JTextField pathValue;
+    private JTextField sizeValue;
     private JFileChooser chooser;
     private JButton browseButton;
     private JButton saveButton;
@@ -74,6 +81,7 @@ public class SearchPanelCriteria extends JPanel {
     private JComboBox createdOptions;
     private JComboBox modifiedOptions;
     private JComboBox accessedOptions;
+    private JComboBox sizeOptions;
     private Font negritaFont;
     private JDateChooser fromCreatedDate;
     private JDateChooser toCreatedDate;
@@ -139,7 +147,7 @@ public class SearchPanelCriteria extends JPanel {
 
     //Get method to get the created option selected from UI
     public String getCreatedOptions() {
-         return (String)createdOptions.getSelectedItem();
+        return (String)createdOptions.getSelectedItem();
     }
 
     //Get method to get the modified option selected from UI
@@ -217,31 +225,51 @@ public class SearchPanelCriteria extends JPanel {
         pathLabel.setBounds(30, 50, 80, 20);
         pathValue = new JTextField();
         pathValue.setBounds(120, 50, 200, 25);
+        pathValue.setBackground(new Color(240,248,255));
         browseButton = new JButton("browse");
-        browseButton.setBounds(340,50,80,20);
+        browseButton.setBounds(325,50,80,23);
 
         nameLabel = new JLabel("File Name:");
         nameLabel.setBounds(30, 85, 80, 20);
         nameField = new JTextField();
         nameField.setBounds(120, 85, 200, 25);
+        nameField.setBackground(new Color(240,248,255));
 
         typeLabel =new JLabel("File Type:");
         typeLabel.setBounds(30, 120, 80, 20);
         typeField = new JTextField();
-        typeField.setBounds(120, 120, 100, 25);
+        typeField.setBounds(120, 120, 40, 25);
+        typeField.setBackground(new Color(240,248,255));
+
+        extensionLabel = new JLabel("(Extension)");
+        extensionLabel.setBounds(165, 120, 80, 25);
+        extensionLabel.setFont(new java.awt.Font("Century", 0, 11));
 
         containsLabel = new JLabel("File Contains:");
         containsLabel.setBounds(30, 155, 80, 20);
-        containsField = new JTextField();
-        containsField.setBounds(120, 155, 200, 25);
+        containsField = new JTextArea();
+        JScrollPane scrollContains=new JScrollPane(containsField);
+        scrollContains.setBounds(120, 155, 300, 35);
+        containsField.setBackground(new Color(240,248,255));
 
         ownerLabel = new JLabel("File Owner:");
-        ownerLabel.setBounds(30, 190, 80, 20);
+        ownerLabel.setBounds(30, 200, 80, 20);
         ownerField = new JTextField();
-        ownerField.setBounds(120, 190, 150, 25);
+        ownerField.setBounds(120, 200, 150, 25);
+        ownerField.setBackground(new Color(240,248,255));
 
+        sizeLabel = new JLabel("File Size:");
+        sizeLabel.setBounds(30, 240, 80, 20);
+        String[] comboBoxSizesValues = { "=", ">","<" };
+        sizeOptions = new JComboBox(comboBoxSizesValues);
+        sizeOptions.setBounds(120, 240, 40, 25);
+        sizeValue=new JTextField();
+        sizeValue.setBounds(165, 240, 80, 25);
+        sizeValue.setBackground(new Color(240,248,255));
+        defaultSize=new JLabel("Kb");
+        defaultSize.setBounds(250, 240, 20, 25);
         separator=new JSeparator();
-        separator.setBounds(0, 240, 500, 20);
+        separator.setBounds(0, 275, 500, 20);
 
         add(title);
         add(pathLabel);
@@ -251,10 +279,15 @@ public class SearchPanelCriteria extends JPanel {
         add(nameField);
         add(typeLabel);
         add(typeField);
+        add(extensionLabel);
         add(containsLabel);
-        add(containsField);
+        add(scrollContains);
         add(ownerLabel);
         add(ownerField);
+        add(sizeLabel);
+        add(sizeOptions);
+        add(sizeValue);
+        add(defaultSize);
         add(separator);
         browseFileAction();
     }
@@ -264,19 +297,19 @@ public class SearchPanelCriteria extends JPanel {
         String[] comboBoxValues = { "Yes", "No" };
         attributesLabel=new JLabel("ATTRIBUTES");
 
-        attributesLabel.setBounds(0,260,80,20);
+        attributesLabel.setBounds(0,280,80,20);
         readOnlyLabel=new JLabel("Read Only:");
-        readOnlyLabel.setBounds(30,290,80,20);
+        readOnlyLabel.setBounds(30,305,80,20);
         readOnlyOptions= new JComboBox(comboBoxValues);
-        readOnlyOptions.setBounds(120,290,100,20);
+        readOnlyOptions.setBounds(120,305,100,20);
 
         hiddenLabel=new JLabel("Hidden:");
-        hiddenLabel.setBounds(30,320,80,20);
+        hiddenLabel.setBounds(30,335,80,20);
         hiddenOptions= new JComboBox(comboBoxValues);
-        hiddenOptions.setBounds(120,320,100,20);
+        hiddenOptions.setBounds(120,335,100,20);
 
         separator=new JSeparator();
-        separator.setBounds(0, 360, 500, 20);
+        separator.setBounds(0, 370, 500, 20);
 
         add(attributesLabel);
         add(readOnlyLabel);
@@ -327,7 +360,6 @@ public class SearchPanelCriteria extends JPanel {
 
     //This method allows to create the buttons
     public void searchPanelButtons(){
-
         saveButton=new JButton("Save");
         saveButton.setBounds(110,600,80,20);
         searchButton=new JButton("Search");
@@ -478,15 +510,13 @@ public class SearchPanelCriteria extends JPanel {
         });
     }
 
-   //Method to allows validate if the required field is empty
-   public void validateRequiredField() {
-       if (message!="") {
-          JOptionPane.showMessageDialog(null,message);
+    //Method to allows validate if the required field is empty
+    public void validateRequiredField() {
+        if (message!="") {
+            JOptionPane.showMessageDialog(null,message);
         }
     }
 
 }
-
-
 
 
