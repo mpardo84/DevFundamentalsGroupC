@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -92,6 +93,9 @@ public class SearchPanelCriteria extends JPanel {
     private  String[] comboBoxTimeValues;
     private String typeObject;
     private String message;
+    private  ImageIcon saveIcon;
+    private ImageIcon cancelIcon;
+    private ImageIcon searchIcon;
 
     public SearchPanelCriteria() {
         setLayout(null);
@@ -190,9 +194,32 @@ public class SearchPanelCriteria extends JPanel {
         return toAccessedDate.getDate();
     }
 
+    //Get method to get the size Option value
+    public String getSizeOptions() {
+        return (String)sizeOptions.getSelectedItem();
+    }
+
+    //Get method to get the size
+    public String getSizeValue() {
+        return sizeValue.getText();
+    }
+
     //Get the search button
     public JButton getSearchButton() {
         return searchButton;
+    }
+
+    //Get the Cancel button
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setHiddenOptions(JComboBox hiddenOptions) {
+        this.hiddenOptions = hiddenOptions;
+    }
+
+    public void setReadOnlyLabel(JLabel readOnlyLabel) {
+        this.readOnlyLabel = readOnlyLabel;
     }
 
     //method to allows set the message value
@@ -294,7 +321,7 @@ public class SearchPanelCriteria extends JPanel {
 
     //This method contains the components for the Attribute section in UI
     public void searchAttributesSection(){
-        String[] comboBoxValues = { "Yes", "No" };
+        String[] comboBoxValues = { "False", "True" };
         attributesLabel=new JLabel("ATTRIBUTES");
 
         attributesLabel.setBounds(0,280,80,20);
@@ -360,15 +387,28 @@ public class SearchPanelCriteria extends JPanel {
 
     //This method allows to create the buttons
     public void searchPanelButtons(){
-        saveButton=new JButton("Save");
-        saveButton.setBounds(110,600,80,20);
-        searchButton=new JButton("Search");
-        searchButton.setBounds(210,600,80,20);
-        cancelButton=new JButton("Cancel");
-        cancelButton.setBounds(310,600,80,20);
+        saveIcon = new ImageIcon(
+                this.getClass().getResource("/images/save.png"));
+        saveButton=new JButton("Save",saveIcon);
+        saveButton.setBounds(110,600,90,20);
+        searchIcon = new ImageIcon(
+                this.getClass().getResource("/images/edit_find.png"));
+        searchButton=new JButton("Search",searchIcon);
+        searchButton.setBounds(205,600,100,20);
+        cancelIcon = new ImageIcon(
+                this.getClass().getResource("/images/close.png"));
+        cancelButton=new JButton("Close",cancelIcon);
+        cancelButton.setBounds(310,600,90,20);
         add(saveButton);
         add(searchButton);
         add(cancelButton);
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+
+            }
+        });
+
     }
 
     //This method contains all the UI compoments for the createdDate section

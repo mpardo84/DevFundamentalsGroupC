@@ -13,10 +13,15 @@
  */
 
 package com.jalasoft.search.view;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.Date;
 
 /**
  *
@@ -123,8 +128,70 @@ public class SearchProject extends JFrame{
         filePanel.setMessage(message);
     }
 
+    //Method that allows to get the Table result
     public DefaultTableModel getTable() {
         return filePanel.getTable();
     }
+
+    //Get method to get the created option selected from UI
+    public String getCreatedOptions() {
+        return filePanel.getCreatedOptions();
+    }
+
+    //Get method to get the modified option selected from UI
+    public String getModifiedOptions() {
+        return filePanel.getModifiedOptions();
+    }
+
+    //Get method to get the acessed option selected from UI
+    public String getAccessedOptions() {
+        return filePanel.getAccessedOptions();
+    }
+
+    //Get method to get the  range for the created option selected from UI
+    public Date getFromCreatedDate() {
+        return filePanel.getFromCreatedDate();
+    }
+
+    //Get method to get the range for the  created option selected from UI
+    public Date getToCreatedDate() {
+        return filePanel.getToCreatedDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public Date getFromModifiedDate() {
+        return filePanel.getFromModifiedDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public Date getToModifiedDate() {
+        return filePanel.getToModifiedDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public Date getFromAccessedDate() {
+        return filePanel.getFromAccessedDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public Date getToAccessedDate() {
+        return filePanel.getToAccessedDate();
+    }
+
+    //Method that allows to get the type option from the SearchPanelCriteria class
+    public String getTypeFile(){
+        return filePanel.getTypeFile();
+    }
+    //Get method to get the size Option value
+    public String getSizeOptions() {
+        return filePanel.getSizeOptions();
+    }
+
+    //Get method to get the size
+    public String getSizeValue() {
+        return filePanel.getSizeValue();
+    }
+
+
 }
 

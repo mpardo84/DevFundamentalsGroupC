@@ -91,6 +91,8 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         return pathValue.getText();
     }
 
+    //Get method for the fields that the user will insert data
+
     public String getNameField() {
         return nameField.getText();
     }

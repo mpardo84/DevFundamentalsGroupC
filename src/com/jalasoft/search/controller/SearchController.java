@@ -32,18 +32,18 @@ import java.util.List;
  */
 
 public class SearchController {
-    private SearchProject vista;
-    private Search modelo;
+    private SearchProject view;
+    private Search model;
 
     /**
     *
     * Init method where link with View and Model is created
     *
     */
-    public SearchController(SearchProject vista, Search modelo){
-        this.vista = vista;
-        this.modelo = modelo;
-        this.vista.getSearchButton().addActionListener(e -> searchButtonActionListener());
+    public SearchController(SearchProject view, Search model){
+        this.view = view;
+        this.model = model;
+        this.view.getSearchButton().addActionListener(e -> searchButtonActionListener());
     }
 
     /**
@@ -53,9 +53,9 @@ public class SearchController {
     */
     public String validateData(){
         Validator validator = new Validator();
-        if (validator.areRequiredFieldsFilled(vista.getPathName()) == true) {
-            if (validator.isValidPath(vista.getPathName())){
-                if ((validator.isValidFileName(vista.getFileName()) == true) ||(vista.getFileName().isEmpty())) {
+        if (validator.areRequiredFieldsFilled(view.getPathName()) == true) {
+            if (validator.isValidPath(view.getPathName())){
+                if ((validator.isValidFileName(view.getFileName()) == true) ||(view.getFileName().isEmpty())) {
                     return null;
                 } else {
                     return "File name is invalid";
@@ -74,16 +74,16 @@ public class SearchController {
      */
      public void configureSearchCriterial(){
          SearchCriterial searchCriterial = new SearchCriterial();
-         searchCriterial.setFileName(vista.getFileName());
-         searchCriterial.setFilePath(vista.getPathName());
-         searchCriterial.setOwner(vista.getOwnerValue());
-         if (vista.getHidden().trim().toUpperCase()=="YES"){
+         searchCriterial.setFileName(view.getFileName());
+         searchCriterial.setFilePath(view.getPathName());
+         searchCriterial.setOwner(view.getOwnerValue());
+         if (view.getHidden().trim().toUpperCase()=="YES"){
              searchCriterial.setHidden(true);
          }
          else {
              searchCriterial.setHidden(false);
          }
-         if (vista.getReadOnly().trim().toUpperCase()=="YES"){
+         if (view.getReadOnly().trim().toUpperCase()=="YES"){
              searchCriterial.setReadOnly(true);
          }
          else {
@@ -101,17 +101,20 @@ public class SearchController {
             // Configure SearchCriterial class with UI's data
             configureSearchCriterial();
             // Configure data for model side
-            this.modelo.setFileName(vista.getFileName());
-            this.modelo.setFileDirectory(vista.getPathName());
-            this.modelo.setOwnerName(vista.getOwnerValue());
+            this.model.setFileName(view.getFileName());
+            this.model.setFileDirectory(view.getPathName());
+            this.model.setOwnerName(view.getOwnerValue());
+            this.model.setHidden(Boolean.valueOf(view.getHidden()));
+            this.model.setReadOnly(Boolean.valueOf(view.getReadOnly()));
+            this.model.setFileType(view.getTypeFile());
             // execute the search process
-            this.modelo.getFileObjectList().clear();
-            this.modelo.searchFile(vista.getPathName());
+            this.model.getFileObjectList().clear();
+            this.model.searchFile(view.getPathName());
             // Display search result in UI
-            this.vista.getTable().setRowCount(0);
-            List<FileObject> searchResult = this.modelo.getFileObjectList();
+            this.view.getTable().setRowCount(0);
+            List<FileObject> searchResult = this.model.getFileObjectList();
             if (searchResult.isEmpty()) {
-                this.vista.setMessage("No data found");
+                this.view.setMessage("File not found with the selected criteria");
             }
             else{
                 Object rowData[]=new Object[5];
@@ -120,14 +123,14 @@ public class SearchController {
                     rowData[0]=file.getFileName();
                     rowData[1]=file.getFileDirectory();
                     rowData[2]=file.getFileType();
-                    rowData[3]="208-02-2";
-                    rowData[4]="20Kb";
-                    this.vista.getTable().addRow(rowData);
+                    rowData[3]=file.getDateModified();
+                    rowData[4]=file.getSize();
+                    this.view.getTable().addRow(rowData);
                 }
             }
         } else {
             // Display validation error messages
-            this.vista.setMessage(validateResult);
+            this.view.setMessage(validateResult);
         }
     }
 }

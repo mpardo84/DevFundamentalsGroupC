@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  *
  * This class is going to perform the file search
@@ -37,6 +38,8 @@ public class Search
     private boolean readOnly;
     private boolean hidden;
     private FileObject fileObject;
+    private String size;
+    private String dateModified;
 
     public Search()
     {
@@ -46,6 +49,8 @@ public class Search
         this.readOnly = false;
         this.hidden = false;
         this.ownerName = "";
+        this.dateModified="";
+        this.size="";
     }
 
     /**
@@ -114,6 +119,14 @@ public class Search
         return this.fileObjectList;
     }
 
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public void setDateModified(String dateModified) {
+        this.dateModified = dateModified;
+    }
+
     /**
      * This method is going to search a file in a given folder
      *
@@ -141,9 +154,14 @@ public class Search
                                 if (ownerName == "")
                                 {
                                     fileObject = new FileObject();
-                                    fileObject.setFileName(file.getName());
+                                    String name=file.getName();
+                                    String[] absoluteName = name.split("\\.");
+                                    fileObject.setFileName(absoluteName[0]);
+                                    fileObject.setFileType(absoluteName[1]);
                                     fileObject.setFileDirectory(file.getParent());
                                     fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
+                                    fileObject.setDateModified(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toString()) ;
+                                    fileObject.setSize(Long.toString(Files.size(Paths.get(file.getAbsolutePath()))));
                                     fileObject.setReadOnly(readOnly);
                                     fileObject.setHidden(hidden);
                                     fileObjectList.add(fileObject);
@@ -156,9 +174,14 @@ public class Search
                                         .contains(ownerName.toLowerCase()))
                                 {
                                     fileObject = new FileObject();
-                                    fileObject.setFileName(file.getName());
+                                    String name=file.getName();
+                                    String[] absoluteName = name.split("\\.");
+                                    fileObject.setFileName(absoluteName[0]);
+                                    fileObject.setFileType(absoluteName[1]);
                                     fileObject.setFileDirectory(file.getParent());
                                     fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
+                                    fileObject.setDateModified(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toString()) ;
+                                    fileObject.setSize(Long.toString(Files.size(Paths.get(file.getAbsolutePath()))));
                                     fileObject.setReadOnly(readOnly);
                                     fileObject.setHidden(hidden);
                                     fileObjectList.add(fileObject);

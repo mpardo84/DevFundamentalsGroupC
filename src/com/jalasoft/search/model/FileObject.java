@@ -29,6 +29,8 @@ public class FileObject {
     private String ownerName;
     private boolean readOnly;
     private boolean hidden;
+    private String size;
+    private String dateModified;
 
     public FileObject()
     {
@@ -88,5 +90,21 @@ public class FileObject {
 
     public boolean isHidden() {
         return hidden;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public String getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(String dateModified) {
+        this.dateModified = dateModified;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }
