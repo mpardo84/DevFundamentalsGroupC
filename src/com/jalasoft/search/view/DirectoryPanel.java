@@ -30,7 +30,7 @@ public class DirectoryPanel extends JPanel{
     private SearchPanelResults searchPanelResults;
 
     public DirectoryPanel(){
-        //super();
+
         initializeDialog();
     }
 

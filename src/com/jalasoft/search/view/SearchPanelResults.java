@@ -41,19 +41,23 @@ public class SearchPanelResults extends JPanel {
         initializeTableResult();
     }
 
+    //Method that allows to set the table value
     public void setTable(Object[][] data) {
         this.data = data;
 
     }
 
+    //Method that allow to get the Table model
     public DefaultTableModel getTable() {
         return tableModel;
     }
 
+    //Method that allows to set the Columns for the table
     public void setColumnNames(String[] columnNames) {
         this.columnNames = columnNames;
     }
 
+    //Method that initialize the Table
     public void initializeTableResult() {
 
         String[]columnNames = {"Name",

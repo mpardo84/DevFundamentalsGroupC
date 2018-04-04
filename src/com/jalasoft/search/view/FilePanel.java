@@ -14,10 +14,12 @@
 
 package com.jalasoft.search.view;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Date;
 
 /**
  *
@@ -32,7 +34,6 @@ public class FilePanel extends JPanel{
     private SearchPanelResults searchPanelResults;
 
     public FilePanel(){
-        //super();
         initializeDialog();
 
     }
@@ -86,19 +87,78 @@ public class FilePanel extends JPanel{
     public String getIsFile(){
         return searchPanelCriteria.getTypeObject();
     }
+
+    //Get method to get the created option selected from UI
+    public String getCreatedOptions() {
+        return searchPanelCriteria.getCreatedOptions();
+    }
+
+    //Get method to get the modified option selected from UI
+    public String getModifiedOptions() {
+        return searchPanelCriteria.getModifiedOptions();
+    }
+
+    //Get method to get the acessed option selected from UI
+    public String getAccessedOptions() {
+        return searchPanelCriteria.getAccessedOptions();
+    }
+
+    //Get method to get the  range for the created option selected from UI
+    public Date getFromCreatedDate() {
+        return searchPanelCriteria.getFromCreatedDate();
+    }
+
+    //Get method to get the range for the  created option selected from UI
+    public Date getToCreatedDate() {
+        return searchPanelCriteria.getToCreatedDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public Date getFromModifiedDate() {
+        return searchPanelCriteria.getFromModifiedDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public Date getToModifiedDate() {
+        return searchPanelCriteria.getToModifiedDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public Date getFromAccessedDate() {
+        return searchPanelCriteria.getFromAccessedDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public Date getToAccessedDate() {
+        return searchPanelCriteria.getToAccessedDate();
+    }
+
+    //Get method to get the size Option value
+    public String getSizeOptions() {
+        return searchPanelCriteria.getSizeOptions();
+    }
+
+    //Get method to get the size
+    public String getSizeValue() {
+        return searchPanelCriteria.getSizeValue();
+    }
+
     //Method that allows to get the search button
     public JButton getButtonSearch(){
         return searchPanelCriteria.getSearchButton();
     }
+
     //method to allows set the message value
     public void setMessage(String message) {
         searchPanelCriteria.setMessage(message);
         searchPanelCriteria.validateRequiredField();
     }
 
+    //Method that allows to get the Table
     public DefaultTableModel getTable() {
         return searchPanelResults.getTable();
     }
 
 }
+
 
