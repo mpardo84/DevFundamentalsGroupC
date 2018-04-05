@@ -14,6 +14,8 @@
 
 package com.jalasoft.search.model;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -154,10 +156,8 @@ public class Search
                                 if (ownerName == "")
                                 {
                                     fileObject = new FileObject();
-                                    String name=file.getName();
-                                    String[] absoluteName = name.split("\\.");
-                                    fileObject.setFileName(absoluteName[0]);
-                                    fileObject.setFileType(absoluteName[1]);
+                                    fileObject.setFileName(FilenameUtils.getBaseName(file.getName()));
+                                    fileObject.setFileType(FilenameUtils.getExtension(file.getName()));
                                     fileObject.setFileDirectory(file.getParent());
                                     fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
                                     fileObject.setDateModified(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toString()) ;
@@ -174,10 +174,8 @@ public class Search
                                         .contains(ownerName.toLowerCase()))
                                 {
                                     fileObject = new FileObject();
-                                    String name=file.getName();
-                                    String[] absoluteName = name.split("\\.");
-                                    fileObject.setFileName(absoluteName[0]);
-                                    fileObject.setFileType(absoluteName[1]);
+                                    fileObject.setFileName(FilenameUtils.getBaseName(file.getName()));
+                                    fileObject.setFileType(FilenameUtils.getExtension(file.getName()));
                                     fileObject.setFileDirectory(file.getParent());
                                     fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
                                     fileObject.setDateModified(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toString()) ;
