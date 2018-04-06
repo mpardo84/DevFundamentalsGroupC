@@ -35,10 +35,12 @@ public class SearchPanelResults extends JPanel {
     private Object[][] data;
     private String[] columnNames;
     private DefaultTableModel tableModel;
-    public SearchPanelResults() {
+    private String typeObject;
+
+    public SearchPanelResults(String typeObect) {
         super(new GridLayout(1,0));
         setBackground(Color.white);
-        initializeTableResult();
+        initializeTableResult(typeObect);
     }
 
     //Method that allows to set the table value
@@ -58,23 +60,40 @@ public class SearchPanelResults extends JPanel {
     }
 
     //Method that initialize the Table
-    public void initializeTableResult() {
+    public void initializeTableResult(String typeObect) {
 
-        String[]columnNames = {"Name",
-                "Location",
-                "Extension",
-                "Date Modified",
-                "Size"};
+        if (typeObect == "File") {
+            String[] columnNames = {"Name",
+                    "Location",
+                    "Extension",
+                    "Date Modified",
+                    "Size"};
 
-        Object[][] data = {
-                {"", "","", "", ""}   };
-        tableModel= new DefaultTableModel(data, columnNames);
-        table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-        table.setFillsViewportHeight(true);
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane);
+            Object[][] data = {
+                    {"", "", "", "", ""}};
+            tableModel = new DefaultTableModel(data, columnNames);
+            table = new JTable(tableModel);
+            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            table.setFillsViewportHeight(true);
+            JScrollPane scrollPane = new JScrollPane(table);
+            add(scrollPane);
+        } else {
+            String[] columnNames = {"Name",
+                    "Location",
+                    "Hidden",
+                    "Date Modified",
+                    "Size",
+                    "# Files"};
+
+            Object[][] data = {
+                    {"", "", "", "", "",""}};
+            tableModel = new DefaultTableModel(data, columnNames);
+            table = new JTable(tableModel);
+            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            table.setFillsViewportHeight(true);
+            JScrollPane scrollPane = new JScrollPane(table);
+            add(scrollPane);
+        }
     }
-
 
 }

@@ -42,7 +42,7 @@ public class FilePanel extends JPanel{
         setBackground(Color.white);
         this.setLayout(new GridLayout(1, 2));
         searchPanelCriteria=new SearchPanelCriteria();
-        searchPanelResults=new SearchPanelResults();
+        searchPanelResults=new SearchPanelResults("File");
         this.add(searchPanelCriteria);
         this.add(searchPanelResults);
 

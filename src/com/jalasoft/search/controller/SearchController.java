@@ -44,6 +44,7 @@ public class SearchController {
         this.view = view;
         this.model = model;
         this.view.getSearchButton().addActionListener(e -> searchButtonActionListener());
+        this.view.getSearchDir().addActionListener(e -> searchButtonDirectoryActionListener());
     }
 
     /**
@@ -51,21 +52,45 @@ public class SearchController {
     * validateData method where all file data are validated in order to verify that they are valid
     *
     */
-    public String validateData(){
+    public String validateData(String type) {
         Validator validator = new Validator();
-        if (validator.areRequiredFieldsFilled(view.getPathName()) == true) {
-            if (validator.isValidPath(view.getPathName())){
-                if ((validator.isValidFileName(view.getFileName()) == true) ||(view.getFileName().isEmpty())) {
-                    return null;
+
+        if (type == "File") {
+
+            if (validator.areRequiredFieldsFilled(view.getPathName()) == true) {
+                if (validator.isValidPath(view.getPathName())) {
+                    if ((validator.isValidFileName(view.getFileName()) == true) || (view.getFileName().isEmpty())) {
+                        return null;
+                    } else {
+                        return "File name is invalid";
+                    }
                 } else {
-                    return "File name is invalid";
+                    return "Path name is invalid";
+
                 }
             } else {
-                return "Path name is invalid";
-
+                return "Required data 'Search Path' should be filled";
             }
-        }else { return "Required data 'Search Path' should be filled";}
-     }
+
+        } else {
+
+            if (validator.areRequiredFieldsFilled(view.getDirPath()) == true) {
+                if (validator.isValidPath(view.getDirPath())) {
+                    if ((validator.isValidFileName(view.getDirName()) == true) || (view.getDirName().isEmpty())) {
+                        return null;
+                    } else {
+                        return "Directory name is invalid";
+                    }
+                } else {
+                    return "Path name is invalid";
+
+                }
+            } else {
+                return "Required data 'Search Path' should be filled";
+            }
+        }
+    }
+
 
     /*
      *
@@ -96,7 +121,7 @@ public class SearchController {
     *  method that listen action in UI from user and according to action send operation commands to model    *
     */
     public void searchButtonActionListener() {
-        String validateResult = validateData();
+        String validateResult = validateData("File");
         if (validateResult == null) {
             // Configure SearchCriterial class with UI's data
             configureSearchCriterial();
@@ -128,6 +153,19 @@ public class SearchController {
                     this.view.getTable().addRow(rowData);
                 }
             }
+        } else {
+            // Display validation error messages
+            this.view.setMessage(validateResult);
+        }
+    }
+    /*
+     *
+     *  method that listen action in UI for Directory from user and according to action send operation commands to model    *
+     */
+    public void searchButtonDirectoryActionListener() {
+        String validateResult = validateData("Directory");
+        if (validateResult == null) {
+            System.out.println("Is in the Search Directory");
         } else {
             // Display validation error messages
             this.view.setMessage(validateResult);

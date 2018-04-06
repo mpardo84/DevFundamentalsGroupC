@@ -16,6 +16,8 @@ package com.jalasoft.search.view;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Date;
+import javax.swing.JButton;
 
 /**
  *
@@ -36,11 +38,101 @@ public class DirectoryPanel extends JPanel{
 
     //This method allows to initialize the Panel
     public void initializeDialog(){
-        setBackground(Color.white);
         this.setLayout(new GridLayout(1, 2));
         searchDirectoryCriteria=new SearchDirectoryPanelCriteria();
-        searchPanelResults=new SearchPanelResults();
+        searchPanelResults=new SearchPanelResults("Directory");
         this.add(searchDirectoryCriteria);
         this.add(searchPanelResults);
+    }
+
+    //Method that allows to get the name for the field from the SearchPanelCriteria class
+    public String getDirName(){
+        return searchDirectoryCriteria.getNameDirField();
+    }
+
+    //Method that allows to get the path for the field from the SearchPanelCriteria class
+    public String getDirPath(){
+        return searchDirectoryCriteria.getDirPathValue();
+    }
+
+    //Method that allows to get the owner for the field from the SearchPanelCriteria class
+    public String getDirOwner(){
+        return searchDirectoryCriteria.getOwnerDirField();
+    }
+
+    //Method that allows to get the hidden option from the SearchPanelCriteria class
+    public String getDirHidden(){
+        return searchDirectoryCriteria.getHiddenDirOptions();
+    }
+
+    //Method that allows to get the readOnly option from the SearchPanelCriteria class
+    public String getDirReadOnly(){
+        return searchDirectoryCriteria.getReadOnlyDirOptions();
+    }
+
+   //Get method to get the created option selected from UI
+    public String getCreatedDirOptions() {
+        return searchDirectoryCriteria.getCreatedDirOptions();
+    }
+
+    //Get method to get the modified option selected from UI
+    public String getModifiedDirOptions() {
+        return searchDirectoryCriteria.getModifiedDirOptions();
+    }
+
+    //Get method to get the acessed option selected from UI
+    public String getAccessedDirOptions() {
+        return searchDirectoryCriteria.getAccessedDirOptions();
+    }
+
+    //Get method to get the  range for the created option selected from UI
+    public Date getFromCreatedDirDate() {
+        return searchDirectoryCriteria.getFromCreatedDirDate();
+    }
+
+    //Get method to get the range for the  created option selected from UI
+    public Date getToCreatedDirDate() {
+        return searchDirectoryCriteria.getToCreatedDirDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public Date getFromModifiedDirDate() {
+        return searchDirectoryCriteria.getFromModifiedDirDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public Date getToModifiedDirDate() {
+        return searchDirectoryCriteria.getToModifiedDirDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public Date getFromAccessedDirDate() {
+        return searchDirectoryCriteria.getFromAccessedDirDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public Date getToAccessedDirDate() {
+        return searchDirectoryCriteria.getToAccessedDirDate();
+    }
+
+    //Get method to get the size Option value
+    public String getSizeDirOptions() {
+        return searchDirectoryCriteria.getSizeDirOptions();
+    }
+
+    //Get method to get the size
+    public String getSizeDirValue() {
+        return searchDirectoryCriteria.getSizeDirValue();
+    }
+
+    //Method that allows to get the search button
+    public JButton getSearchDir(){
+        return searchDirectoryCriteria.getSearchDirButton();
+    }
+
+    //method to allows set the message value
+    public void setMessage(String message) {
+        searchDirectoryCriteria.setMessage(message);
+        searchDirectoryCriteria.validateRequiredField();
     }
 }
