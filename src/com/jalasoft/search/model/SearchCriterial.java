@@ -13,6 +13,8 @@
  */
 package com.jalasoft.search.model;
 
+import java.util.Date;
+
 /**
  *
  The SearchCriterial class with getter  and setter methods to get data from view side and sent them to model side
@@ -28,94 +30,169 @@ public class SearchCriterial {
 
     private String fileName;
     private String filePath;
-    private String owner;
-    private String contains;
     private String fileType;
-    private boolean isFile;
-    private boolean hidden;
+    private String contains;
+    private String owner;
+    private String sizeOption;
+    private Long size;
     private boolean readOnly;
+    private boolean hidden;
+    private String createdStartDate;
+    private String createdEndDate;
+    private String modifiedStartDate;
+    private String modifiedEndDate;
+    private String accessedStartDate;
+    private String accessedEndDate;
 
     public SearchCriterial(){}
 
-    public  SearchCriterial(String fileName, String filePath, String owner, boolean hidden, boolean readOnly){
+    public  SearchCriterial(String fileName, String filePath, String fileType, String contains, String owner,
+                            String sizeOption, Long size,  boolean hidden, boolean readOnly, String createdStartDate,
+                            String createdEndDate, String  modifiedStartDate, String modifiedEndDate,
+                            String accessedStartDate, String accessedEndDate ){
         this.fileName = fileName;
         this.filePath = filePath;
+        this.fileType = fileType;
+        this.contains = contains;
         this.owner = owner;
+        this.sizeOption=sizeOption;
+        this.size = size;
         this.hidden = hidden;
         this.readOnly = readOnly;
+        this.createdStartDate = createdStartDate;
+        this.createdEndDate = createdEndDate;
+        this.modifiedStartDate = modifiedStartDate;
+        this.modifiedEndDate = modifiedEndDate;
+        this.accessedStartDate = accessedStartDate;
+        this.accessedEndDate = accessedEndDate;
+
     }
-    // method to get fileName
+    // Method to get fileName
     public String getFileName(){
         return this.fileName;
     }
 
-    // method to get filePath
+    // Method to get filePath
     public String getFilePath() {
         return this.filePath;
     }
 
-    //method to get owner
+    // Method to get owner
     public String getOwner() {
         return this.owner;
     }
 
-    //method to get the value of hidden property
+    // Method to get the file extencion
+    public String getFileType() { return this.fileType; }
+
+    // Method to get the string contained in the file
+    public String getContains(){ return this.contains;}
+
+    // Method to get the option for size
+    public String  getSizeOption(){return this.sizeOption; }
+
+    // Method to get the size of file
+    public  Long  getSize(){return this.size; }
+
+    // Method to get the value of hidden property
     public boolean getHidden() {
         return this.hidden;
     }
 
-    //method to get the value of read only property
+    // Method to get the value of read only property
     public boolean getReadOnly() {
         return this.readOnly;
     }
 
-    //method to get the value of contains field
-    public String getContains() {
-        return this.contains;
-    }
+    // Method to get start date of created date of file
+    public String getCreatedDateStart(){return this.createdStartDate;}
 
-    //method to get informatimationabout type
-    public boolean getIsFile() {
-        return this.getIsFile();
-    }
+    // Method to get end date of created date of file
+    public String getCreatedDateEnd(){return this.createdEndDate;}
 
-    //method to set the value fileName
+    // Method to get start date of modified date of file
+    public String getModifiedDateStart(){return this.modifiedStartDate;}
+
+    // Method to get end date of modified date of file
+    public String getModifiedDateEnd(){return this.modifiedEndDate;}
+
+    // Method to get start date of accessed date of file
+    public String getAccessedDateStart(){return this.accessedStartDate;}
+
+    // Method to get end date of accessed date of file
+    public String getAccessedDateEnd(){return this.accessedEndDate;}
+
+    // Method to set the value fileName
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
-    //method to set the value filePath
+    // Method to set the value filePath
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
-    //method to set the value of owner
+    // Method to set the value of owner
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
-    //method to set the value of hidden property
+    // Method to set the value of hidden property
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
 
-    //method to set the value of read only property
+    // Method to set the value of read only property
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
-    //method to set the value of contains roperty
+    // Method to set the value of contains roperty
     public void setContains(String contains) {
         this.contains = contains;
     }
 
-    //method to set the value isFile property
-    public void setIsFile(boolean isFile) {
-        this.isFile = isFile;
+    // Method to set the value of extension property
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
-    //method to set the value of extension property
-    public void setFileType() {
-        this.fileType = "";
+    // Method  to set the size option for the search
+    public void setSizeOption(String sizeOption) {
+        this.sizeOption = sizeOption;
+    }
+    // Method  to set the value of  file size
+    public void setSize( Long size) {
+        this.size = size;
+    }
+
+    // Method  to set the value of start date of created date of file
+    public void setCreatedStartDate( String createdStartDate) {
+        this.createdStartDate = createdStartDate;
+    }
+
+    // Method  to set the value of end date of created date of file
+    public void setCreatedEndDate(String createdEndDate) {
+        this.createdEndDate = createdEndDate;
+    }
+
+    // Method  to set the value of start date of modified date of file
+    public void setModifiedStartDate(String modifiedStartDate) {
+        this.modifiedStartDate = modifiedStartDate;
+    }
+
+    // Method  to set the value of start date of modified date of file
+    public void setModifiedEndDate(String modifiedEndDate) {
+        this.modifiedEndDate = modifiedEndDate;
+    }
+
+    // Method  to set the value of start date of accessed date of file
+    public void setAccessedStartDate(String accessedStartDate) {
+        this.accessedStartDate = accessedStartDate;
+    }
+
+    // Method  to set the value of end date of accessed date of file
+    public void setAccessedEndDate(String accessedEndDate) {
+        this.accessedEndDate = accessedEndDate;
     }
 }
