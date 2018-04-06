@@ -95,6 +95,7 @@ public class SearchProject extends JFrame{
 
     //Method that allows to get the readOnly for the field from UI
     public String getReadOnly(){
+
         return filePanel.getReadOnly();
     }
 
@@ -192,6 +193,90 @@ public class SearchProject extends JFrame{
         return filePanel.getSizeValue();
     }
 
+    //Method that allows to get the name for the field from the SearchPanelCriteria class
+    public String getDirName(){
+        return directoryPanel.getDirName();
+    }
+
+    //Method that allows to get the path for the field from the SearchPanelCriteria class
+    public String getDirPath(){
+        return directoryPanel.getDirPath();
+    }
+
+    //Method that allows to get the owner for the field from the SearchPanelCriteria class
+    public String getDirOwner(){
+        return directoryPanel.getDirOwner();
+    }
+
+    //Method that allows to get the hidden option from the SearchPanelCriteria class
+    public String getDirHidden(){
+        return directoryPanel.getDirHidden();
+    }
+
+    //Method that allows to get the readOnly option from the SearchPanelCriteria class
+    public String getDirReadOnly(){
+        return directoryPanel.getDirReadOnly();
+    }
+
+    //Get method to get the created option selected from UI
+    public String getCreatedDirOptions() {
+        return directoryPanel.getCreatedDirOptions();
+    }
+
+    //Get method to get the modified option selected from UI
+    public String getModifiedDirOptions() {
+        return directoryPanel.getModifiedDirOptions();
+    }
+
+    //Get method to get the acessed option selected from UI
+    public String getAccessedDirOptions() {
+        return directoryPanel.getAccessedDirOptions();
+    }
+
+    //Get method to get the  range for the created option selected from UI
+    public Date getFromCreatedDirDate() {
+        return directoryPanel.getFromCreatedDirDate();
+    }
+
+    //Get method to get the range for the  created option selected from UI
+    public Date getToCreatedDirDate() {
+        return directoryPanel.getToCreatedDirDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public Date getFromModifiedDirDate() {
+        return directoryPanel.getFromModifiedDirDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public Date getToModifiedDirDate() {
+        return directoryPanel.getToModifiedDirDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public Date getFromAccessedDirDate() {
+        return directoryPanel.getFromAccessedDirDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public Date getToAccessedDirDate() {
+        return directoryPanel.getToAccessedDirDate();
+    }
+
+    //Get method to get the size Option value
+    public String getSizeDirOptions() {
+        return directoryPanel.getSizeDirOptions();
+    }
+
+    //Get method to get the size
+    public String getSizeDirValue() {
+        return directoryPanel.getSizeDirValue();
+    }
+
+    //Method that allows to get the search button
+    public JButton getSearchDir(){
+        return directoryPanel.getSearchDir();
+    }
 
 }
 
