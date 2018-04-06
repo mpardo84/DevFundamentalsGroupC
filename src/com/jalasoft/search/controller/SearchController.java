@@ -191,7 +191,7 @@ public class SearchController {
          this.model.setContains(view.getContains());
          this.model.setSizeOption(view.getSizeOptions());
          this.model.setSize((Long.valueOf(view.getSizeValue()))*1024);
-         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+         //DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
          Calendar calendar = Calendar.getInstance();
          Date today = calendar.getTime();
          calendar.add(Calendar.DATE,-1);
@@ -199,58 +199,58 @@ public class SearchController {
          String createdOption = view.getCreatedOptions();
          switch(createdOption) {
              case "All Time" :
-                 this.model.setCreatedStartDate("");
-                 this.model.setCreatedEndDate("");
+                 this.model.setCreatedStartDate(new Date(1900,01,01));
+                 this.model.setCreatedEndDate(new Date(2099,12,12));
                  break;
              case "Time Range" :
-                 this.model.setCreatedStartDate(dateFormat.format(view.getFromCreatedDate()));
-                 this.model.setCreatedEndDate(dateFormat.format(view.getToCreatedDate()));
+                 this.model.setCreatedStartDate(view.getFromCreatedDate());
+                 this.model.setCreatedEndDate(view.getToCreatedDate());
                  break;
              case "Today" :
-                 this.model.setCreatedStartDate(dateFormat.format(today));
-                 this.model.setCreatedEndDate(dateFormat.format(today));
+                 this.model.setCreatedStartDate(today);
+                 this.model.setCreatedEndDate(today);
                  break;
              case "Yesterday" :
-                 this.model.setCreatedStartDate(dateFormat.format(yesterday));
-                 this.model.setCreatedEndDate(dateFormat.format(yesterday));
+                 this.model.setCreatedStartDate(yesterday);
+                 this.model.setCreatedEndDate(yesterday);
                  break;
          }
          String modifiedOption = view.getModifiedOptions();
          switch(modifiedOption) {
              case "All Time" :
-                 this.model.setModifiedStartDate("");
-                 this.model.setModifiedEndDate("");
+                 this.model.setModifiedStartDate(new Date(1900,01,01));
+                 this.model.setModifiedEndDate(new Date(2099,12,12));
                  break;
              case "Time Range" :
-                 this.model.setModifiedStartDate(dateFormat.format(view.getFromModifiedDate()));
-                 this.model.setModifiedEndDate(dateFormat.format(view.getToModifiedDate()));
+                 this.model.setModifiedStartDate(view.getFromModifiedDate());
+                 this.model.setModifiedEndDate(view.getToModifiedDate());
                  break;
              case "Today" :
-                 this.model.setModifiedStartDate(dateFormat.format(today));
-                 this.model.setModifiedEndDate(dateFormat.format(today));
+                 this.model.setModifiedStartDate(today);
+                 this.model.setModifiedEndDate(today);
                  break;
              case "Yesterday" :
-                 this.model.setModifiedStartDate(dateFormat.format(yesterday));
-                 this.model.setModifiedEndDate(dateFormat.format(yesterday));
+                 this.model.setModifiedStartDate(yesterday);
+                 this.model.setModifiedEndDate(yesterday);
                  break;
          }
          String accessedOption = view.getAccessedOptions();
          switch(modifiedOption) {
              case "All Time" :
-                 this.model.setAccessedStartDate("");
-                 this.model.setAccessedEndDate("");
+                 this.model.setAccessedStartDate(new Date(1900,01,01));
+                 this.model.setAccessedEndDate(new Date(2099,12,12));
                  break;
              case "Time Range" :
-                 this.model.setAccessedStartDate(dateFormat.format(view.getFromModifiedDate()));
-                 this.model.setAccessedEndDate(dateFormat.format(view.getToModifiedDate()));
+                 this.model.setAccessedStartDate(view.getFromModifiedDate());
+                 this.model.setAccessedEndDate(view.getToModifiedDate());
                  break;
              case "Today" :
-                 this.model.setAccessedStartDate(dateFormat.format(today));
-                 this.model.setAccessedEndDate(dateFormat.format(today));
+                 this.model.setAccessedStartDate(today);
+                 this.model.setAccessedEndDate(today);
                  break;
              case "Yesterday" :
-                 this.model.setAccessedStartDate(dateFormat.format(yesterday));
-                 this.model.setAccessedEndDate(dateFormat.format(yesterday));
+                 this.model.setAccessedStartDate(yesterday);
+                 this.model.setAccessedEndDate(yesterday);
                  break;
          }
 

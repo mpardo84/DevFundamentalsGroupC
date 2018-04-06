@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -44,12 +45,12 @@ public class Search
     private String dateModified;
     private String sizeOption;
     private String contains;
-    private String createdStartDate;
-    private String createdEndDate;
-    private String modifiedStartDate;
-    private String modifiedEndDate;
-    private String accessedStartDate;
-    private String accessedEndDate;
+    private Date createdStartDate;
+    private Date createdEndDate;
+    private Date modifiedStartDate;
+    private Date modifiedEndDate;
+    private Date accessedStartDate;
+    private Date accessedEndDate;
 
     public Search()
     {
@@ -63,12 +64,12 @@ public class Search
         this.sizeOption = "";
         this.size = 0L;
         this.contains = "";
-        this.createdStartDate = "";
-        this.createdEndDate = "";
-        this.modifiedStartDate = "";
-        this.modifiedEndDate = "";
-        this.accessedStartDate = "";
-        this.accessedEndDate = "";
+        this.createdStartDate = new Date(1900,01,01);
+        this.createdEndDate = new Date(2099,12,12);
+        this.modifiedStartDate = new Date(1900,01,01);
+        this.modifiedEndDate = new Date(2099,12,12);
+        this.accessedStartDate = new Date(1900,01,01);
+        this.accessedEndDate = new Date(2099,12,12);
     }
 
     /**
@@ -164,7 +165,7 @@ public class Search
      *
      * @param createdStartDate  the hidden file option
      */
-    public void setCreatedStartDate(String createdStartDate) {
+    public void setCreatedStartDate(Date createdStartDate) {
         this.createdStartDate = createdStartDate;
     }
 
@@ -173,7 +174,7 @@ public class Search
      *
      * @param createdEndDateDate  the hidden file option
      */
-    public void setCreatedEndDate(String createdEndDateDate) {
+    public void setCreatedEndDate(Date createdEndDateDate) {
         this.createdEndDate = createdEndDateDate;
     }
 
@@ -182,7 +183,7 @@ public class Search
      *
      * @param modifiedStartDate  the hidden file option
      */
-    public void setModifiedStartDate(String modifiedStartDate) {
+    public void setModifiedStartDate(Date modifiedStartDate) {
         this.modifiedStartDate = modifiedStartDate;
     }
 
@@ -191,7 +192,7 @@ public class Search
      *
      * @param modifiedEndDate  the hidden file option
      */
-    public void setModifiedEndDate(String modifiedEndDate) {
+    public void setModifiedEndDate(Date modifiedEndDate) {
         this.modifiedEndDate = modifiedEndDate;
     }
 
@@ -200,7 +201,7 @@ public class Search
      *
      * @param accessedStartDate the hidden file option
      */
-    public void setAccessedStartDate(String accessedStartDate) {
+    public void setAccessedStartDate(Date accessedStartDate) {
         this.accessedStartDate = accessedStartDate;
     }
 
@@ -209,7 +210,7 @@ public class Search
      *
      * @param accessedEndDate the hidden file option
      */
-    public void setAccessedEndDate(String accessedEndDate) {
+    public void setAccessedEndDate(Date accessedEndDate) {
         this.accessedEndDate = accessedEndDate;
     }
 
@@ -246,40 +247,27 @@ public class Search
                         if (file.canWrite() != readOnly)
                         {
                             try {
-                                if (ownerName == "")
-                                {
-                                    fileObject = new FileObject();
-                                    fileObject.setFileName(FilenameUtils.getBaseName(file.getName()));
-                                    fileObject.setFileType(FilenameUtils.getExtension(file.getName()));
-                                    fileObject.setFileDirectory(file.getParent());
-                                    fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
-                                    fileObject.setDateModified(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toString()) ;
-                                    fileObject.setSize(Long.toString(Files.size(Paths.get(file.getAbsolutePath()))));
-                                    fileObject.setReadOnly(readOnly);
-                                    fileObject.setHidden(hidden);
-                                    fileObjectList.add(fileObject);
-                                    System.out.println("Found :" + file.getParent());
-                                    System.out.println("File found at : "+file.getParentFile());
-                                    System.out.println("Path directory: "+file.getAbsolutePath());
-                                    System.out.println("Owner: "+Files.getOwner(Paths.get(file.getAbsolutePath())));
-                                }
-                                else if (Files.getOwner(Paths.get(file.getAbsolutePath())).getName().toLowerCase()
+                                if (Files.getOwner(Paths.get(file.getAbsolutePath())).getName().toLowerCase()
                                         .contains(ownerName.toLowerCase()))
                                 {
-                                    fileObject = new FileObject();
-                                    fileObject.setFileName(FilenameUtils.getBaseName(file.getName()));
-                                    fileObject.setFileType(FilenameUtils.getExtension(file.getName()));
-                                    fileObject.setFileDirectory(file.getParent());
-                                    fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
-                                    fileObject.setDateModified(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toString()) ;
-                                    fileObject.setSize(Long.toString(Files.size(Paths.get(file.getAbsolutePath()))));
-                                    fileObject.setReadOnly(readOnly);
-                                    fileObject.setHidden(hidden);
-                                    fileObjectList.add(fileObject);
-                                    System.out.println("Found");
-                                    System.out.println("File found at : "+file.getParentFile());
-                                    System.out.println("Path directory: "+file.getAbsolutePath());
-                                    System.out.println("Owner: "+Files.getOwner(Paths.get(file.getAbsolutePath())));
+                                    switch(sizeOption) {
+                                        case "":
+                                            setFoundFileObject(file);
+                                            break;
+                                        case ">":
+                                            if (Files.size(Paths.get(file.getAbsolutePath())) > this.size)
+                                                setFoundFileObject(file);
+                                            break;
+                                        case "<":
+                                            if (Files.size(Paths.get(file.getAbsolutePath())) < this.size)
+                                                setFoundFileObject(file);
+                                            break;
+                                        case "=":
+                                            if (Files.size(Paths.get(file.getAbsolutePath())) == this.size)
+                                                setFoundFileObject(file);
+                                            break;
+                                    }
+
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -288,5 +276,24 @@ public class Search
                     }
                 }
             }
+    }
+
+    private void setFoundFileObject(File file)
+    {
+        fileObject = new FileObject();
+        fileObject.setFileName(FilenameUtils.getBaseName(file.getName()));
+        fileObject.setFileType(FilenameUtils.getExtension(file.getName()));
+        fileObject.setFileDirectory(file.getParent());
+
+        fileObject.setReadOnly(readOnly);
+        fileObject.setHidden(hidden);
+        fileObjectList.add(fileObject);
+        try {
+            fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
+            fileObject.setDateModified(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toString()) ;
+            fileObject.setSize(Long.toString(Files.size(Paths.get(file.getAbsolutePath()))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
