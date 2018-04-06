@@ -40,8 +40,16 @@ public class Search
     private boolean readOnly;
     private boolean hidden;
     private FileObject fileObject;
-    private String size;
+    private Long size;
     private String dateModified;
+    private String sizeOption;
+    private String contains;
+    private String createdStartDate;
+    private String createdEndDate;
+    private String modifiedStartDate;
+    private String modifiedEndDate;
+    private String accessedStartDate;
+    private String accessedEndDate;
 
     public Search()
     {
@@ -51,8 +59,16 @@ public class Search
         this.readOnly = false;
         this.hidden = false;
         this.ownerName = "";
-        this.dateModified="";
-        this.size="";
+        this.dateModified = "";
+        this.sizeOption = "";
+        this.size = 0L;
+        this.contains = "";
+        this.createdStartDate = "";
+        this.createdEndDate = "";
+        this.modifiedStartDate = "";
+        this.modifiedEndDate = "";
+        this.accessedStartDate = "";
+        this.accessedEndDate = "";
     }
 
     /**
@@ -116,13 +132,90 @@ public class Search
         this.hidden = hidden;
     }
 
+    /**
+     * This method is going to set the size option
+     *
+     * @param sizeOption  the hidden file option
+     */
+    public void setSizeOption(String sizeOption) {
+        this.sizeOption = sizeOption;
+    }
+
+    /**
+     * This method is going to set the size of file
+     *
+     * @param size  the hidden file option
+     */
+    public void setSize(Long size) {
+        this.size = size;
+    }
+
+    /**
+     * This method is going to set the contained string in the file
+     *
+     * @param contains  the hidden file option
+     */
+    public void setContains(String contains) {
+        this.contains = contains;
+    }
+
+    /**
+     * This method is going to set the start date of created date range
+     *
+     * @param createdStartDate  the hidden file option
+     */
+    public void setCreatedStartDate(String createdStartDate) {
+        this.createdStartDate = createdStartDate;
+    }
+
+    /**
+     * This method is going to set the end date of created date range
+     *
+     * @param createdEndDateDate  the hidden file option
+     */
+    public void setCreatedEndDate(String createdEndDateDate) {
+        this.createdEndDate = createdEndDateDate;
+    }
+
+    /**
+     * This method is going to set the start date of modified date range
+     *
+     * @param modifiedStartDate  the hidden file option
+     */
+    public void setModifiedStartDate(String modifiedStartDate) {
+        this.modifiedStartDate = modifiedStartDate;
+    }
+
+    /**
+     * This method is going to set the end date of modified date range
+     *
+     * @param modifiedEndDate  the hidden file option
+     */
+    public void setModifiedEndDate(String modifiedEndDate) {
+        this.modifiedEndDate = modifiedEndDate;
+    }
+
+    /**
+     * This method is going to set the start date of accessed date range
+     *
+     * @param accessedStartDate the hidden file option
+     */
+    public void setAccessedStartDate(String accessedStartDate) {
+        this.accessedStartDate = accessedStartDate;
+    }
+
+    /**
+     * This method is going to set the end date of accessed date range
+     *
+     * @param accessedEndDate the hidden file option
+     */
+    public void setAccessedEndDate(String accessedEndDate) {
+        this.accessedEndDate = accessedEndDate;
+    }
+
     public List<FileObject> getFileObjectList()
     {
         return this.fileObjectList;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
     }
 
     public void setDateModified(String dateModified) {

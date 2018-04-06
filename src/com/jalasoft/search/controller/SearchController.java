@@ -18,6 +18,10 @@ import com.jalasoft.search.model.Search;
 import com.jalasoft.search.model.SearchCriterial;
 import com.jalasoft.search.view.SearchProject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,23 +81,160 @@ public class SearchController {
          searchCriterial.setFileName(view.getFileName());
          searchCriterial.setFilePath(view.getPathName());
          searchCriterial.setOwner(view.getOwnerValue());
-         if (view.getHidden().trim().toUpperCase()=="YES"){
-             searchCriterial.setHidden(true);
+         searchCriterial.setHidden(Boolean.valueOf(view.getHidden()));
+         searchCriterial.setReadOnly(Boolean.valueOf(view.getReadOnly()));
+         searchCriterial.setContains(view.getContains());
+         searchCriterial.setSizeOption(view.getSizeOptions());
+         searchCriterial.setSize((Long.valueOf(view.getSizeValue()))*1024);
+         searchCriterial.setFileType(view.getTypeFile());
+         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+         Calendar calendar = Calendar.getInstance();
+         Date today = calendar.getTime();
+         calendar.add(Calendar.DATE,-1);
+         Date yesterday = calendar.getTime();
+         String createdOption = view.getCreatedOptions();
+         switch(createdOption) {
+             case "All Time" :
+                 searchCriterial.setCreatedStartDate("");
+                 searchCriterial.setCreatedEndDate("");
+                 break;
+             case "Time Range" :
+                 searchCriterial.setCreatedStartDate(dateFormat.format(view.getFromCreatedDate()));
+                 searchCriterial.setCreatedEndDate(dateFormat.format(view.getToCreatedDate()));
+                 break;
+             case "Today" :
+                 searchCriterial.setCreatedStartDate(dateFormat.format(today));
+                 searchCriterial.setCreatedEndDate(dateFormat.format(today));
+                 break;
+             case "Yesterday" :
+                 searchCriterial.setCreatedStartDate(dateFormat.format(yesterday));
+                 searchCriterial.setCreatedEndDate(dateFormat.format(yesterday));
+                 break;
          }
-         else {
-             searchCriterial.setHidden(false);
+         String modifiedOption = view.getModifiedOptions();
+         switch(modifiedOption) {
+             case "All Time" :
+                 searchCriterial.setModifiedStartDate("");
+                 searchCriterial.setModifiedEndDate("");
+                 break;
+             case "Time Range" :
+                 searchCriterial.setModifiedStartDate(dateFormat.format(view.getFromModifiedDate()));
+                 searchCriterial.setModifiedEndDate(dateFormat.format(view.getToModifiedDate()));
+                 break;
+             case "Today" :
+                 searchCriterial.setModifiedStartDate(dateFormat.format(today));
+                 searchCriterial.setModifiedEndDate(dateFormat.format(today));
+                 break;
+             case "Yesterday" :
+                 searchCriterial.setModifiedStartDate(dateFormat.format(yesterday));
+                 searchCriterial.setModifiedEndDate(dateFormat.format(yesterday));
+                 break;
          }
-         if (view.getReadOnly().trim().toUpperCase()=="YES"){
-             searchCriterial.setReadOnly(true);
-         }
-         else {
-             searchCriterial.setReadOnly(false);
+         String accessedOption = view.getAccessedOptions();
+         switch(modifiedOption) {
+             case "All Time" :
+                 searchCriterial.setAccessedStartDate("");
+                 searchCriterial.setAccessedEndDate("");
+                 break;
+             case "Time Range" :
+                 searchCriterial.setAccessedStartDate(dateFormat.format(view.getFromModifiedDate()));
+                 searchCriterial.setAccessedEndDate(dateFormat.format(view.getToModifiedDate()));
+                 break;
+             case "Today" :
+                 searchCriterial.setAccessedStartDate(dateFormat.format(today));
+                 searchCriterial.setAccessedEndDate(dateFormat.format(today));
+                 break;
+             case "Yesterday" :
+                 searchCriterial.setAccessedStartDate(dateFormat.format(yesterday));
+                 searchCriterial.setAccessedEndDate(dateFormat.format(yesterday));
+                 break;
          }
      }
 
     /*
     *
+     *  method that listen action in UI from user and according to action send operation commands to model
+     *
+     */
+     public void configureModelData(){
+         this.model.setFileName(view.getFileName());
+         this.model.setFileDirectory(view.getPathName());
+         this.model.setOwnerName(view.getOwnerValue());
+         this.model.setHidden(Boolean.valueOf(view.getHidden()));
+         this.model.setReadOnly(Boolean.valueOf(view.getReadOnly()));
+         this.model.setFileType(view.getTypeFile());
+         this.model.setContains(view.getContains());
+         this.model.setSizeOption(view.getSizeOptions());
+         this.model.setSize((Long.valueOf(view.getSizeValue()))*1024);
+         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+         Calendar calendar = Calendar.getInstance();
+         Date today = calendar.getTime();
+         calendar.add(Calendar.DATE,-1);
+         Date yesterday = calendar.getTime();
+         String createdOption = view.getCreatedOptions();
+         switch(createdOption) {
+             case "All Time" :
+                 this.model.setCreatedStartDate("");
+                 this.model.setCreatedEndDate("");
+                 break;
+             case "Time Range" :
+                 this.model.setCreatedStartDate(dateFormat.format(view.getFromCreatedDate()));
+                 this.model.setCreatedEndDate(dateFormat.format(view.getToCreatedDate()));
+                 break;
+             case "Today" :
+                 this.model.setCreatedStartDate(dateFormat.format(today));
+                 this.model.setCreatedEndDate(dateFormat.format(today));
+                 break;
+             case "Yesterday" :
+                 this.model.setCreatedStartDate(dateFormat.format(yesterday));
+                 this.model.setCreatedEndDate(dateFormat.format(yesterday));
+                 break;
+         }
+         String modifiedOption = view.getModifiedOptions();
+         switch(modifiedOption) {
+             case "All Time" :
+                 this.model.setModifiedStartDate("");
+                 this.model.setModifiedEndDate("");
+                 break;
+             case "Time Range" :
+                 this.model.setModifiedStartDate(dateFormat.format(view.getFromModifiedDate()));
+                 this.model.setModifiedEndDate(dateFormat.format(view.getToModifiedDate()));
+                 break;
+             case "Today" :
+                 this.model.setModifiedStartDate(dateFormat.format(today));
+                 this.model.setModifiedEndDate(dateFormat.format(today));
+                 break;
+             case "Yesterday" :
+                 this.model.setModifiedStartDate(dateFormat.format(yesterday));
+                 this.model.setModifiedEndDate(dateFormat.format(yesterday));
+                 break;
+         }
+         String accessedOption = view.getAccessedOptions();
+         switch(modifiedOption) {
+             case "All Time" :
+                 this.model.setAccessedStartDate("");
+                 this.model.setAccessedEndDate("");
+                 break;
+             case "Time Range" :
+                 this.model.setAccessedStartDate(dateFormat.format(view.getFromModifiedDate()));
+                 this.model.setAccessedEndDate(dateFormat.format(view.getToModifiedDate()));
+                 break;
+             case "Today" :
+                 this.model.setAccessedStartDate(dateFormat.format(today));
+                 this.model.setAccessedEndDate(dateFormat.format(today));
+                 break;
+             case "Yesterday" :
+                 this.model.setAccessedStartDate(dateFormat.format(yesterday));
+                 this.model.setAccessedEndDate(dateFormat.format(yesterday));
+                 break;
+         }
+
+     }
+
+    /*
+    *
     *  method that listen action in UI from user and according to action send operation commands to model    *
+    *
     */
     public void searchButtonActionListener() {
         String validateResult = validateData();
@@ -101,12 +242,7 @@ public class SearchController {
             // Configure SearchCriterial class with UI's data
             configureSearchCriterial();
             // Configure data for model side
-            this.model.setFileName(view.getFileName());
-            this.model.setFileDirectory(view.getPathName());
-            this.model.setOwnerName(view.getOwnerValue());
-            this.model.setHidden(Boolean.valueOf(view.getHidden()));
-            this.model.setReadOnly(Boolean.valueOf(view.getReadOnly()));
-            this.model.setFileType(view.getTypeFile());
+            configureModelData();
             // execute the search process
             this.model.getFileObjectList().clear();
             this.model.searchFile(view.getPathName());
