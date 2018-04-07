@@ -79,4 +79,18 @@ import java.util.regex.Pattern;
        }
        else return true;
    }
+
+    /**
+     *
+     * validSizeValue method checks value entered for size is a valid format, it can be integer or decimal value
+     *
+     */
+   public boolean isValidateSizeValue(String size){
+       try {
+           Double doubleSize = Double.parseDouble(size);
+       }
+       catch (NullPointerException npe) { return false;}
+       catch (NumberFormatException nfe){ return false;}
+       return true;
+   }
 }

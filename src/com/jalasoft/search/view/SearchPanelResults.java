@@ -67,7 +67,7 @@ public class SearchPanelResults extends JPanel {
                     "Location",
                     "Extension",
                     "Date Modified",
-                    "Size"};
+                    "Size (KB)"};
 
             Object[][] data = {
                     {"", "", "", "", ""}};
