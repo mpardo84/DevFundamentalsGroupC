@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class Search
     private boolean readOnly;
     private boolean hidden;
     private FileObject fileObject;
-    private Long size;
+    private Double size;
     private String dateModified;
     private String sizeOption;
     private String contains;
@@ -62,7 +63,7 @@ public class Search
         this.ownerName = "";
         this.dateModified = "";
         this.sizeOption = "";
-        this.size = 0L;
+        this.size = 0D;
         this.contains = "";
         this.createdStartDate = new Date(1900,01,01);
         this.createdEndDate = new Date(2099,12,12);
@@ -147,7 +148,7 @@ public class Search
      *
      * @param size  the hidden file option
      */
-    public void setSize(Long size) {
+    public void setSize(Double size) {
         this.size = size;
     }
 
@@ -289,9 +290,10 @@ public class Search
         fileObject.setHidden(hidden);
         fileObjectList.add(fileObject);
         try {
+            Date date = new Date(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toMillis());
             fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
-            fileObject.setDateModified(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toString()) ;
-            fileObject.setSize(Long.toString(Files.size(Paths.get(file.getAbsolutePath()))));
+            fileObject.setDateModified(date);
+            fileObject.setSize(Files.size(Paths.get(file.getAbsolutePath())));
         } catch (IOException e) {
             e.printStackTrace();
         }

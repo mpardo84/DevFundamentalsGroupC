@@ -64,7 +64,11 @@ public class SearchController {
             if (validator.areRequiredFieldsFilled(view.getPathName()) == true) {
                 if (validator.isValidPath(view.getPathName())) {
                     if ((validator.isValidFileName(view.getFileName()) == true) || (view.getFileName().isEmpty())) {
-                        return null;
+                        if (validator.isValidateSizeValue(view.getSizeValue()) || view.getSizeValue().isEmpty()){
+                            return null;
+                        }else{
+                            return "Size value is invalid";
+                        }
                     } else {
                         return "File name is invalid";
                     }
@@ -81,7 +85,11 @@ public class SearchController {
             if (validator.areRequiredFieldsFilled(view.getDirPath()) == true) {
                 if (validator.isValidPath(view.getDirPath())) {
                     if ((validator.isValidFileName(view.getDirName()) == true) || (view.getDirName().isEmpty())) {
-                        return null;
+                        if((validator.isValidateSizeValue(view.getSizeDirValue())) || (view.getSizeDirValue().isEmpty())){
+                            return null;
+                        }else{
+                            return "Directory size value is invalid";
+                        }
                     } else {
                         return "Directory name is invalid";
                     }
@@ -110,68 +118,74 @@ public class SearchController {
          searchCriterial.setReadOnly(Boolean.valueOf(view.getReadOnly()));
          searchCriterial.setContains(view.getContains());
          searchCriterial.setSizeOption(view.getSizeOptions());
-         searchCriterial.setSize((Long.valueOf(view.getSizeValue()))*1024);
          searchCriterial.setFileType(view.getTypeFile());
-         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+         if (view.getSizeValue().isEmpty()){
+             searchCriterial.setSize(0D);
+         } else {
+         searchCriterial.setSize((Double.parseDouble(view.getSizeValue()))*1024);
+         }
          Calendar calendar = Calendar.getInstance();
+         calendar.set(Calendar.HOUR, 0);
+         calendar.set(Calendar.MINUTE, 0);
+         calendar.set(Calendar.SECOND, 0);
          Date today = calendar.getTime();
          calendar.add(Calendar.DATE,-1);
          Date yesterday = calendar.getTime();
          String createdOption = view.getCreatedOptions();
          switch(createdOption) {
              case "All Time" :
-                 searchCriterial.setCreatedStartDate("");
-                 searchCriterial.setCreatedEndDate("");
+                 this.model.setCreatedStartDate(new Date(1900,01,01));
+                 this.model.setCreatedEndDate(new Date(2099,12,12));
                  break;
              case "Time Range" :
-                 searchCriterial.setCreatedStartDate(dateFormat.format(view.getFromCreatedDate()));
-                 searchCriterial.setCreatedEndDate(dateFormat.format(view.getToCreatedDate()));
+                 searchCriterial.setCreatedStartDate(view.getFromCreatedDate());
+                 searchCriterial.setCreatedEndDate(view.getToCreatedDate());
                  break;
              case "Today" :
-                 searchCriterial.setCreatedStartDate(dateFormat.format(today));
-                 searchCriterial.setCreatedEndDate(dateFormat.format(today));
+                 searchCriterial.setCreatedStartDate(today);
+                 searchCriterial.setCreatedEndDate(today);
                  break;
              case "Yesterday" :
-                 searchCriterial.setCreatedStartDate(dateFormat.format(yesterday));
-                 searchCriterial.setCreatedEndDate(dateFormat.format(yesterday));
+                 searchCriterial.setCreatedStartDate(yesterday);
+                 searchCriterial.setCreatedEndDate(yesterday);
                  break;
          }
          String modifiedOption = view.getModifiedOptions();
          switch(modifiedOption) {
              case "All Time" :
-                 searchCriterial.setModifiedStartDate("");
-                 searchCriterial.setModifiedEndDate("");
+                 this.model.setModifiedEndDate(new Date(1900,01,01));
+                 this.model.setModifiedEndDate(new Date(2099,12,12));
                  break;
              case "Time Range" :
-                 searchCriterial.setModifiedStartDate(dateFormat.format(view.getFromModifiedDate()));
-                 searchCriterial.setModifiedEndDate(dateFormat.format(view.getToModifiedDate()));
+                 searchCriterial.setModifiedStartDate(view.getFromModifiedDate());
+                 searchCriterial.setModifiedEndDate(view.getToModifiedDate());
                  break;
              case "Today" :
-                 searchCriterial.setModifiedStartDate(dateFormat.format(today));
-                 searchCriterial.setModifiedEndDate(dateFormat.format(today));
+                 searchCriterial.setModifiedStartDate(today);
+                 searchCriterial.setModifiedEndDate(today);
                  break;
              case "Yesterday" :
-                 searchCriterial.setModifiedStartDate(dateFormat.format(yesterday));
-                 searchCriterial.setModifiedEndDate(dateFormat.format(yesterday));
+                 searchCriterial.setModifiedStartDate(yesterday);
+                 searchCriterial.setModifiedEndDate(yesterday);
                  break;
          }
          String accessedOption = view.getAccessedOptions();
          switch(modifiedOption) {
              case "All Time" :
-                 searchCriterial.setAccessedStartDate("");
-                 searchCriterial.setAccessedEndDate("");
+                 searchCriterial.setAccessedStartDate(new Date(1900,01,01));
+                 searchCriterial.setAccessedEndDate(new Date(2099,12,12));
                  break;
              case "Time Range" :
-                 searchCriterial.setAccessedStartDate(dateFormat.format(view.getFromModifiedDate()));
-                 searchCriterial.setAccessedEndDate(dateFormat.format(view.getToModifiedDate()));
+                 searchCriterial.setAccessedStartDate(view.getFromModifiedDate());
+                 searchCriterial.setAccessedEndDate(view.getToModifiedDate());
                  break;
              case "Today" :
-                 searchCriterial.setAccessedStartDate(dateFormat.format(today));
-                 searchCriterial.setAccessedEndDate(dateFormat.format(today));
+                 searchCriterial.setAccessedStartDate(today);
+                 searchCriterial.setAccessedEndDate(today);
                  break;
              case "Yesterday" :
-                 searchCriterial.setAccessedStartDate(dateFormat.format(yesterday));
-                 searchCriterial.setAccessedEndDate(dateFormat.format(yesterday));
+                 searchCriterial.setAccessedStartDate(yesterday);
+                 searchCriterial.setAccessedEndDate(yesterday);
                  break;
          }
      }
@@ -190,9 +204,16 @@ public class SearchController {
          this.model.setFileType(view.getTypeFile());
          this.model.setContains(view.getContains());
          this.model.setSizeOption(view.getSizeOptions());
-         this.model.setSize((Long.valueOf(view.getSizeValue()))*1024);
-         //DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+         if (view.getSizeValue().isEmpty()){
+             this.model.setSize(0D);
+         } else {
+             this.model.setSize((Double.parseDouble(view.getSizeValue()))*1024);
+             System.out.println(((Double.parseDouble(view.getSizeValue()))*1024));
+         }
          Calendar calendar = Calendar.getInstance();
+         calendar.set(Calendar.HOUR, 0);
+         calendar.set(Calendar.MINUTE, 0);
+         calendar.set(Calendar.SECOND, 0);
          Date today = calendar.getTime();
          calendar.add(Calendar.DATE,-1);
          Date yesterday = calendar.getTime();
@@ -281,11 +302,12 @@ public class SearchController {
                 Object rowData[]=new Object[5];
                 for (FileObject file : searchResult)
                 {
+                    double fileSize = file.getSize();
                     rowData[0]=file.getFileName();
                     rowData[1]=file.getFileDirectory();
                     rowData[2]=file.getFileType();
                     rowData[3]=file.getDateModified();
-                    rowData[4]=file.getSize();
+                    rowData[4]= String.format("%.2f", fileSize/1024);
                     this.view.getTable().addRow(rowData);
                 }
             }

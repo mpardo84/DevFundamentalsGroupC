@@ -34,22 +34,22 @@ public class SearchCriterial {
     private String contains;
     private String owner;
     private String sizeOption;
-    private Long size;
+    private Double size;
     private boolean readOnly;
     private boolean hidden;
-    private String createdStartDate;
-    private String createdEndDate;
-    private String modifiedStartDate;
-    private String modifiedEndDate;
-    private String accessedStartDate;
-    private String accessedEndDate;
+    private Date createdStartDate;
+    private Date createdEndDate;
+    private Date modifiedStartDate;
+    private Date modifiedEndDate;
+    private Date accessedStartDate;
+    private Date accessedEndDate;
 
     public SearchCriterial(){}
 
     public  SearchCriterial(String fileName, String filePath, String fileType, String contains, String owner,
-                            String sizeOption, Long size,  boolean hidden, boolean readOnly, String createdStartDate,
-                            String createdEndDate, String  modifiedStartDate, String modifiedEndDate,
-                            String accessedStartDate, String accessedEndDate ){
+                            String sizeOption, Double size,  boolean hidden, boolean readOnly, Date createdStartDate,
+                            Date createdEndDate, Date  modifiedStartDate, Date modifiedEndDate,
+                            Date accessedStartDate, Date accessedEndDate ){
         this.fileName = fileName;
         this.filePath = filePath;
         this.fileType = fileType;
@@ -92,7 +92,7 @@ public class SearchCriterial {
     public String  getSizeOption(){return this.sizeOption; }
 
     // Method to get the size of file
-    public  Long  getSize(){return this.size; }
+    public  Double  getSize(){return this.size; }
 
     // Method to get the value of hidden property
     public boolean getHidden() {
@@ -105,22 +105,22 @@ public class SearchCriterial {
     }
 
     // Method to get start date of created date of file
-    public String getCreatedDateStart(){return this.createdStartDate;}
+    public Date getCreatedDateStart(){return this.createdStartDate;}
 
     // Method to get end date of created date of file
-    public String getCreatedDateEnd(){return this.createdEndDate;}
+    public Date getCreatedDateEnd(){return this.createdEndDate;}
 
     // Method to get start date of modified date of file
-    public String getModifiedDateStart(){return this.modifiedStartDate;}
+    public Date getModifiedDateStart(){return this.modifiedStartDate;}
 
     // Method to get end date of modified date of file
-    public String getModifiedDateEnd(){return this.modifiedEndDate;}
+    public Date getModifiedDateEnd(){return this.modifiedEndDate;}
 
     // Method to get start date of accessed date of file
-    public String getAccessedDateStart(){return this.accessedStartDate;}
+    public Date getAccessedDateStart(){return this.accessedStartDate;}
 
     // Method to get end date of accessed date of file
-    public String getAccessedDateEnd(){return this.accessedEndDate;}
+    public Date getAccessedDateEnd(){return this.accessedEndDate;}
 
     // Method to set the value fileName
     public void setFileName(String fileName) {
@@ -162,37 +162,37 @@ public class SearchCriterial {
         this.sizeOption = sizeOption;
     }
     // Method  to set the value of  file size
-    public void setSize( Long size) {
+    public void setSize( Double size) {
         this.size = size;
     }
 
     // Method  to set the value of start date of created date of file
-    public void setCreatedStartDate( String createdStartDate) {
+    public void setCreatedStartDate( Date createdStartDate) {
         this.createdStartDate = createdStartDate;
     }
 
     // Method  to set the value of end date of created date of file
-    public void setCreatedEndDate(String createdEndDate) {
+    public void setCreatedEndDate(Date createdEndDate) {
         this.createdEndDate = createdEndDate;
     }
 
     // Method  to set the value of start date of modified date of file
-    public void setModifiedStartDate(String modifiedStartDate) {
+    public void setModifiedStartDate(Date modifiedStartDate) {
         this.modifiedStartDate = modifiedStartDate;
     }
 
     // Method  to set the value of start date of modified date of file
-    public void setModifiedEndDate(String modifiedEndDate) {
+    public void setModifiedEndDate(Date modifiedEndDate) {
         this.modifiedEndDate = modifiedEndDate;
     }
 
     // Method  to set the value of start date of accessed date of file
-    public void setAccessedStartDate(String accessedStartDate) {
+    public void setAccessedStartDate(Date accessedStartDate) {
         this.accessedStartDate = accessedStartDate;
     }
 
     // Method  to set the value of end date of accessed date of file
-    public void setAccessedEndDate(String accessedEndDate) {
+    public void setAccessedEndDate(Date accessedEndDate) {
         this.accessedEndDate = accessedEndDate;
     }
 }

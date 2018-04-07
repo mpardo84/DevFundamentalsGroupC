@@ -15,6 +15,7 @@
 package com.jalasoft.search.model;
 
 import java.io.File;
+import java.util.Date;
 
 /**
  *
@@ -29,8 +30,8 @@ public class FileObject {
     private String ownerName;
     private boolean readOnly;
     private boolean hidden;
-    private String size;
-    private String dateModified;
+    private Long size;
+    private Date dateModified;
 
     public FileObject()
     {
@@ -92,19 +93,19 @@ public class FileObject {
         return hidden;
     }
 
-    public String getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public String getDateModified() {
+    public Date getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(String dateModified) {
+    public void setDateModified(Date dateModified) {
         this.dateModified = dateModified;
     }
 
-    public void setSize(String size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 }
