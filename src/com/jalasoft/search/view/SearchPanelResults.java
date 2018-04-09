@@ -32,10 +32,11 @@ import javax.swing.table.DefaultTableModel;
 Monica Pardo */
 public class SearchPanelResults extends JPanel {
     private JTable table;
+    private JTable dirTable;
     private Object[][] data;
     private String[] columnNames;
     private DefaultTableModel tableModel;
-    private String typeObject;
+    private DefaultTableModel dirTableModel;
 
     public SearchPanelResults(String typeObect) {
         super(new GridLayout(1,0));
@@ -49,10 +50,19 @@ public class SearchPanelResults extends JPanel {
 
     }
 
+    public void setDirTable(JTable dirTable) {
+        this.dirTable = dirTable;
+    }
+
     //Method that allow to get the Table model
     public DefaultTableModel getTable() {
         return tableModel;
     }
+
+    public DefaultTableModel getDirTableModel() {
+        return dirTableModel;
+    }
+
 
     //Method that allows to set the Columns for the table
     public void setColumnNames(String[] columnNames) {
@@ -87,11 +97,11 @@ public class SearchPanelResults extends JPanel {
 
             Object[][] data = {
                     {"", "", "", "", "",""}};
-            tableModel = new DefaultTableModel(data, columnNames);
-            table = new JTable(tableModel);
-            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-            table.setFillsViewportHeight(true);
-            JScrollPane scrollPane = new JScrollPane(table);
+            dirTableModel = new DefaultTableModel(data, columnNames);
+            dirTable = new JTable(dirTableModel);
+            dirTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            dirTable.setFillsViewportHeight(true);
+            JScrollPane scrollPane = new JScrollPane(dirTable);
             add(scrollPane);
         }
     }

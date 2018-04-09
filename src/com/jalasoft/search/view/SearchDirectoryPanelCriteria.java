@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -82,12 +83,14 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     private JDateChooser toAccessedDirDate;
     private  String[] comboBoxTimeValues;
     private String message;
-    private String typeObject;
+    private  ImageIcon saveIcon;
+    private ImageIcon cancelIcon;
+    private ImageIcon searchIcon;
+    private ImageIcon browseIcon;
 
     public SearchDirectoryPanelCriteria() {
          setLayout(null);
         comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
-        //this.setBackground(new Color(224, 224, 224));
         generalSearchCriteria();
         searchAttributesSection();
         searchDirTimeSection();
@@ -165,10 +168,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         this.message = message;
     }
 
-    //Get Method to set the type of the objetct is this is a File or not
-    public String getTypeObject(){
-        return typeObject="Directory";
-    }
+
     //method to allows get the size dir option value
     public String getSizeDirOptions() {
         return (String)sizeDirOptions.getSelectedItem();
@@ -209,8 +209,10 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         pathDirValue = new JTextField();
         pathDirValue.setBounds(130, 50, 200, 25);
         pathDirValue.setBackground(new Color(255,255,204));
-        browseButton = new JButton("browse");
-        browseButton.setBounds(340,50,80,20);
+        browseIcon = new ImageIcon(
+                this.getClass().getResource("/images/folder.png"));
+        browseButton = new JButton("Browse",browseIcon);
+        browseButton.setBounds(340,50,105,20);
 
         nameLabel = new JLabel("Directory Name:");
         nameLabel.setBounds(30, 90, 100, 20);
@@ -224,14 +226,31 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         ownerDirField.setBackground(new Color(255,255,204));
         sizeDirLabel = new JLabel("Directory Size:");
         sizeDirLabel.setBounds(40, 170, 100, 20);
-        String[] comboBoxSizesValues = { "=", ">","<" };
+        String[] comboBoxSizesValues = { "","=", ">","<" };
         sizeDirOptions = new JComboBox(comboBoxSizesValues);
         sizeDirOptions.setBounds(130, 170, 40, 25);
         sizeDirValue=new JTextField();
         sizeDirValue.setBounds(175, 170, 80, 25);
-        sizeDirValue.setBackground(new Color(255,255,204));
+        sizeDirValue.setBackground(new Color(224,224,224));
+        sizeDirValue.setEnabled(false);
         defaultDirSize=new JLabel("Kb");
         defaultDirSize.setBounds(260, 170, 20, 25);
+        sizeDirOptions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                String option = (String) sizeDirOptions.getSelectedItem();
+                if (option.equals("")) {
+                    sizeDirValue.setEnabled(false);
+                    sizeDirValue.setText("");
+                    sizeDirValue.setBackground(new Color(224,224,224));
+                }
+                else
+                {
+                    sizeDirValue.setBackground(new Color(255,255,204));
+                    sizeDirValue.setEnabled(true);
+                }
+            }
+        });
 
         separator=new JSeparator();
         separator.setBounds(0, 240, 500, 20);
@@ -317,13 +336,18 @@ public class SearchDirectoryPanelCriteria extends JPanel {
 
     //This method allows to create the buttons
     public void searchPanelButtons(){
-
-        saveDirButton=new JButton("Save");
-        saveDirButton.setBounds(110,600,80,20);
-        searchDirButton=new JButton("Search");
-        searchDirButton.setBounds(210,600,80,20);
-        closeDirButton=new JButton("Closed");
-        closeDirButton.setBounds(310,600,80,20);
+        saveIcon = new ImageIcon(
+                this.getClass().getResource("/images/save.png"));
+        saveDirButton=new JButton("Save",saveIcon);
+        saveDirButton.setBounds(110,600,90,20);
+        searchIcon = new ImageIcon(
+                this.getClass().getResource("/images/edit_find.png"));
+        searchDirButton=new JButton("Search",searchIcon);
+        searchDirButton.setBounds(205,600,100,20);
+        cancelIcon = new ImageIcon(
+                this.getClass().getResource("/images/close.png"));
+        closeDirButton=new JButton("Close",cancelIcon);
+        closeDirButton.setBounds(310,600,90,20);
         add(saveDirButton);
         add(searchDirButton);
         add(closeDirButton);

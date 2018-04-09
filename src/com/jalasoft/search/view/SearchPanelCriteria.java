@@ -96,6 +96,7 @@ public class SearchPanelCriteria extends JPanel {
     private  ImageIcon saveIcon;
     private ImageIcon cancelIcon;
     private ImageIcon searchIcon;
+    private ImageIcon browseIcon;
 
     public SearchPanelCriteria() {
         setLayout(null);
@@ -253,8 +254,10 @@ public class SearchPanelCriteria extends JPanel {
         pathValue = new JTextField();
         pathValue.setBounds(120, 50, 200, 25);
         pathValue.setBackground(new Color(240,248,255));
-        browseButton = new JButton("browse");
-        browseButton.setBounds(325,50,80,23);
+        browseIcon = new ImageIcon(
+                this.getClass().getResource("/images/folder.png"));
+        browseButton = new JButton("Browse",browseIcon);
+        browseButton.setBounds(325,50,105,23);
 
         nameLabel = new JLabel("File Name:");
         nameLabel.setBounds(30, 85, 80, 20);
@@ -287,14 +290,31 @@ public class SearchPanelCriteria extends JPanel {
 
         sizeLabel = new JLabel("File Size:");
         sizeLabel.setBounds(30, 240, 80, 20);
-        String[] comboBoxSizesValues = { "=", ">","<" };
+        String[] comboBoxSizesValues = { "","=", ">","<" };
         sizeOptions = new JComboBox(comboBoxSizesValues);
         sizeOptions.setBounds(120, 240, 40, 25);
-        sizeValue=new JTextField();
+        sizeValue = new JTextField();
         sizeValue.setBounds(165, 240, 80, 25);
-        sizeValue.setBackground(new Color(240,248,255));
-        defaultSize=new JLabel("Kb");
+        sizeValue.setBackground(new Color(224,224,224));
+        sizeValue.setEnabled(false);
+        defaultSize = new JLabel("Kb");
         defaultSize.setBounds(250, 240, 20, 25);
+        sizeOptions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                String option = (String) sizeOptions.getSelectedItem();
+                if (option.equals("")) {
+                    sizeValue.setEnabled(false);
+                    sizeValue.setText("");
+                    sizeValue.setBackground(new Color(224,224,224));
+                }
+                else
+                {
+                    sizeValue.setEnabled(true);
+                    sizeValue.setBackground(new Color(240, 248, 255));
+                }
+            }
+        });
         separator=new JSeparator();
         separator.setBounds(0, 275, 500, 20);
 

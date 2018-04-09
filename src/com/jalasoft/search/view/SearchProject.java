@@ -13,11 +13,7 @@
  */
 
 package com.jalasoft.search.view;
-import javax.swing.JFrame;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -73,11 +69,13 @@ public class SearchProject extends JFrame{
         h = gd.getDisplayMode().getHeight();
 
         this.setBounds(0, 0,w,h);
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(w, h);
         this.setTitle(title);
         this.setVisible(true);
         this.setResizable(false);
+       
     }
 
     //Method that allows to get the name for the field from UI
@@ -263,19 +261,24 @@ public class SearchProject extends JFrame{
         return directoryPanel.getToAccessedDirDate();
     }
 
-    //Get method to get the size Option value
+    //Get method to get the size Option value for Directory panel
     public String getSizeDirOptions() {
         return directoryPanel.getSizeDirOptions();
     }
 
-    //Get method to get the size
+    //Get method to get the size for Directory panel
     public String getSizeDirValue() {
         return directoryPanel.getSizeDirValue();
     }
 
-    //Method that allows to get the search button
+    //Method that allows to get the search button for Directory panel
     public JButton getSearchDir(){
         return directoryPanel.getSearchDir();
+    }
+
+    //Method that allows to get the Table result for directory
+    public DefaultTableModel getDirTable() {
+        return directoryPanel.getDirTable();
     }
 
 }

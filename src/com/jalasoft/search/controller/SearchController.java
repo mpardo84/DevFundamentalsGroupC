@@ -13,6 +13,7 @@
  */
 package com.jalasoft.search.controller;
 
+import com.jalasoft.search.model.DirectoryObject;
 import com.jalasoft.search.model.FileObject;
 import com.jalasoft.search.model.Search;
 import com.jalasoft.search.model.SearchCriterial;
@@ -118,6 +119,7 @@ public class SearchController {
          searchCriterial.setReadOnly(Boolean.valueOf(view.getReadOnly()));
          searchCriterial.setContains(view.getContains());
          searchCriterial.setSizeOption(view.getSizeOptions());
+         searchCriterial.setCreatedOption(view.getCreatedOptions());
          searchCriterial.setFileType(view.getTypeFile());
          if (view.getSizeValue().isEmpty()){
              searchCriterial.setSize(0D);
@@ -134,18 +136,22 @@ public class SearchController {
          String createdOption = view.getCreatedOptions();
          switch(createdOption) {
              case "All Time" :
+                 this.model.setCreatedOption("All Time");
                  this.model.setCreatedStartDate(new Date(1900,01,01));
                  this.model.setCreatedEndDate(new Date(2099,12,12));
                  break;
              case "Time Range" :
+                 this.model.setCreatedOption("Time Range");
                  searchCriterial.setCreatedStartDate(view.getFromCreatedDate());
                  searchCriterial.setCreatedEndDate(view.getToCreatedDate());
                  break;
              case "Today" :
+                  this.model.setCreatedOption("Today");
                  searchCriterial.setCreatedStartDate(today);
                  searchCriterial.setCreatedEndDate(today);
                  break;
              case "Yesterday" :
+                 this.model.setCreatedOption("Yesterday");
                  searchCriterial.setCreatedStartDate(yesterday);
                  searchCriterial.setCreatedEndDate(yesterday);
                  break;
@@ -276,7 +282,25 @@ public class SearchController {
          }
 
      }
+    /*
+     *
+     *  method that listen action in UI from user and according to action send operation commands to model
+     *
+     */
+    public void configureModelDataDirectory(){
+        this.model.setDirectoryName(view.getDirName());
+        this.model.setDirectoryPath(view.getDirPath());
+        this.model.setOwnerDirName(view.getDirOwner());
+        this.model.setHiddenDir(Boolean.valueOf(view.getDirHidden()));
+        this.model.setReadOnlyDir(Boolean.valueOf(view.getDirReadOnly()));
+        this.model.setSizeDirOption(view.getSizeDirOptions());
+        if (view.getSizeDirValue().isEmpty()){
+            this.model.setSizeDir(0D);
+        } else {
+            this.model.setSizeDir(Double.parseDouble(view.getSizeDirValue())*1024);
+        }
 
+    }
     /*
     *
     *  method that listen action in UI from user and according to action send operation commands to model    *
@@ -323,7 +347,31 @@ public class SearchController {
     public void searchButtonDirectoryActionListener() {
         String validateResult = validateData("Directory");
         if (validateResult == null) {
-            System.out.println("Is in the Search Directory");
+             // Configure data for model side
+            configureModelDataDirectory();
+            // execute the search process
+            this.model.getDirectoryObjectList().clear();
+            this.model.searchDirectory(view.getPathName());
+            // Display search result in UI
+            this.view.getDirTable().setRowCount(0);
+            List<DirectoryObject> searchResult = this.model.getDirectoryObjectList();
+            if (searchResult.isEmpty()) {
+                this.view.setMessage("Directory not found with the selected criteria");
+            }
+            else{
+                Object rowData[]=new Object[6];
+                for (DirectoryObject dir : searchResult)
+                {
+                    double dirSize = dir.getSizeDir();
+                    rowData[0]=dir.getDirectoryName();
+                    rowData[1]=dir.getDirectoryPath();
+                    rowData[2]=dir.getHiddenDir();
+                    rowData[3]=dir.getDateModifiedDir();
+                    rowData[4]=String.format("%.2f", dirSize/1024);
+                    rowData[5]="10";
+                    this.view.getDirTable().addRow(rowData);
+                 }
+            }
         } else {
             // Display validation error messages
             this.view.setMessage(validateResult);
