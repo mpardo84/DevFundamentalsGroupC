@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,12 +82,12 @@ public class Search
         this.size = 0D;
         this.contains = "";
         this.createdOption="";
-        this.createdStartDate = new Date(1900,01,01);
-        this.createdEndDate = new Date(2099,12,12);
-        this.modifiedStartDate = new Date(1900,01,01);
-        this.modifiedEndDate = new Date(2099,12,12);
-        this.accessedStartDate = new Date(1900,01,01);
-        this.accessedEndDate = new Date(2099,12,12);
+        this.createdStartDate = new Date(1900-1900,01,01);
+        this.createdEndDate = new Date(2099-1900,12,12);
+        this.modifiedStartDate = new Date(1900-1900,01,01);
+        this.modifiedEndDate = new Date(2099-1900,12,12);
+        this.accessedStartDate = new Date(1900-1900,01,01);
+        this.accessedEndDate = new Date(2099-1900,12,12);
         Calendar calendar = Calendar.getInstance();
         this.directoryName="";
         this.directoryPath=new File("c:\\");
@@ -367,28 +370,31 @@ public class Search
                         if (file.canWrite() != readOnly)
                         {
                             try {
-
                                 if (Files.getOwner(Paths.get(file.getAbsolutePath())).getName().toLowerCase()
                                         .contains(ownerName.toLowerCase())) {
 
-                                    if (sizeOption == "" ) {
-                                        setFoundFileObject(file);
+                                    if (sizeOption == "" )
+                                    {
+                                        if (isWithinModifiedRange(file) || isWithinCreatedRange(file)|| isWithinAccessedRange(file))
+                                            setFoundFileObject(file);
                                     }
                                     else{
                                          if(sizeOption==">" &&(Files.size(Paths.get(file.getAbsolutePath()))) > this.size) {
-                                            setFoundFileObject(file);
+                                             if (isWithinModifiedRange(file) || isWithinCreatedRange(file)|| isWithinAccessedRange(file))
+                                                 setFoundFileObject(file);
                                         }
                                         else {
                                             if (sizeOption == "<" && (Files.size(Paths.get(file.getAbsolutePath()))) < this.size) {
-                                                setFoundFileObject(file);
+                                                if (isWithinModifiedRange(file) || isWithinCreatedRange(file)|| isWithinAccessedRange(file))
+                                                    setFoundFileObject(file);
                                             }
                                             else {
 
                                                 if (sizeOption == "=" && (Files.size(Paths.get(file.getAbsolutePath()))) == this.size) {
-                                                    setFoundFileObject(file);
+                                                    if (isWithinModifiedRange(file) || isWithinCreatedRange(file)|| isWithinAccessedRange(file))
+                                                        setFoundFileObject(file);
 
                                                 }
-
                                             }
                                         }
                                 }
@@ -474,6 +480,41 @@ public class Search
             e.printStackTrace();
         }
     }
+
+    private boolean isWithinModifiedRange(File file)
+    {
+        Date testDate = new Date(file.lastModified());
+        return !(testDate.before(modifiedStartDate) || testDate.after(modifiedEndDate));
+    }
+
+    private boolean isWithinCreatedRange(File file)
+    {
+        BasicFileAttributes fileAttributes;
+        DateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+            Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
+            return !(testDate.before(createdStartDate) || testDate.after(createdEndDate));
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean isWithinAccessedRange(File file)
+    {
+        BasicFileAttributes fileAttributes;
+        DateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+            Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
+            return !(testDate.before(accessedStartDate) || testDate.after(accessedEndDate));
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private void setFoundDirectoryObject(File file)
     {
         directoryObject = new DirectoryObject();

@@ -137,8 +137,8 @@ public class SearchController {
          switch(createdOption) {
              case "All Time" :
                  this.model.setCreatedOption("All Time");
-                 this.model.setCreatedStartDate(new Date(1900,01,01));
-                 this.model.setCreatedEndDate(new Date(2099,12,12));
+                 this.model.setCreatedStartDate(new Date(1900-1900,01,01));
+                 this.model.setCreatedEndDate(new Date(2099-1900,12,12));
                  break;
              case "Time Range" :
                  this.model.setCreatedOption("Time Range");
@@ -159,8 +159,8 @@ public class SearchController {
          String modifiedOption = view.getModifiedOptions();
          switch(modifiedOption) {
              case "All Time" :
-                 this.model.setModifiedEndDate(new Date(1900,01,01));
-                 this.model.setModifiedEndDate(new Date(2099,12,12));
+                 this.model.setModifiedEndDate(new Date(1900-1900,01,01));
+                 this.model.setModifiedEndDate(new Date(2099-1900,12,12));
                  break;
              case "Time Range" :
                  searchCriterial.setModifiedStartDate(view.getFromModifiedDate());
@@ -178,8 +178,8 @@ public class SearchController {
          String accessedOption = view.getAccessedOptions();
          switch(modifiedOption) {
              case "All Time" :
-                 searchCriterial.setAccessedStartDate(new Date(1900,01,01));
-                 searchCriterial.setAccessedEndDate(new Date(2099,12,12));
+                 searchCriterial.setAccessedStartDate(new Date(1900-1900,01,01));
+                 searchCriterial.setAccessedEndDate(new Date(2099-1900,12,12));
                  break;
              case "Time Range" :
                  searchCriterial.setAccessedStartDate(view.getFromModifiedDate());
@@ -226,8 +226,8 @@ public class SearchController {
          String createdOption = view.getCreatedOptions();
          switch(createdOption) {
              case "All Time" :
-                 this.model.setCreatedStartDate(new Date(1900,01,01));
-                 this.model.setCreatedEndDate(new Date(2099,12,12));
+                 this.model.setCreatedStartDate(new Date(1900-1900,01,01));
+                 this.model.setCreatedEndDate(new Date(2099-1900,12,12));
                  break;
              case "Time Range" :
                  this.model.setCreatedStartDate(view.getFromCreatedDate());
@@ -245,8 +245,8 @@ public class SearchController {
          String modifiedOption = view.getModifiedOptions();
          switch(modifiedOption) {
              case "All Time" :
-                 this.model.setModifiedStartDate(new Date(1900,01,01));
-                 this.model.setModifiedEndDate(new Date(2099,12,12));
+                 this.model.setModifiedStartDate(new Date(1900-1900,01,01));
+                 this.model.setModifiedEndDate(new Date(2099-1900,12,12));
                  break;
              case "Time Range" :
                  this.model.setModifiedStartDate(view.getFromModifiedDate());
@@ -264,8 +264,8 @@ public class SearchController {
          String accessedOption = view.getAccessedOptions();
          switch(modifiedOption) {
              case "All Time" :
-                 this.model.setAccessedStartDate(new Date(1900,01,01));
-                 this.model.setAccessedEndDate(new Date(2099,12,12));
+                 this.model.setAccessedStartDate(new Date(1900-1900,01,01));
+                 this.model.setAccessedEndDate(new Date(2099-1900,12,12));
                  break;
              case "Time Range" :
                  this.model.setAccessedStartDate(view.getFromModifiedDate());
