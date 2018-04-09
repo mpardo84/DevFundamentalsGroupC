@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -134,5 +135,9 @@ public class DirectoryPanel extends JPanel{
     public void setMessage(String message) {
         searchDirectoryCriteria.setMessage(message);
         searchDirectoryCriteria.validateRequiredField();
+    }
+    //Method that allows to get the Table
+    public DefaultTableModel getDirTable() {
+        return searchPanelResults.getDirTableModel();
     }
 }

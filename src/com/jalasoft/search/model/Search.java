@@ -19,11 +19,13 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.nio.file.attribute.*;
 
 
 /**
@@ -35,6 +37,7 @@ import java.util.List;
 public class Search
 {
     private List<FileObject> fileObjectList = new ArrayList<FileObject>();
+    private List<DirectoryObject> directoryObjectList = new ArrayList<DirectoryObject>();
     private String fileName;
     private String fileType;
     private File fileDirectory;
@@ -42,16 +45,26 @@ public class Search
     private boolean readOnly;
     private boolean hidden;
     private FileObject fileObject;
+    private DirectoryObject directoryObject;
     private Double size;
     private String dateModified;
     private String sizeOption;
     private String contains;
+    private String createdOption;
     private Date createdStartDate;
     private Date createdEndDate;
     private Date modifiedStartDate;
     private Date modifiedEndDate;
     private Date accessedStartDate;
     private Date accessedEndDate;
+    private String directoryName;
+    private File directoryPath;
+    private String ownerDirName;
+    private boolean readOnlyDir;
+    private boolean hiddenDir;
+    private Double sizeDir;
+    private String dateModifiedDir;
+    private String sizeDirOption;
 
     public Search()
     {
@@ -65,12 +78,22 @@ public class Search
         this.sizeOption = "";
         this.size = 0D;
         this.contains = "";
+        this.createdOption="";
         this.createdStartDate = new Date(1900,01,01);
         this.createdEndDate = new Date(2099,12,12);
         this.modifiedStartDate = new Date(1900,01,01);
         this.modifiedEndDate = new Date(2099,12,12);
         this.accessedStartDate = new Date(1900,01,01);
         this.accessedEndDate = new Date(2099,12,12);
+        Calendar calendar = Calendar.getInstance();
+        this.directoryName="";
+        this.directoryPath=new File("c:\\");
+        this.ownerDirName="";
+        this.readOnlyDir=false;
+        this.hiddenDir=false;
+        this.sizeDir=0D;
+        this.dateModifiedDir="";
+        this.sizeDirOption = "";
     }
 
     /**
@@ -142,7 +165,14 @@ public class Search
     public void setSizeOption(String sizeOption) {
         this.sizeOption = sizeOption;
     }
-
+    /**
+     * This method is going to set the Created option
+     *
+     * @param createdOption  the hidden file option
+     */
+    public void setCreatedOption(String createdOption) {
+        this.createdOption = createdOption;
+    }
     /**
      * This method is going to set the size of file
      *
@@ -215,13 +245,101 @@ public class Search
         this.accessedEndDate = accessedEndDate;
     }
 
+    /**
+     * This method is going to get the files objects
+     */
     public List<FileObject> getFileObjectList()
     {
         return this.fileObjectList;
     }
 
+    /**
+     * This method is going to get the directory objects
+     */
+    public List<DirectoryObject> getDirectoryObjectList()
+    {
+        return this.directoryObjectList;
+    }
+
+    /**
+     * This method is going to set the date modified for the file
+     *
+     * @param dateModified the date modified option
+     */
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
+    }
+
+    /**
+     * This method is going to set the directory path
+     *
+     * @param directoryPath the path value
+     */
+    public void setDirectoryPath(String directoryPath) {
+        this.directoryPath = new File(directoryPath);
+    }
+
+    /**
+     * This method is going to set the directory name
+     *
+     * @param directoryName the name value
+     */
+    public void setDirectoryName(String directoryName) {
+        this.directoryName = directoryName;
+    }
+
+    /**
+     * This method is going to set the hidden directory value
+     *
+     * @param hiddenDir the hidden value
+     */
+    public void setHiddenDir(boolean hiddenDir) {
+        this.hiddenDir = hiddenDir;
+    }
+
+    /**
+     * This method is going to set the read only directory value
+     *
+     * @param readOnlyDir the read only value
+     */
+    public void setReadOnlyDir(boolean readOnlyDir) {
+        this.readOnlyDir = readOnlyDir;
+    }
+
+    /**
+     * This method is going to set the date modified for the Directory
+     *
+     * @param dateModifiedDir the modified date value
+     */
+    public void setDateModifiedDir(String dateModifiedDir) {
+        this.dateModifiedDir = dateModifiedDir;
+    }
+
+    /**
+     * This method is going to set the size for the Directory
+     *
+     * @param sizeDir the size value
+     */
+    public void setSizeDir(Double sizeDir) {
+        this.sizeDir = sizeDir;
+    }
+
+    /**
+     * This method is going to set the options size for the Directory
+     *
+     * @param sizeDirOption the size options value
+     */
+    public void setSizeDirOption(String sizeDirOption) {
+        this.sizeDirOption = sizeDirOption;
+    }
+
+    /**
+     * This method is going to set the owner for the Directory
+     *
+     * @param ownerDirName the owner value
+     */
+    public void setOwnerDirName(String ownerDirName) {
+        this.ownerDirName = ownerDirName;
     }
 
     /**
@@ -233,6 +351,7 @@ public class Search
     {
         setFileDirectory(fileDir);
         File[] list = fileDirectory.listFiles();
+
         if(list!=null)
             for (File file : list)
             {
@@ -248,26 +367,31 @@ public class Search
                         if (file.canWrite() != readOnly)
                         {
                             try {
+
                                 if (Files.getOwner(Paths.get(file.getAbsolutePath())).getName().toLowerCase()
-                                        .contains(ownerName.toLowerCase()))
-                                {
-                                    switch(sizeOption) {
-                                        case "":
-                                            setFoundFileObject(file);
-                                            break;
-                                        case ">":
-                                            if (Files.size(Paths.get(file.getAbsolutePath())) > this.size)
-                                                setFoundFileObject(file);
-                                            break;
-                                        case "<":
-                                            if (Files.size(Paths.get(file.getAbsolutePath())) < this.size)
-                                                setFoundFileObject(file);
-                                            break;
-                                        case "=":
-                                            if (Files.size(Paths.get(file.getAbsolutePath())) == this.size)
-                                                setFoundFileObject(file);
-                                            break;
+                                        .contains(ownerName.toLowerCase())) {
+
+                                    if (sizeOption == "" ) {
+                                        setFoundFileObject(file);
                                     }
+                                    else{
+                                         if(sizeOption==">" &&(Files.size(Paths.get(file.getAbsolutePath()))) > this.size) {
+                                            setFoundFileObject(file);
+                                        }
+                                        else {
+                                            if (sizeOption == "<" && (Files.size(Paths.get(file.getAbsolutePath()))) < this.size) {
+                                                setFoundFileObject(file);
+                                            }
+                                            else {
+
+                                                if (sizeOption == "=" && (Files.size(Paths.get(file.getAbsolutePath()))) == this.size) {
+                                                    setFoundFileObject(file);
+
+                                                }
+
+                                            }
+                                        }
+                                }
 
                                 }
                             } catch (IOException e) {
@@ -277,6 +401,55 @@ public class Search
                     }
                 }
             }
+    }
+
+    public void searchDirectory(String fileDir)
+    {
+        setFileDirectory(fileDir);
+        File[] list = directoryPath.listFiles();
+
+        if(list!=null)
+            for (File dir : list) {
+
+                if (dir.isDirectory()) {
+                    if (dir.getName().toLowerCase().toLowerCase().contains((directoryName).toLowerCase())) {
+                        Path filePath = dir.toPath();
+                        if (dir.isHidden() == hiddenDir) {
+                            if (dir.canWrite() != readOnlyDir) {
+                                try {
+                                    BasicFileAttributes attributes = Files.readAttributes(filePath, BasicFileAttributes.class);
+                                    if (Files.getOwner(Paths.get(dir.getAbsolutePath())).getName().toLowerCase()
+                                            .contains(ownerDirName.toLowerCase())) {
+
+                                        if (sizeDirOption == "") {
+                                            setFoundDirectoryObject(dir);
+                                        } else {
+                                            if (sizeDirOption == ">" && (Files.size(Paths.get(dir.getAbsolutePath()))) > this.sizeDir) {
+                                                setFoundDirectoryObject(dir);
+                                            } else {
+                                                if (sizeDirOption == "<" && (Files.size(Paths.get(dir.getAbsolutePath()))) < this.sizeDir) {
+                                                    setFoundDirectoryObject(dir);
+                                                } else {
+
+                                                    if (sizeDirOption == "=" && (Files.size(Paths.get(dir.getAbsolutePath()))) == this.sizeDir) {
+                                                        setFoundDirectoryObject(dir);
+
+                                                    }
+
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
     }
 
     private void setFoundFileObject(File file)
@@ -289,11 +462,32 @@ public class Search
         fileObject.setReadOnly(readOnly);
         fileObject.setHidden(hidden);
         fileObjectList.add(fileObject);
+
+
         try {
+
             Date date = new Date(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toMillis());
             fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
             fileObject.setDateModified(date);
             fileObject.setSize(Files.size(Paths.get(file.getAbsolutePath())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void setFoundDirectoryObject(File file)
+    {
+        directoryObject = new DirectoryObject();
+        directoryObject.setDirectoryName(FilenameUtils.getBaseName(file.getName()));
+        directoryObject.setDirectoryPath(file.getPath());
+        directoryObject.setReadOnlyDir(readOnlyDir);
+        directoryObject.setHiddenDir(hiddenDir);
+        directoryObjectList.add(directoryObject);
+        try {
+
+            Date date = new Date(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toMillis());
+            directoryObject.setOwnerDirName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
+            directoryObject.setDateModifiedDir(date);
+            directoryObject.setSizeDir(Files.size(Paths.get(file.getAbsolutePath())));
         } catch (IOException e) {
             e.printStackTrace();
         }

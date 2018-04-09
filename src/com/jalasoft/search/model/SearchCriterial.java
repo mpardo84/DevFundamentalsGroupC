@@ -37,6 +37,7 @@ public class SearchCriterial {
     private Double size;
     private boolean readOnly;
     private boolean hidden;
+    private String createdOption;
     private Date createdStartDate;
     private Date createdEndDate;
     private Date modifiedStartDate;
@@ -47,7 +48,7 @@ public class SearchCriterial {
     public SearchCriterial(){}
 
     public  SearchCriterial(String fileName, String filePath, String fileType, String contains, String owner,
-                            String sizeOption, Double size,  boolean hidden, boolean readOnly, Date createdStartDate,
+                            String sizeOption, Double size,  boolean hidden, boolean readOnly, String createdOption, Date createdStartDate,
                             Date createdEndDate, Date  modifiedStartDate, Date modifiedEndDate,
                             Date accessedStartDate, Date accessedEndDate ){
         this.fileName = fileName;
@@ -59,6 +60,7 @@ public class SearchCriterial {
         this.size = size;
         this.hidden = hidden;
         this.readOnly = readOnly;
+        this.createdOption=createdOption;
         this.createdStartDate = createdStartDate;
         this.createdEndDate = createdEndDate;
         this.modifiedStartDate = modifiedStartDate;
@@ -166,6 +168,10 @@ public class SearchCriterial {
         this.size = size;
     }
 
+    // Method  to set the created option for the search
+    public void setCreatedOption(String createdOption) {
+        this.createdOption = createdOption;
+    }
     // Method  to set the value of start date of created date of file
     public void setCreatedStartDate( Date createdStartDate) {
         this.createdStartDate = createdStartDate;
