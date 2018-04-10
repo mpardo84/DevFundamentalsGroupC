@@ -44,37 +44,45 @@ public class SearchProject extends JFrame{
     //Define the parameters for the dialog
     public void initializeDialog(String title){
         //initialize variables for tab panel
-        tabbedPane = new JTabbedPane();
-        filePanel=new FilePanel();
-        directoryPanel=new DirectoryPanel();
-        multimediaPanel=new JPanel();
+        try {
 
-        //add icons to the tabs
-        fileIcon = new ImageIcon(
-                this.getClass().getResource("/images/file.jpg"));
-        directoryIcon = new ImageIcon(
-                this.getClass().getResource("/images/directory.jpg"));
-        multimediaIcon = new ImageIcon(
-                this.getClass().getResource("/images/multimedia.png"));
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            SwingUtilities.updateComponentTreeUI(this);
 
-        //Add tabs to the panel
-        tabbedPane.addTab("File",fileIcon,filePanel);
-        tabbedPane.addTab("Directory",directoryIcon,directoryPanel);
-        tabbedPane.addTab("Multimedia",multimediaIcon,multimediaPanel);
-        // add the tab panel to the frame
-        this.add(tabbedPane);
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
-                .getDefaultScreenDevice();
-        w = gd.getDisplayMode().getWidth();
-        h = gd.getDisplayMode().getHeight();
+            tabbedPane = new JTabbedPane();
+            filePanel=new FilePanel();
+            directoryPanel=new DirectoryPanel();
+            multimediaPanel=new JPanel();
 
-        this.setBounds(0, 0,w,h);
+            //add icons to the tabs
+            fileIcon = new ImageIcon(
+                    this.getClass().getResource("/images/file.jpg"));
+            directoryIcon = new ImageIcon(
+                    this.getClass().getResource("/images/directory.jpg"));
+            multimediaIcon = new ImageIcon(
+                    this.getClass().getResource("/images/multimedia.png"));
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(w, h);
-        this.setTitle(title);
-        this.setVisible(true);
-        this.setResizable(false);
+            //Add tabs to the panel
+            tabbedPane.addTab("File ",fileIcon,filePanel);
+            tabbedPane.addTab("Directory ",directoryIcon,directoryPanel);
+            tabbedPane.addTab("Multimedia ",multimediaIcon,multimediaPanel);
+            // add the tab panel to the frame
+            this.add(tabbedPane);
+            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                    .getDefaultScreenDevice();
+            w = gd.getDisplayMode().getWidth();
+            h = gd.getDisplayMode().getHeight();
+
+            this.setBounds(0, 0,w,h);
+
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setSize(w, h);
+            this.setTitle(title);
+            this.setVisible(true);
+            this.setResizable(false);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
        
     }
 
