@@ -13,14 +13,9 @@
  */
 package com.jalasoft.search.controller;
 
-import com.jalasoft.search.model.DirectoryObject;
-import com.jalasoft.search.model.FileObject;
-import com.jalasoft.search.model.Search;
-import com.jalasoft.search.model.SearchCriterial;
+import com.jalasoft.search.model.*;
 import com.jalasoft.search.view.SearchProject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -208,7 +203,7 @@ public class SearchController {
          this.model.setHidden(Boolean.valueOf(view.getHidden()));
          this.model.setReadOnly(Boolean.valueOf(view.getReadOnly()));
          this.model.setFileType(view.getTypeFile());
-         this.model.setContains(view.getContains());
+         this.model.setFileContains(view.getContains());
          this.model.setSizeOption(view.getSizeOptions());
          if (view.getSizeValue().isEmpty()){
              this.model.setSize(0D);
@@ -262,7 +257,7 @@ public class SearchController {
                  break;
          }
          String accessedOption = view.getAccessedOptions();
-         switch(modifiedOption) {
+         switch(accessedOption) {
              case "All Time" :
                  this.model.setAccessedStartDate(new Date(1900-1900,01,01));
                  this.model.setAccessedEndDate(new Date(2099-1900,12,12));
@@ -329,7 +324,7 @@ public class SearchController {
                     double fileSize = file.getSize();
                     rowData[0]=file.getFileName();
                     rowData[1]=file.getFileDirectory();
-                    rowData[2]=file.getFileType();
+                    rowData[2]=((File)file).getFileType();
                     rowData[3]=file.getDateModified();
                     rowData[4]= String.format("%.2f", fileSize/1024);
                     this.view.getTable().addRow(rowData);
@@ -350,23 +345,23 @@ public class SearchController {
              // Configure data for model side
             configureModelDataDirectory();
             // execute the search process
-            this.model.getDirectoryObjectList().clear();
+            this.model.getFileObjectList().clear();
             this.model.searchDirectory(view.getPathName());
             // Display search result in UI
             this.view.getDirTable().setRowCount(0);
-            List<DirectoryObject> searchResult = this.model.getDirectoryObjectList();
+            List<FileObject> searchResult = this.model.getFileObjectList();
             if (searchResult.isEmpty()) {
                 this.view.setMessage("Directory not found with the selected criteria");
             }
             else{
                 Object rowData[]=new Object[6];
-                for (DirectoryObject dir : searchResult)
+                for (FileObject dir : searchResult)
                 {
-                    double dirSize = dir.getSizeDir();
-                    rowData[0]=dir.getDirectoryName();
-                    rowData[1]=dir.getDirectoryPath();
-                    rowData[2]=dir.getHiddenDir();
-                    rowData[3]=dir.getDateModifiedDir();
+                    double dirSize = dir.getSize();
+                    rowData[0]=dir.getFileName();
+                    rowData[1]=dir.getFileDirectory();
+                    rowData[2]=dir.isHidden();
+                    rowData[3]=dir.getDateModified();
                     rowData[4]=String.format("%.2f", dirSize/1024);
                     rowData[5]="10";
                     this.view.getDirTable().addRow(rowData);
