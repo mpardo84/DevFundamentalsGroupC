@@ -92,7 +92,7 @@ public class SearchPanelResults extends JPanel {
                     "Location",
                     "Hidden",
                     "Date Modified",
-                    "Size",
+                    "Size (KB)",
                     "# Files"};
 
             Object[][] data = {

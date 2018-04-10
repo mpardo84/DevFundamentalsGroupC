@@ -100,7 +100,7 @@ public class SearchPanelCriteria extends JPanel {
 
     public SearchPanelCriteria() {
         setLayout(null);
-        comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
+        comboBoxTimeValues = new String[] { "","All  Time", "Time Range","Today","Yesterday" };
         this.setBackground(new Color(224, 224, 224));
         generalSearchCriteria();
         searchAttributesSection();
@@ -249,6 +249,8 @@ public class SearchPanelCriteria extends JPanel {
     public void generalSearchCriteria(){
         title = new JLabel("SEARCH OPTIONS");
         title.setBounds(0, 7, 200, 40);
+        negritaFont=new Font("ITALIC", Font.BOLD, 12);
+        title.setFont(negritaFont);
         pathLabel = new JLabel(" Search Path:");
         pathLabel.setBounds(30, 50, 80, 20);
         pathValue = new JTextField();
@@ -257,7 +259,7 @@ public class SearchPanelCriteria extends JPanel {
         browseIcon = new ImageIcon(
                 this.getClass().getResource("/images/folder.png"));
         browseButton = new JButton("Browse",browseIcon);
-        browseButton.setBounds(325,50,105,23);
+        browseButton.setBounds(325,50,105,25);
 
         nameLabel = new JLabel("File Name:");
         nameLabel.setBounds(30, 85, 80, 20);
@@ -343,7 +345,8 @@ public class SearchPanelCriteria extends JPanel {
     public void searchAttributesSection(){
         String[] comboBoxValues = { "False", "True" };
         attributesLabel=new JLabel("ATTRIBUTES");
-
+        negritaFont=new Font("ITALIC", Font.BOLD, 12);
+        attributesLabel.setFont(negritaFont);
         attributesLabel.setBounds(0,280,80,20);
         readOnlyLabel=new JLabel("Read Only:");
         readOnlyLabel.setBounds(30,305,80,20);
@@ -370,7 +373,7 @@ public class SearchPanelCriteria extends JPanel {
     public void searchFileTimeSection(){
 
         fileTimeLabel=new JLabel("FILE TIME");
-        negritaFont=new Font("ITALIC", Font.BOLD, 13);
+        negritaFont=new Font("ITALIC", Font.BOLD, 12);
         fileTimeLabel.setBounds(0,380,80,20);
         fileTimeLabel.setFont(negritaFont);
         //Created Date section method
@@ -410,15 +413,15 @@ public class SearchPanelCriteria extends JPanel {
         saveIcon = new ImageIcon(
                 this.getClass().getResource("/images/save.png"));
         saveButton=new JButton("Save",saveIcon);
-        saveButton.setBounds(110,600,90,20);
+        saveButton.setBounds(110,600,90,25);
         searchIcon = new ImageIcon(
                 this.getClass().getResource("/images/edit_find.png"));
         searchButton=new JButton("Search",searchIcon);
-        searchButton.setBounds(205,600,100,20);
+        searchButton.setBounds(205,600,100,27);
         cancelIcon = new ImageIcon(
                 this.getClass().getResource("/images/close.png"));
         cancelButton=new JButton("Close",cancelIcon);
-        cancelButton.setBounds(310,600,90,20);
+        cancelButton.setBounds(310,600,90,25);
         add(saveButton);
         add(searchButton);
         add(cancelButton);
@@ -436,7 +439,7 @@ public class SearchPanelCriteria extends JPanel {
         createdLabel=new JLabel("Created:");
         createdLabel.setBounds(15,410,80,20);
         createdOptions= new JComboBox(comboBoxTimeValues);
-        createdOptions.setBounds(90,410,100,20);
+        createdOptions.setBounds(80,410,110,20);
 
         fromCreatedLabel= new JLabel("From:");
         fromCreatedLabel.setBounds(200,410,80,20);
@@ -444,35 +447,48 @@ public class SearchPanelCriteria extends JPanel {
         fromCreatedDate = new JDateChooser();
         fromCreatedDate.setDate((Calendar.getInstance()).getTime());
         fromCreatedDate.setDateFormatString("dd/MM/yyyy");
-        fromCreatedDate.setBounds(240, 410, 90, 20);
+        fromCreatedDate.setBounds(230, 410, 120, 22);
         fromCreatedDate.setVisible(false);
 
         toCreatedLabel= new JLabel("To:");
-        toCreatedLabel.setBounds(340,410,80,20);
+        toCreatedLabel.setBounds(350,410,80,20);
         toCreatedLabel.setVisible(false);
         toCreatedDate = new JDateChooser();
         toCreatedDate.setDate((Calendar.getInstance()).getTime());
         toCreatedDate.setDateFormatString("dd/MM/yyyy");
-        toCreatedDate.setBounds(370, 410, 90, 20);
+        toCreatedDate.setBounds(370, 410, 120, 22);
         toCreatedDate.setVisible(false);
 
         createdOptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 String selectedBook = (String) createdOptions.getSelectedItem();
-                if (selectedBook.equals("Time Range")) {
-                    fromCreatedLabel.setVisible(true);
-                    fromCreatedDate.setVisible(true);
-                    toCreatedLabel.setVisible(true);
-                    toCreatedDate.setVisible(true);
-                }
-                else
-                {
+                if(selectedBook.equals("")) {
+                    modifiedOptions.setEnabled(true);
+                    accessedOptions.setEnabled(true);
                     fromCreatedLabel.setVisible(false);
                     fromCreatedDate.setVisible(false);
                     toCreatedLabel.setVisible(false);
                     toCreatedDate.setVisible(false);
+                }else{
+
+                    modifiedOptions.setEnabled(false);
+                    accessedOptions.setEnabled(false);
+
+                    if (selectedBook.equals("Time Range")) {
+                        fromCreatedLabel.setVisible(true);
+                        fromCreatedDate.setVisible(true);
+                        toCreatedLabel.setVisible(true);
+                        toCreatedDate.setVisible(true);
+                    } else {
+                        fromCreatedLabel.setVisible(false);
+                        fromCreatedDate.setVisible(false);
+                        toCreatedLabel.setVisible(false);
+                        toCreatedDate.setVisible(false);
+                    }
+
                 }
+
             }
         });
     }
@@ -482,7 +498,7 @@ public class SearchPanelCriteria extends JPanel {
         modifiedLabel=new JLabel("Modified:");
         modifiedLabel.setBounds(15,450,80,20);
         modifiedOptions= new JComboBox(comboBoxTimeValues);
-        modifiedOptions.setBounds(90,450,100,20);
+        modifiedOptions.setBounds(80,450,110,20);
 
         fromModifiedLabel= new JLabel("From:");
         fromModifiedLabel.setBounds(200,450,80,20);
@@ -490,30 +506,39 @@ public class SearchPanelCriteria extends JPanel {
         fromModifiedDate = new JDateChooser();
         fromModifiedDate.setDate((Calendar.getInstance()).getTime());
         fromModifiedDate.setDateFormatString("dd/MM/yyyy");
-        fromModifiedDate.setBounds(240, 450, 90, 20);
+        fromModifiedDate.setBounds(230, 450, 120, 22);
         fromModifiedDate.setVisible(false);
 
         toModifedLabel= new JLabel("To:");
-        toModifedLabel.setBounds(340,450,80,20);
+        toModifedLabel.setBounds(350,450,80,20);
         toModifedLabel.setVisible(false);
         toModifiedDate = new JDateChooser();
         toModifiedDate.setDate((Calendar.getInstance()).getTime());
         toModifiedDate.setDateFormatString("dd/MM/yyyy");
-        toModifiedDate.setBounds(370, 450, 90, 20);
+        toModifiedDate.setBounds(370, 450, 120, 22);
         toModifiedDate.setVisible(false);
 
         modifiedOptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 String selectedBook = (String) modifiedOptions.getSelectedItem();
-                if (selectedBook.equals("Time Range")) {
-                    fromModifiedLabel.setVisible(true);
-                    fromModifiedDate.setVisible(true);
-                    toModifedLabel.setVisible(true);
-                    toModifiedDate.setVisible(true);
-                }
-                else
-                {
+                if(selectedBook!=("")) {
+                    createdOptions.setEnabled(false);
+                    accessedOptions.setEnabled(false);
+                    if (selectedBook.equals("Time Range")) {
+                        fromModifiedLabel.setVisible(true);
+                        fromModifiedDate.setVisible(true);
+                        toModifedLabel.setVisible(true);
+                        toModifiedDate.setVisible(true);
+                    } else {
+                        fromModifiedLabel.setVisible(false);
+                        fromModifiedDate.setVisible(false);
+                        toModifedLabel.setVisible(false);
+                        toModifiedDate.setVisible(false);
+                    }
+                }else {
+                    createdOptions.setEnabled(true);
+                    accessedOptions.setEnabled(true);
                     fromModifiedLabel.setVisible(false);
                     fromModifiedDate.setVisible(false);
                     toModifedLabel.setVisible(false);
@@ -528,7 +553,7 @@ public class SearchPanelCriteria extends JPanel {
         accessedLabel=new JLabel("Accessed:");
         accessedLabel.setBounds(15,490,80,20);
         accessedOptions= new JComboBox(comboBoxTimeValues);
-        accessedOptions.setBounds(90,490,100,20);
+        accessedOptions.setBounds(80,490,110,20);
 
         fromAccessedLabel= new JLabel("From:");
         fromAccessedLabel.setBounds(200,490,80,20);
@@ -536,16 +561,16 @@ public class SearchPanelCriteria extends JPanel {
         fromAccessedDate = new JDateChooser();
         fromAccessedDate.setDate((Calendar.getInstance()).getTime());
         fromAccessedDate.setDateFormatString("dd/MM/yyyy");
-        fromAccessedDate.setBounds(240, 490, 90, 20);
+        fromAccessedDate.setBounds(230, 490, 120, 22);
         fromAccessedDate.setVisible(false);
 
         toAccessedLabel= new JLabel("To:");
-        toAccessedLabel.setBounds(340,490,80,20);
+        toAccessedLabel.setBounds(350,490,80,20);
         toAccessedLabel.setVisible(false);
         toAccessedDate = new JDateChooser();
         toAccessedDate.setDate((Calendar.getInstance()).getTime());
         toAccessedDate.setDateFormatString("dd/MM/yyyy");
-        toAccessedDate.setBounds(370, 490, 90, 20);
+        toAccessedDate.setBounds(370, 490, 120, 22);
         toAccessedDate.setVisible(false);
 
 
@@ -553,14 +578,23 @@ public class SearchPanelCriteria extends JPanel {
             @Override
             public void actionPerformed(ActionEvent event) {
                 String selectedBook = (String) accessedOptions.getSelectedItem();
-                if (selectedBook.equals("Time Range")) {
-                    fromAccessedLabel.setVisible(true);
-                    fromAccessedDate.setVisible(true);
-                    toAccessedLabel.setVisible(true);
-                    toAccessedDate.setVisible(true);
-                }
-                else
-                {
+                if(selectedBook!=("")) {
+                    createdOptions.setEnabled(false);
+                    modifiedOptions.setEnabled(false);
+                    if (selectedBook.equals("Time Range")) {
+                        fromAccessedLabel.setVisible(true);
+                        fromAccessedDate.setVisible(true);
+                        toAccessedLabel.setVisible(true);
+                        toAccessedDate.setVisible(true);
+                    } else {
+                        fromAccessedLabel.setVisible(false);
+                        fromAccessedDate.setVisible(false);
+                        toAccessedLabel.setVisible(false);
+                        toAccessedDate.setVisible(false);
+                    }
+                }else {
+                    createdOptions.setEnabled(true);
+                    modifiedOptions.setEnabled(true);
                     fromAccessedLabel.setVisible(false);
                     fromAccessedDate.setVisible(false);
                     toAccessedLabel.setVisible(false);

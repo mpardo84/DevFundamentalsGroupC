@@ -90,7 +90,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
 
     public SearchDirectoryPanelCriteria() {
          setLayout(null);
-        comboBoxTimeValues = new String[] { "AllTime", "Time Range","Today","Yesterday" };
+        comboBoxTimeValues = new String[] { "","All Time", "Time Range","Today","Yesterday" };
         generalSearchCriteria();
         searchAttributesSection();
         searchDirTimeSection();
@@ -203,6 +203,8 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     //this method will contains the general components for the UI
     public void generalSearchCriteria(){
         title = new JLabel("SEARCH OPTIONS");
+        negritaFont=new Font("ITALIC", Font.BOLD, 13);
+        title.setFont(negritaFont);
         title.setBounds(0, 7, 200, 40);
         pathLabel = new JLabel(" Search Path:");
         pathLabel.setBounds(45, 50, 80, 20);
@@ -212,7 +214,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         browseIcon = new ImageIcon(
                 this.getClass().getResource("/images/folder.png"));
         browseButton = new JButton("Browse",browseIcon);
-        browseButton.setBounds(340,50,105,20);
+        browseButton.setBounds(340,50,105,25);
 
         nameLabel = new JLabel("Directory Name:");
         nameLabel.setBounds(30, 90, 100, 20);
@@ -275,8 +277,9 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     public void searchAttributesSection(){
         String[] comboBoxValues = { "False", "True" };
         attributesLabel=new JLabel("ATTRIBUTES");
-
-        attributesLabel.setBounds(0,260,80,20);
+        negritaFont=new Font("ITALIC", Font.BOLD, 13);
+        attributesLabel.setFont(negritaFont);
+        attributesLabel.setBounds(0,260,100,20);
         readOnlyLabel=new JLabel("Read Only:");
         readOnlyLabel.setBounds(30,290,80,20);
         readOnlyDirOptions= new JComboBox(comboBoxValues);
@@ -339,15 +342,15 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         saveIcon = new ImageIcon(
                 this.getClass().getResource("/images/save.png"));
         saveDirButton=new JButton("Save",saveIcon);
-        saveDirButton.setBounds(110,600,90,20);
+        saveDirButton.setBounds(110,600,90,25);
         searchIcon = new ImageIcon(
                 this.getClass().getResource("/images/edit_find.png"));
         searchDirButton=new JButton("Search",searchIcon);
-        searchDirButton.setBounds(205,600,100,20);
+        searchDirButton.setBounds(205,600,100,27);
         cancelIcon = new ImageIcon(
                 this.getClass().getResource("/images/close.png"));
         closeDirButton=new JButton("Close",cancelIcon);
-        closeDirButton.setBounds(310,600,90,20);
+        closeDirButton.setBounds(310,600,90,25);
         add(saveDirButton);
         add(searchDirButton);
         add(closeDirButton);
@@ -364,7 +367,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         createdLabel=new JLabel("Created:");
         createdLabel.setBounds(15,410,80,20);
         createdDirOptions= new JComboBox(comboBoxTimeValues);
-        createdDirOptions.setBounds(90,410,100,20);
+        createdDirOptions.setBounds(80,410,110,20);
 
         fromCreatedLabel= new JLabel("From:");
         fromCreatedLabel.setBounds(200,410,80,20);
@@ -372,35 +375,46 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         fromCreatedDirDate = new JDateChooser();
         fromCreatedDirDate.setDate((Calendar.getInstance()).getTime());
         fromCreatedDirDate.setDateFormatString("dd/MM/yyyy");
-        fromCreatedDirDate.setBounds(240, 410, 90, 20);
+        fromCreatedDirDate.setBounds(230, 410, 120, 22);
         fromCreatedDirDate.setVisible(false);
 
         toCreatedLabel= new JLabel("To:");
-        toCreatedLabel.setBounds(340,410,80,20);
+        toCreatedLabel.setBounds(350,410,80,20);
         toCreatedLabel.setVisible(false);
         toCreatedDirDate = new JDateChooser();
         toCreatedDirDate.setDate((Calendar.getInstance()).getTime());
         toCreatedDirDate.setDateFormatString("dd/MM/yyyy");
-        toCreatedDirDate.setBounds(370, 410, 90, 20);
+        toCreatedDirDate.setBounds(370, 410, 120, 22);
         toCreatedDirDate.setVisible(false);
 
         createdDirOptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 String selectedBook = (String) createdDirOptions.getSelectedItem();
-                if (selectedBook.equals("Time Range")) {
-                    fromCreatedLabel.setVisible(true);
-                    fromCreatedDirDate.setVisible(true);
-                    toCreatedLabel.setVisible(true);
-                    toCreatedDirDate.setVisible(true);
+                if(selectedBook!=("")) {
+                    modifiedDirOptions.setEnabled(false);
+                    accessedDirOptions.setEnabled(false);
+
+                    if (selectedBook.equals("Time Range")) {
+                        fromCreatedLabel.setVisible(true);
+                        fromCreatedDirDate.setVisible(true);
+                        toCreatedLabel.setVisible(true);
+                        toCreatedDirDate.setVisible(true);
+                    } else {
+                        fromCreatedLabel.setVisible(false);
+                        fromCreatedDirDate.setVisible(false);
+                        toCreatedLabel.setVisible(false);
+                        toCreatedDirDate.setVisible(false);
+                    }
                 }
-                else
-                {
-                    fromCreatedLabel.setVisible(false);
-                    fromCreatedDirDate.setVisible(false);
-                    toCreatedLabel.setVisible(false);
-                    toCreatedDirDate.setVisible(false);
-                }
+                else{
+                        modifiedDirOptions.setEnabled(true);
+                        accessedDirOptions.setEnabled(true);
+                        fromCreatedLabel.setVisible(false);
+                        fromCreatedDirDate.setVisible(false);
+                        toCreatedLabel.setVisible(false);
+                        toCreatedDirDate.setVisible(false);
+                    }
             }
         });
     }
@@ -410,7 +424,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         modifiedLabel=new JLabel("Modified:");
         modifiedLabel.setBounds(15,450,80,20);
         modifiedDirOptions= new JComboBox(comboBoxTimeValues);
-        modifiedDirOptions.setBounds(90,450,100,20);
+        modifiedDirOptions.setBounds(80,450,110,20);
 
         fromModifiedLabel= new JLabel("From:");
         fromModifiedLabel.setBounds(200,450,80,20);
@@ -418,22 +432,25 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         fromModifiedDirDate = new JDateChooser();
         fromModifiedDirDate.setDate((Calendar.getInstance()).getTime());
         fromModifiedDirDate.setDateFormatString("dd/MM/yyyy");
-        fromModifiedDirDate.setBounds(240, 450, 90, 20);
+        fromModifiedDirDate.setBounds(230, 450, 120, 22);
         fromModifiedDirDate.setVisible(false);
 
         toModifedLabel= new JLabel("To:");
-        toModifedLabel.setBounds(340,450,80,20);
+        toModifedLabel.setBounds(350,450,80,20);
         toModifedLabel.setVisible(false);
         toModifiedDirDate = new JDateChooser();
         toModifiedDirDate.setDate((Calendar.getInstance()).getTime());
         toModifiedDirDate.setDateFormatString("dd/MM/yyyy");
-        toModifiedDirDate.setBounds(370, 450, 90, 20);
+        toModifiedDirDate.setBounds(370, 450, 120, 22);
         toModifiedDirDate.setVisible(false);
 
         modifiedDirOptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 String selectedBook = (String) modifiedDirOptions.getSelectedItem();
+                if(selectedBook!=("")) {
+                    createdDirOptions.setEnabled(false);
+                    accessedDirOptions.setEnabled(false);
                 if (selectedBook.equals("Time Range")) {
                     fromModifiedLabel.setVisible(true);
                     fromModifiedDirDate.setVisible(true);
@@ -442,6 +459,15 @@ public class SearchDirectoryPanelCriteria extends JPanel {
                 }
                 else
                 {
+                    fromModifiedLabel.setVisible(false);
+                    fromModifiedDirDate.setVisible(false);
+                    toModifedLabel.setVisible(false);
+                    toModifiedDirDate.setVisible(false);
+                }
+                }
+                else{
+                    createdDirOptions.setEnabled(true);
+                    accessedDirOptions.setEnabled(true);
                     fromModifiedLabel.setVisible(false);
                     fromModifiedDirDate.setVisible(false);
                     toModifedLabel.setVisible(false);
@@ -456,7 +482,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         accessedLabel=new JLabel("Accessed:");
         accessedLabel.setBounds(15,490,80,20);
         accessedDirOptions= new JComboBox(comboBoxTimeValues);
-        accessedDirOptions.setBounds(90,490,100,20);
+        accessedDirOptions.setBounds(80,490,110,20);
 
         fromAccessedLabel= new JLabel("From:");
         fromAccessedLabel.setBounds(200,490,80,20);
@@ -464,16 +490,16 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         fromAccessedDirDate = new JDateChooser();
         fromAccessedDirDate.setDate((Calendar.getInstance()).getTime());
         fromAccessedDirDate.setDateFormatString("dd/MM/yyyy");
-        fromAccessedDirDate.setBounds(240, 490, 90, 20);
+        fromAccessedDirDate.setBounds(230, 490, 120, 22);
         fromAccessedDirDate.setVisible(false);
 
         toAccessedLabel= new JLabel("To:");
-        toAccessedLabel.setBounds(340,490,80,20);
+        toAccessedLabel.setBounds(350,490,80,20);
         toAccessedLabel.setVisible(false);
         toAccessedDirDate = new JDateChooser();
         toAccessedDirDate.setDate((Calendar.getInstance()).getTime());
         toAccessedDirDate.setDateFormatString("dd/MM/yyyy");
-        toAccessedDirDate.setBounds(370, 490, 90, 20);
+        toAccessedDirDate.setBounds(370, 490, 120, 22);
         toAccessedDirDate.setVisible(false);
 
 
@@ -481,6 +507,9 @@ public class SearchDirectoryPanelCriteria extends JPanel {
             @Override
             public void actionPerformed(ActionEvent event) {
                 String selectedBook = (String) accessedDirOptions.getSelectedItem();
+                if(selectedBook!=("")) {
+                    createdDirOptions.setEnabled(false);
+                    modifiedDirOptions.setEnabled(false);
                 if (selectedBook.equals("Time Range")) {
                     fromAccessedLabel.setVisible(true);
                     fromAccessedDirDate.setVisible(true);
@@ -489,6 +518,15 @@ public class SearchDirectoryPanelCriteria extends JPanel {
                 }
                 else
                 {
+                    fromAccessedLabel.setVisible(false);
+                    fromAccessedDirDate.setVisible(false);
+                    toAccessedLabel.setVisible(false);
+                    toAccessedDirDate.setVisible(false);
+                }
+                }
+                else{
+                    createdDirOptions.setEnabled(true);
+                    modifiedDirOptions.setEnabled(true);
                     fromAccessedLabel.setVisible(false);
                     fromAccessedDirDate.setVisible(false);
                     toAccessedLabel.setVisible(false);
