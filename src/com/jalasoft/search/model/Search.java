@@ -17,6 +17,7 @@ package com.jalasoft.search.model;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,10 +25,7 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.nio.file.attribute.*;
 
 
@@ -40,19 +38,18 @@ import java.nio.file.attribute.*;
 public class Search
 {
     private List<FileObject> fileObjectList = new ArrayList<FileObject>();
-    private List<DirectoryObject> directoryObjectList = new ArrayList<DirectoryObject>();
     private String fileName;
     private String fileType;
     private File fileDirectory;
     private String ownerName;
     private boolean readOnly;
     private boolean hidden;
-    private FileObject fileObject;
-    private DirectoryObject directoryObject;
+    private FileObject fileFound;
+    private FileObject directoryFound;
     private Double size;
     private String dateModified;
     private String sizeOption;
-    private String contains;
+    private String fileContains;
     private String createdOption;
     private Date createdStartDate;
     private Date createdEndDate;
@@ -80,7 +77,7 @@ public class Search
         this.dateModified = "";
         this.sizeOption = "";
         this.size = 0D;
-        this.contains = "";
+        this.fileContains = "";
         this.createdOption="";
         this.createdStartDate = new Date(1900-1900,01,01);
         this.createdEndDate = new Date(2099-1900,12,12);
@@ -188,10 +185,10 @@ public class Search
     /**
      * This method is going to set the contained string in the file
      *
-     * @param contains  the hidden file option
+     * @param fileContains  the hidden file option
      */
-    public void setContains(String contains) {
-        this.contains = contains;
+    public void setFileContains(String fileContains) {
+        this.fileContains = fileContains;
     }
 
     /**
@@ -254,14 +251,6 @@ public class Search
     public List<FileObject> getFileObjectList()
     {
         return this.fileObjectList;
-    }
-
-    /**
-     * This method is going to get the directory objects
-     */
-    public List<DirectoryObject> getDirectoryObjectList()
-    {
-        return this.directoryObjectList;
     }
 
     /**
@@ -362,7 +351,7 @@ public class Search
                 {
                     searchFile(file.getAbsolutePath());
                 }
-                else if (file.getName().toLowerCase().toLowerCase().contains((fileName + fileType).toLowerCase()))
+                else if (file.getName().toLowerCase().contains((fileName + fileType).toLowerCase()))
                 {
 
                     if (file.isHidden() == hidden)
@@ -375,25 +364,28 @@ public class Search
 
                                     if (sizeOption == "" )
                                     {
-                                        if (isWithinModifiedRange(file) || isWithinCreatedRange(file)|| isWithinAccessedRange(file))
-                                            setFoundFileObject(file);
+                                        if (isWithinModifiedRange(file) && isWithinCreatedRange(file) && isWithinAccessedRange(file))
+                                            if (isStringContainedInFile(file) || this.fileContains.isEmpty())
+                                                setFoundFileObject(file);
                                     }
                                     else{
                                          if(sizeOption==">" &&(Files.size(Paths.get(file.getAbsolutePath()))) > this.size) {
-                                             if (isWithinModifiedRange(file) || isWithinCreatedRange(file)|| isWithinAccessedRange(file))
-                                                 setFoundFileObject(file);
+                                             if (isWithinModifiedRange(file) && isWithinCreatedRange(file) && isWithinAccessedRange(file))
+                                                 if (isStringContainedInFile(file) || this.fileContains.isEmpty())
+                                                     setFoundFileObject(file);
                                         }
                                         else {
                                             if (sizeOption == "<" && (Files.size(Paths.get(file.getAbsolutePath()))) < this.size) {
-                                                if (isWithinModifiedRange(file) || isWithinCreatedRange(file)|| isWithinAccessedRange(file))
-                                                    setFoundFileObject(file);
+                                                if (isWithinModifiedRange(file) && isWithinCreatedRange(file) && isWithinAccessedRange(file))
+                                                    if (isStringContainedInFile(file) || this.fileContains.isEmpty())
+                                                        setFoundFileObject(file);
                                             }
                                             else {
 
                                                 if (sizeOption == "=" && (Files.size(Paths.get(file.getAbsolutePath()))) == this.size) {
-                                                    if (isWithinModifiedRange(file) || isWithinCreatedRange(file)|| isWithinAccessedRange(file))
-                                                        setFoundFileObject(file);
-
+                                                    if (isWithinModifiedRange(file) && isWithinCreatedRange(file) && isWithinAccessedRange(file))
+                                                        if (isStringContainedInFile(file) || this.fileContains == "" || this.fileContains == null)
+                                                            setFoundFileObject(file);
                                                 }
                                             }
                                         }
@@ -460,25 +452,23 @@ public class Search
 
     private void setFoundFileObject(File file)
     {
-        fileObject = new FileObject();
-        fileObject.setFileName(FilenameUtils.getBaseName(file.getName()));
-        fileObject.setFileType(FilenameUtils.getExtension(file.getName()));
-        fileObject.setFileDirectory(file.getParent());
-
-        fileObject.setReadOnly(readOnly);
-        fileObject.setHidden(hidden);
-        fileObjectList.add(fileObject);
-
-
+        fileFound = new com.jalasoft.search.model.File(FilenameUtils.getExtension(file.getName()), this.fileContains);
+        fileFound.setFileName(FilenameUtils.getBaseName(file.getName()));
+        fileFound.setFileDirectory(file.getParent());
+        fileFound.setReadOnly(readOnly);
+        fileFound.setHidden(hidden);
         try {
 
             Date date = new Date(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toMillis());
-            fileObject.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
-            fileObject.setDateModified(date);
-            fileObject.setSize(Files.size(Paths.get(file.getAbsolutePath())));
+            fileFound.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
+            fileFound.setDateModified(date);
+            fileFound.setSize(Files.size(Paths.get(file.getAbsolutePath())));
+            fileFound.setDateCreated(date);
+            fileFound.setDateAccessed(date);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        fileObjectList.add(fileFound);
     }
 
     private boolean isWithinModifiedRange(File file)
@@ -515,22 +505,44 @@ public class Search
         return false;
     }
 
+    private boolean isStringContainedInFile(File file)
+    {
+        try {
+            Scanner scanner = new Scanner(file);
+
+            //now read the file line by line...
+            int lineNum = 0;
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                lineNum++;
+                if(line.toLowerCase().contains(this.fileContains.toLowerCase())) {
+                    return true;
+                }
+            }
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private void setFoundDirectoryObject(File file)
     {
-        directoryObject = new DirectoryObject();
-        directoryObject.setDirectoryName(FilenameUtils.getBaseName(file.getName()));
-        directoryObject.setDirectoryPath(file.getPath());
-        directoryObject.setReadOnlyDir(readOnlyDir);
-        directoryObject.setHiddenDir(hiddenDir);
-        directoryObjectList.add(directoryObject);
+        directoryFound = new Directory(file.listFiles().length);
+        directoryFound.setFileName(FilenameUtils.getBaseName(file.getName()));
+        directoryFound.setFileDirectory(file.getPath());
+        directoryFound.setReadOnly(readOnlyDir);
+        directoryFound.setHidden(hiddenDir);
         try {
 
             Date date = new Date(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toMillis());
-            directoryObject.setOwnerDirName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
-            directoryObject.setDateModifiedDir(date);
-            directoryObject.setSizeDir(Files.size(Paths.get(file.getAbsolutePath())));
+            directoryFound.setOwnerName(Files.getOwner(Paths.get(file.getAbsolutePath())).getName());
+            directoryFound.setDateModified(date);
+            directoryFound.setSize(Files.size(Paths.get(file.getAbsolutePath())));
+            directoryFound.setDateCreated(date);
+            directoryFound.setDateAccessed(date);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        fileObjectList.add(directoryFound);
     }
 }

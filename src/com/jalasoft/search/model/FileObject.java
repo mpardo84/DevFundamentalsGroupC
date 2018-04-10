@@ -25,13 +25,14 @@ import java.util.Date;
  */
 public class FileObject {
     private String fileName;
-    private String fileType;
     private File fileDirectory;
     private String ownerName;
     private boolean readOnly;
     private boolean hidden;
     private Long size;
     private Date dateModified;
+    private Date dateCreated;
+    private Date dateAccessed;
 
     public FileObject()
     {
@@ -45,15 +46,6 @@ public class FileObject {
     public String  getFileName()
     {
         return this.fileName;
-    }
-
-    public void setFileType(String fileType)
-    {
-        this.fileType = fileType;
-    }
-
-    public String getFileType() {
-        return fileType;
     }
 
     public void setFileDirectory(String fileDirectory)
@@ -107,5 +99,21 @@ public class FileObject {
 
     public void setSize(Long size) {
         this.size = size;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Date getDateAccessed() {
+        return dateAccessed;
+    }
+
+    public void setDateAccessed(Date dateAccessed) {
+        this.dateAccessed = dateAccessed;
     }
 }
