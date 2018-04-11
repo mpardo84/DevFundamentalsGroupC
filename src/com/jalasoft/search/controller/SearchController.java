@@ -128,6 +128,8 @@ public class SearchController {
          Date today = calendar.getTime();
          calendar.add(Calendar.DATE,-1);
          Date yesterday = calendar.getTime();
+         calendar.add(Calendar.DATE,2);
+         Date tomorrow = calendar.getTime();
          String createdOption = view.getCreatedOptions();
          switch(createdOption) {
              case "All Time" :
@@ -143,12 +145,12 @@ public class SearchController {
              case "Today" :
                   this.model.setCreatedOption("Today");
                  searchCriterial.setCreatedStartDate(today);
-                 searchCriterial.setCreatedEndDate(today);
+                 searchCriterial.setCreatedEndDate(tomorrow);
                  break;
              case "Yesterday" :
                  this.model.setCreatedOption("Yesterday");
                  searchCriterial.setCreatedStartDate(yesterday);
-                 searchCriterial.setCreatedEndDate(yesterday);
+                 searchCriterial.setCreatedEndDate(today);
                  break;
          }
          String modifiedOption = view.getModifiedOptions();
@@ -163,11 +165,11 @@ public class SearchController {
                  break;
              case "Today" :
                  searchCriterial.setModifiedStartDate(today);
-                 searchCriterial.setModifiedEndDate(today);
+                 searchCriterial.setModifiedEndDate(tomorrow);
                  break;
              case "Yesterday" :
                  searchCriterial.setModifiedStartDate(yesterday);
-                 searchCriterial.setModifiedEndDate(yesterday);
+                 searchCriterial.setModifiedEndDate(today);
                  break;
          }
          String accessedOption = view.getAccessedOptions();
@@ -182,11 +184,11 @@ public class SearchController {
                  break;
              case "Today" :
                  searchCriterial.setAccessedStartDate(today);
-                 searchCriterial.setAccessedEndDate(today);
+                 searchCriterial.setAccessedEndDate(tomorrow);
                  break;
              case "Yesterday" :
                  searchCriterial.setAccessedStartDate(yesterday);
-                 searchCriterial.setAccessedEndDate(yesterday);
+                 searchCriterial.setAccessedEndDate(today);
                  break;
          }
      }
@@ -218,6 +220,8 @@ public class SearchController {
          Date today = calendar.getTime();
          calendar.add(Calendar.DATE,-1);
          Date yesterday = calendar.getTime();
+         calendar.add(Calendar.DATE,2);
+         Date tomorrow = calendar.getTime();
          String createdOption = view.getCreatedOptions();
          switch(createdOption) {
              case "All Time" :
@@ -230,11 +234,11 @@ public class SearchController {
                  break;
              case "Today" :
                  this.model.setCreatedStartDate(today);
-                 this.model.setCreatedEndDate(today);
+                 this.model.setCreatedEndDate(tomorrow);
                  break;
              case "Yesterday" :
                  this.model.setCreatedStartDate(yesterday);
-                 this.model.setCreatedEndDate(yesterday);
+                 this.model.setCreatedEndDate(today);
                  break;
          }
          String modifiedOption = view.getModifiedOptions();
@@ -249,11 +253,11 @@ public class SearchController {
                  break;
              case "Today" :
                  this.model.setModifiedStartDate(today);
-                 this.model.setModifiedEndDate(today);
+                 this.model.setModifiedEndDate(tomorrow);
                  break;
              case "Yesterday" :
                  this.model.setModifiedStartDate(yesterday);
-                 this.model.setModifiedEndDate(yesterday);
+                 this.model.setModifiedEndDate(today);
                  break;
          }
          String accessedOption = view.getAccessedOptions();
@@ -268,11 +272,11 @@ public class SearchController {
                  break;
              case "Today" :
                  this.model.setAccessedStartDate(today);
-                 this.model.setAccessedEndDate(today);
+                 this.model.setAccessedEndDate(tomorrow);
                  break;
              case "Yesterday" :
                  this.model.setAccessedStartDate(yesterday);
-                 this.model.setAccessedEndDate(yesterday);
+                 this.model.setAccessedEndDate(today);
                  break;
          }
 
