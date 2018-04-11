@@ -70,7 +70,7 @@ public class SearchTest {
                 fileFound=true;
             }
         }
-       assertTrue(fileFound);
+        assertTrue(fileFound);
     }
 
     //This test allows to search files that are read only
