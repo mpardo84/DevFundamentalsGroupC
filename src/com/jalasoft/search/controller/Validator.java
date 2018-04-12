@@ -13,9 +13,13 @@
  */
 package com.jalasoft.search.controller;
 
+import com.jalasoft.search.commond.Functions;
+
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +36,11 @@ import java.util.regex.Pattern;
 
     public class Validator {
 
+
+    // Link to logger
+    private final static Logger log = Logger.getLogger("com.jalasoft.search.controller");
+
+    Functions functions = new Functions();
     /*
     *
     isValidFileName Method to validate if a name is valid for a file
@@ -45,6 +54,7 @@ import java.util.regex.Pattern;
     */
 
     public boolean isValidFileName(String fileName){
+        log.log(Level.INFO, "Validating file name .....");
         Pattern pattern = Pattern.compile("^(?!(COM[0-9]|LPT[0-9]|CON|PRN|AUX|CLOCK\\$|NUL)$)[^./\\:*?\"<>|]+$",Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher((fileName));
         boolean isValid = matcher.matches();
@@ -57,12 +67,12 @@ import java.util.regex.Pattern;
     *
     */
     public boolean isValidPath(String path) {
-
+          log.log(Level.INFO, "Validating path name ......");
            try {
                Path path1 = Paths.get(path);
            }
            catch (InvalidPathException | NullPointerException ex) {
-
+               log.log(Level.SEVERE, functions.getStackTrace(ex));
                return false;
            }
             return true;
@@ -74,6 +84,7 @@ import java.util.regex.Pattern;
     *
     */
    public boolean areRequiredFieldsFilled( String pathName){
+       log.log(Level.INFO, "Validating required fields .....");
        if ( pathName.isEmpty()){
            return false;
        }
@@ -86,11 +97,20 @@ import java.util.regex.Pattern;
      *
      */
    public boolean isValidateSizeValue(String size){
-       try {
-           Double doubleSize = Double.parseDouble(size);
+       log.log(Level.INFO, "Validatig size value .....");
+       if (size.isEmpty() == false){
+           try {
+               Double doubleSize = Double.parseDouble(size);
+           }
+           catch (NullPointerException npe) {
+               log.log(Level.SEVERE, functions.getStackTrace(npe));
+               return false;
+           }
+           catch (NumberFormatException nfe){
+                log.log(Level.SEVERE, functions.getStackTrace(nfe));
+                return false;}
+           return true;
        }
-       catch (NullPointerException npe) { return false;}
-       catch (NumberFormatException nfe){ return false;}
        return true;
    }
 }

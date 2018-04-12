@@ -14,16 +14,15 @@
 
 package com.jalasoft.search;
 
+import com.jalasoft.search.commond.Functions;
 import com.jalasoft.search.controller.SearchController;
 import com.jalasoft.search.model.Search;
 import com.jalasoft.search.view.SearchProject;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
@@ -46,6 +45,10 @@ public class MainApplicationProject {
 
     public static void main(String[] args) {
 
+
+        // Create instance to access to auxiliar functions
+        Functions functions = new Functions();
+
         try {
             // Prepare file where  log records are going to be saved
             FileHandler fileHandler = new FileHandler("./logger.log", false);
@@ -64,18 +67,6 @@ public class MainApplicationProject {
 
             log.log(Level.INFO, "Starting search application");
 
-
-            try {
-                throw new Exception("ERROR DE CONTROL DE FLUJO DE PROGRAMA");
-            } catch (Exception e) {
-
-                // Mediante el metodo getStack obtenemos el stackTrace de la excepcion en forma de un objecto String
-                // de modo que podamos almacenarlo en bitacora para su analisis posterior
-                log.log(Level.SEVERE, MainApplicationProject.getStackTrace(e));
-            }
-
-
-
             // Create instances for View, Model and Controller
             SearchProject vista = new SearchProject();
             Search modelo = new Search();
@@ -84,13 +75,8 @@ public class MainApplicationProject {
         } catch (IOException ex) {
             // Mediante el metodo getStack obtenemos el stackTrace de la excepcion en forma de un objecto String
             // de modo que podamos almacenarlo en bitacora para su analisis posterior
-            log.log(Level.SEVERE, MainApplicationProject.getStackTrace(ex));
+            log.log(Level.SEVERE, functions.getStackTrace(ex));
         }
     }
-    public static String getStackTrace(Exception e) {
-        StringWriter sWriter = new StringWriter();
-        PrintWriter pWriter = new PrintWriter(sWriter);
-        e.printStackTrace(pWriter);
-        return sWriter.toString();
-    }
+
 }
