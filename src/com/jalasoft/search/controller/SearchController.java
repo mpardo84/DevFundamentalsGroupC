@@ -274,7 +274,7 @@ public class SearchController {
             configureModelDataDirectory();
             // execute the search process
             this.model.getSearchCriterial().getFileObjectList().clear();
-            this.model.searchDirectory(view.getPathName());
+            this.model.searchDirectory(view.getDirPath());
             log.log(Level.INFO, "Successfully search process");
             // Display search result in UI
             this.view.getDirTable().setRowCount(0);

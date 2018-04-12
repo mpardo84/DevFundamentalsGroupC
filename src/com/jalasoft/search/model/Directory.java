@@ -32,7 +32,7 @@ public class Directory extends FileObject{
     public Directory(int numberOfFiles)
     {
         super();
-        this.numberOfFiles=0;
+        this.numberOfFiles=numberOfFiles;
     }
 
     public void setNumberOfFiles(int numberOfFiles) {

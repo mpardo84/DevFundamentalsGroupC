@@ -240,6 +240,11 @@ public class Search
 
     private void setFoundDirectoryObject(File file)
     {
+        int numberOfFiles = 0;
+
+        if (file.listFiles() != null)
+            numberOfFiles = file.listFiles().length;
+
         try {
             Date dateModified = new Date(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toMillis());
             Date dateCreated = new Date(Files.getLastModifiedTime(Paths.get(file.getAbsolutePath())).toMillis());
@@ -250,7 +255,7 @@ public class Search
             factoryFileObject.setFileObjectFound(this.searchCriterial, "directory", FilenameUtils.getBaseName(file.getName()),
                     file.getParent(), !file.canWrite(), file.isHidden(), ownerName,
                     dateModified, size, dateCreated, dateAccessed,
-                    searchCriterial.getFileContains(), file.listFiles().length);
+                    searchCriterial.getFileContains(), numberOfFiles);
 
         } catch (IOException e) {
             e.printStackTrace();
