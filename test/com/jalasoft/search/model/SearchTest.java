@@ -45,7 +45,6 @@ public class SearchTest {
         for (FileObject file : searchResult)
         {
             String name=file.getFileName();
-            System.out.println("name "+name);
         }
         assertFalse(searchResult.isEmpty());
 
@@ -189,8 +188,6 @@ public class SearchTest {
         {
             String extensionFile= ((File)file).getFileType();
             String name=file.getFileName();
-            System.out.println("file name "+name);
-            System.out.println("file extension "+extensionFile);
 
             if(extensionFile.equals(extention)){
                 fileFound=true;
@@ -225,4 +222,223 @@ public class SearchTest {
         }
         assertTrue(fileFound);
     }
+
+    //This test allows to search files by extension,name,read Only, hidden and path
+    @Test
+    public void searchFileByPathAndExtensionAndNameAndReadOnlyAndHidden(){
+        Search searchFile=new Search();
+        SearchCriterial searchCriterial=new SearchCriterial();
+        String directory="./test/com/jalasoft/search/resourceTest";
+        String extention="txt";
+        String name="FileNameReadOnlyAndHidden";
+        boolean hidden=true;
+        boolean readOnly=true;
+        /*searchCriterial.setFileType(extention);
+        searchCriterial.setFileName(name);
+        searchCriterial.setReadOnly(readOnly);
+        searchCriterial.setHidden(hidden);*/
+        searchFile.setFileType(extention);
+        searchFile.setFileName(name);
+        searchFile.setReadOnly(true);
+        searchFile.setHidden(hidden);
+        searchFile.searchFile(directory);
+        List<FileObject> searchResult = searchFile.getFileObjectList();
+        boolean fileFound=false;
+        for (FileObject file : searchResult)
+        {
+            String extensionFile= ((File)file).getFileType();
+            String nameFile=file.getFileName();
+            boolean readOnlyFile=file.isReadOnly();
+            boolean hiddenFile=file.isHidden();
+
+            if(extensionFile.equals(extention) && nameFile.equals(name) && readOnlyFile==readOnly && hiddenFile==hidden){
+                fileFound=true;
+            }
+        }
+        assertTrue(fileFound);
+    }
+
+    //This test allows to search files by name,read Only, hidden and path
+    @Test
+    public void searchFileByPathAndNameAndReadOnlyAndHidden() {
+        Search searchFile = new Search();
+        SearchCriterial searchCriterial = new SearchCriterial();
+        String directory = "./test/com/jalasoft/search/resourceTest";
+        String name = "FileNameReadOnlyAndHidden";
+        boolean hidden = true;
+        boolean readOnly = true;
+        /*
+        searchCriterial.setFileName(name);
+        searchCriterial.setReadOnly(readOnly);
+        searchCriterial.setHidden(hidden);*/
+        searchFile.setFileName(name);
+        searchFile.setHidden(hidden);
+        searchFile.setReadOnly(readOnly);
+        searchFile.searchFile(directory);
+        List<FileObject> searchResult = searchFile.getFileObjectList();
+        boolean fileFound = false;
+        for (FileObject file : searchResult) {
+
+            String nameFile = file.getFileName();
+            boolean readOnlyFile = file.isReadOnly();
+            boolean hiddenFile = file.isHidden();
+            if (nameFile.equals(name) && readOnlyFile == readOnly && hiddenFile == hidden) {
+                fileFound = true;
+            }
+        }
+        assertTrue(fileFound);
+    }
+
+    //This test allows to search files by size that are greater than 1.1 KB
+    @Test
+    public void searchFileByPathAndSizeGreaterCondition(){
+        Search searchFile=new Search();
+        SearchCriterial searchCriterial=new SearchCriterial();
+        String directory="./test/com/jalasoft/search/resourceTest";
+        double size=1.1;
+        String condition=">";
+        searchCriterial.setSize(size);
+        searchFile.setSizeOption(condition);
+        searchFile.searchFile(directory);
+        List<FileObject> searchResult = searchFile.getFileObjectList();
+        boolean fileFound=false;
+        for (FileObject file : searchResult)
+        {
+            double fileSize = file.getSize();
+            double sizeFile= fileSize/1024;
+
+            if(sizeFile >size){
+                fileFound=true;
+            }
+        }
+        assertTrue(fileFound);
+    }
+
+    //This test allows to search files by size that are less than 5
+    @Test
+    public void searchFileByPathAndSizeLessCondition(){
+        Search searchFile=new Search();
+        SearchCriterial searchCriterial=new SearchCriterial();
+        String directory="./test/com/jalasoft/search/resourceTest";
+        double size=5;
+        String condition="<";
+       /* searchCriterial.setSize(size);
+        searchCriterial.setSizeOption(condition);
+        searchCriterial.setFilePath(directory);*/
+
+        searchFile.setSizeOption(condition);
+        searchFile.setSize(size);
+        searchFile.searchFile(directory);
+        List<FileObject> searchResult = searchFile.getFileObjectList();
+        boolean fileFound=false;
+        for (FileObject file : searchResult)
+        {
+            double fileSize = file.getSize();
+            double sizeFile= fileSize/1024;
+            if(sizeFile <size){
+                fileFound=true;
+            }
+        }
+        assertTrue(fileFound);
+    }
+
+    //This test allows to search files by size that are equals to 1.18
+    @Test
+    public void searchFileByPathAndSizeEqualsCondition(){
+        Search searchFile=new Search();
+        SearchCriterial searchCriterial=new SearchCriterial();
+        String directory="./test/com/jalasoft/search/resourceTest";
+        double size=1.18;
+        String condition="=";
+       /* searchCriterial.setSize(size);
+        searchCriterial.setSizeOption(condition);
+        searchCriterial.setFilePath(directory);*/
+
+        searchFile.setSizeOption(condition);
+        searchFile.setSize(size);
+        searchFile.searchFile(directory);
+        List<FileObject> searchResult = searchFile.getFileObjectList();
+        boolean fileFound=false;
+        for (FileObject file : searchResult)
+        {
+            double fileSize = file.getSize();
+            double sizeFile= fileSize/1000;
+
+            if(sizeFile == size){
+                fileFound=true;
+            }
+        }
+        assertTrue(fileFound);
+    }
+
+
+    //Test that allows to search directory by name
+    @Test
+    public void searchDirectoryByName(){
+        Search searchFile=new Search();
+        String directory="./test/com/jalasoft/search/resourceTest";
+        String dirName="directoryName";
+        boolean dirFound=false;
+        searchFile.setDirectoryName(dirName);
+        searchFile.setDirectoryPath(directory);
+        searchFile.searchDirectory(directory);
+        List<FileObject> searchResult = searchFile.getFileObjectList();
+        for (FileObject dir : searchResult)
+        {
+            String name=dir.getFileName();
+            if(dirName.equals(name)){
+                dirFound=true;
+            }
+        }
+        assertTrue(dirFound);
+
+    }
+
+    //Test that allows to search directory by hidden
+    @Test
+    public void searchDirectoryByHidden(){
+        Search searchFile=new Search();
+        String directory="./test/com/jalasoft/search/resourceTest";
+        boolean hidden=true;
+        boolean dirFound=false;
+        searchFile.setHiddenDir(hidden);
+        searchFile.setDirectoryPath(directory);
+        searchFile.searchDirectory(directory);
+        List<FileObject> searchResult = searchFile.getFileObjectList();
+        for (FileObject dir : searchResult)
+        {
+            boolean hiddenDir=dir.isHidden();
+            if(hiddenDir==hidden){
+                dirFound=true;
+            }
+        }
+        assertTrue(dirFound);
+
+    }
+
+    //Test that allows to search directory by hidden and Name
+    @Test
+    public void searchDirectoryByHiddenAndName(){
+        Search searchFile=new Search();
+        String directory="./test/com/jalasoft/search/resourceTest";
+        boolean hidden=true;
+        String dirName="DirectoryHidden";
+        boolean dirFound=false;
+        searchFile.setHiddenDir(hidden);
+        searchFile.setDirectoryName(dirName);
+        searchFile.setDirectoryPath(directory);
+        searchFile.searchDirectory(directory);
+        List<FileObject> searchResult = searchFile.getFileObjectList();
+        for (FileObject dir : searchResult)
+        {
+            boolean hiddenDir=dir.isHidden();
+            String name=dir.getFileName();
+            if(hiddenDir==hidden && name.equals(dirName)){
+                dirFound=true;
+            }
+        }
+        assertTrue(dirFound);
+
+    }
+    
 }
