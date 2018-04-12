@@ -13,12 +13,11 @@
  */
 package com.jalasoft.search.view;
 
-import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.util.Date;
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,6 +30,10 @@ Monica Pardo */
 public class DirectoryPanel extends JPanel{
     private SearchDirectoryPanelCriteria searchDirectoryCriteria;
     private SearchPanelResults searchPanelResults;
+
+    // Loink to logegr
+    private final static Logger log = Logger.getLogger("com.jalasoft.search.view");
+
 
     public DirectoryPanel(){
 

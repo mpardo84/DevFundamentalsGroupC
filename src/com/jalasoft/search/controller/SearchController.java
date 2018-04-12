@@ -13,12 +13,17 @@
  */
 package com.jalasoft.search.controller;
 
-import com.jalasoft.search.model.*;
+import com.jalasoft.search.model.File;
+import com.jalasoft.search.model.FileObject;
+import com.jalasoft.search.model.Search;
+import com.jalasoft.search.model.SearchCriterial;
 import com.jalasoft.search.view.SearchProject;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,9 +36,13 @@ import java.util.List;
         Gretta Rocha
  */
 
+
 public class SearchController {
     private SearchProject view;
     private Search model;
+
+    // link to logger
+    private final static Logger log = Logger.getLogger("com.jalasoft.search.controller");
 
     /**
     *
@@ -47,6 +56,9 @@ public class SearchController {
         this.view.getSearchDir().addActionListener(e -> searchButtonDirectoryActionListener());
     }
 
+    //Log log = Log.getInstance();
+    //log.searchLog.severe("SearchController class");
+
     /**
     *
     * validateData method where all file data are validated in order to verify that they are valid
@@ -54,13 +66,13 @@ public class SearchController {
     */
     public String validateData(String type) {
         Validator validator = new Validator();
-
+        log.log(Level.INFO, "Starting validation data process .......");
         if (type == "File") {
-
             if (validator.areRequiredFieldsFilled(view.getPathName()) == true) {
                 if (validator.isValidPath(view.getPathName())) {
                     if ((validator.isValidFileName(view.getFileName()) == true) || (view.getFileName().isEmpty())) {
                         if (validator.isValidateSizeValue(view.getSizeValue()) || view.getSizeValue().isEmpty()){
+                            log.log(Level.INFO, "Data entered for searchign files  are valid");
                             return null;
                         }else{
                             return "Size value is invalid";
@@ -77,11 +89,11 @@ public class SearchController {
             }
 
         } else {
-
             if (validator.areRequiredFieldsFilled(view.getDirPath()) == true) {
                 if (validator.isValidPath(view.getDirPath())) {
                     if ((validator.isValidFileName(view.getDirName()) == true) || (view.getDirName().isEmpty())) {
                         if((validator.isValidateSizeValue(view.getSizeDirValue())) || (view.getSizeDirValue().isEmpty())){
+                            log.log(Level.INFO, "Data entered for searchign a directory are valid");
                             return null;
                         }else{
                             return "Directory size value is invalid";
@@ -97,6 +109,7 @@ public class SearchController {
                 return "Required data 'Search Path' should be filled";
             }
         }
+
     }
 
     /*
@@ -212,6 +225,7 @@ public class SearchController {
     *
     */
     public void searchButtonActionListener() {
+        log.log(Level.INFO, "Searching  by files......");
         String validateResult = validateData("File");
         if (validateResult == null) {
             // Configure SearchCriterial class with UI's data
@@ -220,13 +234,16 @@ public class SearchController {
             // execute the search process
             this.model.getSearchCriterial().getFileObjectList().clear();
             this.model.searchFile(view.getPathName());
+            log.log(Level.INFO, "Successfully search process");
             // Display search result in UI
             this.view.getTable().setRowCount(0);
             List<FileObject> searchResult = this.model.getSearchCriterial().getFileObjectList();
             if (searchResult.isEmpty()) {
+                log.log(Level.INFO, "File not found with the selected criteria");
                 this.view.setMessage("File not found with the selected criteria");
             }
             else{
+                log.log(Level.INFO, "Displaying search result to final user....");
                 Object rowData[]=new Object[5];
                 for (FileObject file : searchResult)
                 {
@@ -241,6 +258,7 @@ public class SearchController {
             }
         } else {
             // Display validation error messages
+            log.log(Level.INFO, "Entered data are invalid : " + validateResult);
             this.view.setMessage(validateResult);
         }
     }
@@ -250,19 +268,23 @@ public class SearchController {
      */
     public void searchButtonDirectoryActionListener() {
         String validateResult = validateData("Directory");
+        log.log(Level.INFO, "Searching  a directory......");
         if (validateResult == null) {
              // Configure data for model side
             configureModelDataDirectory();
             // execute the search process
             this.model.getSearchCriterial().getFileObjectList().clear();
             this.model.searchDirectory(view.getPathName());
+            log.log(Level.INFO, "Successfully search process");
             // Display search result in UI
             this.view.getDirTable().setRowCount(0);
             List<FileObject> searchResult = this.model.getSearchCriterial().getFileObjectList();
             if (searchResult.isEmpty()) {
+                log.log(Level.INFO, "Directory not found with the selected criteria");
                 this.view.setMessage("Directory not found with the selected criteria");
             }
             else{
+                log.log(Level.INFO, "Displaying search result to final user ......");
                 Object rowData[]=new Object[6];
                 for (FileObject dir : searchResult)
                 {
@@ -278,6 +300,7 @@ public class SearchController {
             }
         } else {
             // Display validation error messages
+            log.log(Level.INFO, "Entered data for directory are invalid : " + validateResult);
             this.view.setMessage(validateResult);
         }
     }
