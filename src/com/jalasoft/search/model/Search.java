@@ -66,7 +66,7 @@ public class Search
                 {
                     searchFile(file.getAbsolutePath());
                 }
-                else if (file.getName().toLowerCase().contains((searchCriterial.getFileName() + searchCriterial.getFileType()).toLowerCase()))
+                else if (file.getName().toLowerCase().contains((searchCriterial.getFileName() +"."+searchCriterial.getFileType()).toLowerCase()))
                 {
 
                     if (file.isHidden() == searchCriterial.isHidden())
@@ -130,7 +130,7 @@ public class Search
                         if (dir.isHidden() == searchCriterial.isHidden()) {
                             if (dir.canWrite() != searchCriterial.isReadOnly()) {
                                 try {
-                                    BasicFileAttributes attributes = Files.readAttributes(filePath, BasicFileAttributes.class);
+                                   // BasicFileAttributes attributes = Files.readAttributes(filePath, BasicFileAttributes.class);
                                     if (Files.getOwner(Paths.get(dir.getAbsolutePath())).getName().toLowerCase()
                                             .contains(searchCriterial.getOwnerName().toLowerCase())) {
 

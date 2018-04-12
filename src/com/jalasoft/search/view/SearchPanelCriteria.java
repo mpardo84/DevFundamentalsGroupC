@@ -100,7 +100,7 @@ public class SearchPanelCriteria extends JPanel {
 
     public SearchPanelCriteria() {
         setLayout(null);
-        comboBoxTimeValues = new String[] { "","All  Time", "Time Range","Today","Yesterday" };
+        comboBoxTimeValues = new String[] { "","All Time", "Time Range","Today","Yesterday" };
         this.setBackground(new Color(224, 224, 224));
         generalSearchCriteria();
         searchAttributesSection();
