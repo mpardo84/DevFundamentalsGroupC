@@ -41,7 +41,7 @@ public class SearchTest {
         Search searchFile=new Search();
         String directory="./test/com/jalasoft/search/resourceTest";
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         for (FileObject file : searchResult)
         {
             String name=file.getFileName();
@@ -59,7 +59,7 @@ public class SearchTest {
         String nameFile="FileName";
         searchCriterial.setFileName(nameFile);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -80,9 +80,9 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         boolean readOnly=true;
         //searchCriterial.setReadOnly(readOnly);
-        searchFile.setReadOnly(readOnly);
+        searchFile.getSearchCriterial().setReadOnly(readOnly);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -105,10 +105,10 @@ public class SearchTest {
         boolean readOnly=true;
         //searchCriterial.setFileName(nameFile);
         //searchCriterial.setReadOnly(readOnly);
-        searchFile.setReadOnly(readOnly);
-        searchFile.setFileName(nameFile);
+        searchFile.getSearchCriterial().setReadOnly(readOnly);
+        searchFile.getSearchCriterial().setFileName(nameFile);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -131,9 +131,9 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         boolean hidden=true;
         //searchCriterial.setHidden(hidden);
-        searchFile.setHidden(hidden);
+        searchFile.getSearchCriterial().setHidden(hidden);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -156,10 +156,10 @@ public class SearchTest {
         boolean hidden=true;
         //searchCriterial.setFileName(nameFile);
         //searchCriterial.setHidden(hidden);
-        searchFile.setHidden(hidden);
-        searchFile.setFileName(nameFile);
+        searchFile.getSearchCriterial().setHidden(hidden);
+        searchFile.getSearchCriterial().setFileName(nameFile);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -180,9 +180,9 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         String extention="docx";
         //searchCriterial.setFileType(extention);
-        searchFile.setFileType(extention);
+        searchFile.getSearchCriterial().setFileType(extention);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -206,10 +206,10 @@ public class SearchTest {
         String name="FileName";
         //searchCriterial.setFileType(extention);
         //searchCriterial.setFileName(name);
-        searchFile.setFileType(extention);
-        searchFile.setFileName(name);
+        searchFile.getSearchCriterial().setFileType(extention);
+        searchFile.getSearchCriterial().setFileName(name);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -237,12 +237,12 @@ public class SearchTest {
         searchCriterial.setFileName(name);
         searchCriterial.setReadOnly(readOnly);
         searchCriterial.setHidden(hidden);*/
-        searchFile.setFileType(extention);
-        searchFile.setFileName(name);
-        searchFile.setReadOnly(true);
-        searchFile.setHidden(hidden);
+        searchFile.getSearchCriterial().setFileType(extention);
+        searchFile.getSearchCriterial().setFileName(name);
+        searchFile.getSearchCriterial().setReadOnly(true);
+        searchFile.getSearchCriterial().setHidden(hidden);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -271,11 +271,11 @@ public class SearchTest {
         searchCriterial.setFileName(name);
         searchCriterial.setReadOnly(readOnly);
         searchCriterial.setHidden(hidden);*/
-        searchFile.setFileName(name);
-        searchFile.setHidden(hidden);
-        searchFile.setReadOnly(readOnly);
+        searchFile.getSearchCriterial().setFileName(name);
+        searchFile.getSearchCriterial().setHidden(hidden);
+        searchFile.getSearchCriterial().setReadOnly(readOnly);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound = false;
         for (FileObject file : searchResult) {
 
@@ -298,9 +298,9 @@ public class SearchTest {
         double size=1.1;
         String condition=">";
         searchCriterial.setSize(size);
-        searchFile.setSizeOption(condition);
+        searchFile.getSearchCriterial().setSizeOption(condition);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -326,10 +326,10 @@ public class SearchTest {
         searchCriterial.setSizeOption(condition);
         searchCriterial.setFilePath(directory);*/
 
-        searchFile.setSizeOption(condition);
-        searchFile.setSize(size);
+        searchFile.getSearchCriterial().setSizeOption(condition);
+        searchFile.getSearchCriterial().setSize(size);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -354,10 +354,10 @@ public class SearchTest {
         searchCriterial.setSizeOption(condition);
         searchCriterial.setFilePath(directory);*/
 
-        searchFile.setSizeOption(condition);
-        searchFile.setSize(size);
+        searchFile.getSearchCriterial().setSizeOption(condition);
+        searchFile.getSearchCriterial().setSize(size);
         searchFile.searchFile(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         boolean fileFound=false;
         for (FileObject file : searchResult)
         {
@@ -379,10 +379,10 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         String dirName="directoryName";
         boolean dirFound=false;
-        searchFile.setDirectoryName(dirName);
-        searchFile.setDirectoryPath(directory);
+        searchFile.getSearchCriterial().setDirectoryName(dirName);
+        searchFile.getSearchCriterial().setDirectoryPath(directory);
         searchFile.searchDirectory(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         for (FileObject dir : searchResult)
         {
             String name=dir.getFileName();
@@ -401,10 +401,10 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         boolean hidden=true;
         boolean dirFound=false;
-        searchFile.setHiddenDir(hidden);
-        searchFile.setDirectoryPath(directory);
+        searchFile.getSearchCriterial().setHiddenDir(hidden);
+        searchFile.getSearchCriterial().setDirectoryPath(directory);
         searchFile.searchDirectory(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         for (FileObject dir : searchResult)
         {
             boolean hiddenDir=dir.isHidden();
@@ -424,11 +424,11 @@ public class SearchTest {
         boolean hidden=true;
         String dirName="DirectoryHidden";
         boolean dirFound=false;
-        searchFile.setHiddenDir(hidden);
-        searchFile.setDirectoryName(dirName);
-        searchFile.setDirectoryPath(directory);
+        searchFile.getSearchCriterial().setHiddenDir(hidden);
+        searchFile.getSearchCriterial().setDirectoryName(dirName);
+        searchFile.getSearchCriterial().setDirectoryPath(directory);
         searchFile.searchDirectory(directory);
-        List<FileObject> searchResult = searchFile.getFileObjectList();
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
         for (FileObject dir : searchResult)
         {
             boolean hiddenDir=dir.isHidden();
@@ -438,7 +438,5 @@ public class SearchTest {
             }
         }
         assertTrue(dirFound);
-
     }
-    
 }
