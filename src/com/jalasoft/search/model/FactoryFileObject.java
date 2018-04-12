@@ -14,9 +14,6 @@
 
 package com.jalasoft.search.model;
 
-import java.io.File;
-import java.util.Date;
-
 /**
  *
  * This class is going to represent a file object found.

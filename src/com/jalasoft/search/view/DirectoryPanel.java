@@ -14,7 +14,6 @@
 package com.jalasoft.search.view;
 
 import javax.swing.JPanel;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.Date;
 import javax.swing.JButton;

@@ -13,12 +13,17 @@
  */
 package com.jalasoft.search.controller;
 
-import com.jalasoft.search.model.*;
+import com.jalasoft.search.model.File;
+import com.jalasoft.search.model.FileObject;
+import com.jalasoft.search.model.Search;
+import com.jalasoft.search.model.SearchCriterial;
 import com.jalasoft.search.view.SearchProject;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,9 +36,13 @@ import java.util.List;
         Gretta Rocha
  */
 
+
 public class SearchController {
     private SearchProject view;
     private Search model;
+
+    private final static Logger log = Logger.getLogger("com.jalasoft.search.controller");
+
 
     /**
     *
@@ -47,6 +56,9 @@ public class SearchController {
         this.view.getSearchDir().addActionListener(e -> searchButtonDirectoryActionListener());
     }
 
+    //Log log = Log.getInstance();
+    //log.searchLog.severe("SearchController class");
+
     /**
     *
     * validateData method where all file data are validated in order to verify that they are valid
@@ -54,7 +66,7 @@ public class SearchController {
     */
     public String validateData(String type) {
         Validator validator = new Validator();
-
+        log.log(Level.INFO, "Validacion");
         if (type == "File") {
 
             if (validator.areRequiredFieldsFilled(view.getPathName()) == true) {
@@ -97,6 +109,7 @@ public class SearchController {
                 return "Required data 'Search Path' should be filled";
             }
         }
+
     }
 
 
