@@ -142,17 +142,21 @@ public class Search
                                             .contains(searchCriterial.getOwnerName().toLowerCase())) {
 
                                         if (searchCriterial.getSizeOption() == "") {
-                                            setFoundDirectoryObject(dir);
+                                            if (isWithinModifiedRange(dir) && isWithinCreatedRange(dir) && isWithinAccessedRange(dir))
+                                                setFoundDirectoryObject(dir);
                                         } else {
                                             if (searchCriterial.getSizeOption() == ">" && (Files.size(Paths.get(dir.getAbsolutePath()))) > searchCriterial.getSize()) {
-                                                setFoundDirectoryObject(dir);
+                                                if (isWithinModifiedRange(dir) && isWithinCreatedRange(dir) && isWithinAccessedRange(dir))
+                                                    setFoundDirectoryObject(dir);
                                             } else {
                                                 if (searchCriterial.getSizeOption() == "<" && (Files.size(Paths.get(dir.getAbsolutePath()))) < searchCriterial.getSize()) {
-                                                    setFoundDirectoryObject(dir);
+                                                    if (isWithinModifiedRange(dir) && isWithinCreatedRange(dir) && isWithinAccessedRange(dir))
+                                                        setFoundDirectoryObject(dir);
                                                 } else {
 
                                                     if (searchCriterial.getSizeOption() == "=" && (Files.size(Paths.get(dir.getAbsolutePath()))) == searchCriterial.getSize()) {
-                                                        setFoundDirectoryObject(dir);
+                                                        if (isWithinModifiedRange(dir) && isWithinCreatedRange(dir) && isWithinAccessedRange(dir))
+                                                            setFoundDirectoryObject(dir);
 
                                                     }
 
@@ -182,7 +186,7 @@ public class Search
             String ownerName = Files.getOwner(Paths.get(file.getAbsolutePath())).getName();
             long size = Files.size(Paths.get(file.getAbsolutePath()));
 
-            factoryFileObject.setFileObjectFound(this.searchCriterial, "file", FilenameUtils.getBaseName(file.getName()),
+            factoryFileObject.setFileObjectFound(this.searchCriterial, "file", file.getName(),
                     file.getParent(), !file.canWrite(), file.isHidden(), ownerName,
                     dateModified, size, dateCreated, dateAccessed,
                     searchCriterial.getFileContains(), 0);
