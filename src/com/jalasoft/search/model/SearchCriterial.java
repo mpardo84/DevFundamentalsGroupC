@@ -62,6 +62,9 @@ public class SearchCriterial
     private Double sizeDir;
     private String dateModifiedDir;
     private String sizeDirOption;
+    private Date todayDate;
+    private Date yesterdayDate;
+    private String timeOption;
 
     public SearchCriterial()
     {
@@ -74,6 +77,8 @@ public class SearchCriterial
         this.dateModified = new Date();
         this.dateCreated = new Date();
         this.dateAccessed = new Date();
+        this.todayDate=new Date();
+        this.yesterdayDate=new Date();
         this.sizeOption = "";
         this.size = 0D;
         this.fileContains = "";
@@ -93,6 +98,7 @@ public class SearchCriterial
         this.sizeDir=0D;
         this.dateModifiedDir="";
         this.sizeDirOption = "";
+        this.timeOption="";
     }
 
     /**
@@ -468,5 +474,28 @@ public class SearchCriterial
 
     public Date getDateAccessed() {
         return dateAccessed;
+    }
+    public void setTodayDate(Date todayDate) {
+        this.todayDate = todayDate;
+    }
+
+    public Date getTodayDate() {
+        return todayDate;
+    }
+
+    public void setTimeOption(String timeOption) {
+        this.timeOption = timeOption;
+    }
+
+    public String getTimeOption() {
+        return timeOption;
+    }
+
+    public Date getYesterdayDate() {
+        return yesterdayDate;
+    }
+
+    public void setYesterdayDate(Date yesterdayDate) {
+        this.yesterdayDate = yesterdayDate;
     }
 }
