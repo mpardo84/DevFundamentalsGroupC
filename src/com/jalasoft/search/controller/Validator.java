@@ -14,6 +14,7 @@
 package com.jalasoft.search.controller;
 
 import com.jalasoft.search.commond.Functions;
+import com.jalasoft.search.commond.LoggerWrapper;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -36,11 +37,10 @@ import java.util.regex.Pattern;
 
     public class Validator {
 
-
-    // Link to logger
-    private final static Logger log = Logger.getLogger("com.jalasoft.search.controller");
-
+    // Get loggerWrapper instance
+    LoggerWrapper logger = LoggerWrapper.getInstance();
     Functions functions = new Functions();
+
     /*
     *
     isValidFileName Method to validate if a name is valid for a file
@@ -52,9 +52,8 @@ import java.util.regex.Pattern;
     *
     Also some symbols are not allowed in file names :  " * / : < > ? \ |
     */
-
     public boolean isValidFileName(String fileName){
-        log.log(Level.INFO, "Validating file name .....");
+        logger.log.info( "Validating file name .....");
         Pattern pattern = Pattern.compile("^(?!(COM[0-9]|LPT[0-9]|CON|PRN|AUX|CLOCK\\$|NUL)$)[^./\\:*?\"<>|]+$",Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher((fileName));
         boolean isValid = matcher.matches();
@@ -67,15 +66,15 @@ import java.util.regex.Pattern;
     *
     */
     public boolean isValidPath(String path) {
-          log.log(Level.INFO, "Validating path name ......");
-           try {
+        logger.log.info( "Validating path name ......");
+         try {
                Path path1 = Paths.get(path);
-           }
-           catch (InvalidPathException | NullPointerException ex) {
-               log.log(Level.SEVERE, functions.getStackTrace(ex));
+         }
+         catch (InvalidPathException | NullPointerException ex) {
+             logger.log.severe( functions.getStackTrace(ex));
                return false;
-           }
-            return true;
+         }
+         return true;
         }
 
     /**
@@ -84,7 +83,7 @@ import java.util.regex.Pattern;
     *
     */
    public boolean areRequiredFieldsFilled( String pathName){
-       log.log(Level.INFO, "Validating required fields .....");
+       logger.log.info( "Validating required fields .....");
        if ( pathName.isEmpty()){
            return false;
        }
@@ -97,20 +96,36 @@ import java.util.regex.Pattern;
      *
      */
    public boolean isValidateSizeValue(String size){
-       log.log(Level.INFO, "Validatig size value .....");
+       logger.log.info( "Validating size value .....");
        if (size.isEmpty() == false){
            try {
                Double doubleSize = Double.parseDouble(size);
            }
            catch (NullPointerException npe) {
-               log.log(Level.SEVERE, functions.getStackTrace(npe));
+               logger.log.info( functions.getStackTrace(npe));
                return false;
            }
            catch (NumberFormatException nfe){
-                log.log(Level.SEVERE, functions.getStackTrace(nfe));
+               logger.log.severe( functions.getStackTrace(nfe));
                 return false;}
            return true;
        }
        return true;
    }
+
+    /**
+     *
+     * isValidExtension method checks if value entered in extenssion field is valid
+     *
+     */
+    public boolean isValidExtension( String extension) {
+        logger.log.info("Validating extension value .....");
+        if (extension.isEmpty() == false) {
+            Pattern pattern = Pattern.compile("^[a-zA-Z0-9]*$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher((extension));
+            boolean isValid = matcher.matches();
+            return isValid;
+        }
+        return true;
+    }
 }

@@ -13,6 +13,8 @@
  */
 package com.jalasoft.search.view;
 
+import com.jalasoft.search.commond.LoggerWrapper;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -31,9 +33,8 @@ public class DirectoryPanel extends JPanel{
     private SearchDirectoryPanelCriteria searchDirectoryCriteria;
     private SearchPanelResults searchPanelResults;
 
-    // Loink to logegr
-    private final static Logger log = Logger.getLogger("com.jalasoft.search.view");
-
+    // Get loggerWrapper intance
+    LoggerWrapper logger = LoggerWrapper.getInstance();
 
     public DirectoryPanel(){
 
@@ -42,6 +43,7 @@ public class DirectoryPanel extends JPanel{
 
     //This method allows to initialize the Panel
     public void initializeDialog(){
+        logger.log.info("Creating panel to get directory data");
         this.setLayout(new GridLayout(1, 2));
         searchDirectoryCriteria=new SearchDirectoryPanelCriteria();
         searchPanelResults=new SearchPanelResults("Directory");
