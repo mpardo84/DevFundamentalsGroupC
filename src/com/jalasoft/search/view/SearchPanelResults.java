@@ -14,6 +14,8 @@
 
 package com.jalasoft.search.view;
 
+import com.jalasoft.search.commond.LoggerWrapper;
+
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import java.awt.GridLayout;
@@ -38,9 +40,13 @@ public class SearchPanelResults extends JPanel {
     private DefaultTableModel tableModel;
     private DefaultTableModel dirTableModel;
 
+    // Get loggerWrapper intance
+    LoggerWrapper logger = LoggerWrapper.getInstance();
+
     public SearchPanelResults(String typeObect) {
         super(new GridLayout(1,0));
         setBackground(Color.white);
+        logger.log.info("Creating panel to display search result");
         initializeTableResult(typeObect);
     }
 

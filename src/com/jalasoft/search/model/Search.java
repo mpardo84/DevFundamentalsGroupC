@@ -14,6 +14,8 @@
 
 package com.jalasoft.search.model;
 
+import com.jalasoft.search.commond.Functions;
+import com.jalasoft.search.commond.LoggerWrapper;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -39,6 +41,10 @@ public class Search
 {
     private SearchCriterial searchCriterial;
     private FactoryFileObject factoryFileObject;
+
+    // Get loggerWrapper instance
+    LoggerWrapper logger = LoggerWrapper.getInstance();
+    Functions functions = new Functions();
 
     public Search()
     {
@@ -108,6 +114,7 @@ public class Search
 
                                 }
                             } catch (IOException e) {
+                                logger.log.severe( functions.getStackTrace(e));
                                 e.printStackTrace();
                             }
                         }
@@ -155,6 +162,7 @@ public class Search
 
                                     }
                                 } catch (IOException e) {
+                                    logger.log.severe( functions.getStackTrace(e));
                                     e.printStackTrace();
                                 }
                             }
@@ -180,6 +188,7 @@ public class Search
                     searchCriterial.getFileContains(), 0);
 
         } catch (IOException e) {
+            logger.log.severe( functions.getStackTrace(e));
             e.printStackTrace();
         }
     }
@@ -199,6 +208,7 @@ public class Search
             Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
             return !(testDate.before(searchCriterial.getCreatedStartDate()) || testDate.after(searchCriterial.getCreatedEndDate()));
         } catch (IOException | ParseException e) {
+            logger.log.severe( functions.getStackTrace(e));
             e.printStackTrace();
         }
         return false;
@@ -213,6 +223,7 @@ public class Search
             Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
             return !(testDate.before(searchCriterial.getAccessedStartDate()) || testDate.after(searchCriterial.getAccessedEndDate()));
         } catch (IOException | ParseException e) {
+            logger.log.severe( functions.getStackTrace(e));
             e.printStackTrace();
         }
         return false;
@@ -233,6 +244,7 @@ public class Search
                 }
             }
         } catch(FileNotFoundException e) {
+            logger.log.severe( functions.getStackTrace(e));
             e.printStackTrace();
         }
         return false;
@@ -258,6 +270,7 @@ public class Search
                     searchCriterial.getFileContains(), numberOfFiles);
 
         } catch (IOException e) {
+            logger.log.severe( functions.getStackTrace(e));
             e.printStackTrace();
         }
     }

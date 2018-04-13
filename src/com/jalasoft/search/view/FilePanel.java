@@ -14,6 +14,8 @@
 
 package com.jalasoft.search.view;
 
+import com.jalasoft.search.commond.LoggerWrapper;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
@@ -33,12 +35,17 @@ public class FilePanel extends JPanel{
     private SearchPanelCriteria searchPanelCriteria;
     private SearchPanelResults searchPanelResults;
 
+    // Get loggerWrapper intance
+    LoggerWrapper logger = LoggerWrapper.getInstance();
+
+
     public FilePanel(){
         initializeDialog();
 
     }
     //This method allows to initialize the Panel
     public void initializeDialog(){
+        logger.log.info("Creating panel to get file data");
         setBackground(Color.white);
         this.setLayout(new GridLayout(1, 2));
         searchPanelCriteria=new SearchPanelCriteria();
