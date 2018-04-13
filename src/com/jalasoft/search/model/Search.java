@@ -200,6 +200,7 @@ public class Search
     private boolean isWithinModifiedRange(File file)
     {
         Date testDate = new Date(file.lastModified());
+
         return !(testDate.before(searchCriterial.getModifiedStartDate()) || testDate.after(searchCriterial.getModifiedEndDate()));
     }
 
@@ -233,10 +234,9 @@ public class Search
 
                     String startDate = dateFormat.format(searchCriterial.getYesterdayDate());
                     String formatDate = (dateFormat.format(fileAttributes.creationTime().toMillis()));
-                    System.out.println("el valor del mcreated date del file es " + formatDate);
-                    System.out.println("el valor del yesterday es " + startDate);
+
                     isInRange = ((formatDate.equals(startDate)));
-                    System.out.println("el valor del metodo created for tyesterdayis " + isInRange);
+
 
                 } catch (IOException | ParseException e) {
                     e.printStackTrace();
