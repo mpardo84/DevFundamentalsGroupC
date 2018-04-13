@@ -16,8 +16,10 @@ package com.jalasoft.search.model;
 
 
 import org.apache.commons.io.FilenameUtils;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -401,7 +403,7 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         boolean hidden=true;
         boolean dirFound=false;
-        searchFile.getSearchCriterial().setHiddenDir(hidden);
+        searchFile.getSearchCriterial().setHidden(hidden);
         searchFile.getSearchCriterial().setDirectoryPath(directory);
         searchFile.searchDirectory(directory);
         List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
@@ -413,7 +415,6 @@ public class SearchTest {
             }
         }
         assertTrue(dirFound);
-
     }
 
     //Test that allows to search directory by hidden and Name
@@ -424,7 +425,7 @@ public class SearchTest {
         boolean hidden=true;
         String dirName="DirectoryHidden";
         boolean dirFound=false;
-        searchFile.getSearchCriterial().setHiddenDir(hidden);
+        searchFile.getSearchCriterial().setHidden(hidden);
         searchFile.getSearchCriterial().setDirectoryName(dirName);
         searchFile.getSearchCriterial().setDirectoryPath(directory);
         searchFile.searchDirectory(directory);
@@ -438,5 +439,26 @@ public class SearchTest {
             }
         }
         assertTrue(dirFound);
+    }
+
+    @BeforeClass
+    public static void setupTestFiles()
+    {
+        String directory="./test/com/jalasoft/search/resourceTest";
+        try {
+            Runtime.getRuntime().exec("attrib +R "+directory+"/FileReadOnly.txt");
+            Runtime.getRuntime().exec("attrib +H "+directory+"/FileHidden.txt");
+            Runtime.getRuntime().exec("attrib +R "+directory+"/FileNameReadOnlyAndHidden.txt");
+            Runtime.getRuntime().exec("attrib +H "+directory+"/FileNameReadOnlyAndHidden.txt");
+            Runtime.getRuntime().exec("mkdir " + directory + "/directoryName");
+            Runtime.getRuntime().exec("attrib -R "+directory+"/directoryName");
+            Runtime.getRuntime().exec("mkdir " + directory + "/DirectoryHidden");
+            Runtime.getRuntime().exec("attrib -R "+directory+"/DirectoryHidden");
+            Runtime.getRuntime().exec("attrib +H "+directory+"/DirectoryHidden");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
