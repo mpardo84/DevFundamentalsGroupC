@@ -8,7 +8,7 @@ import java.util.logging.SimpleFormatter;
 
 public class LoggerWrapper {
 
-    public static final Logger log = Logger.getLogger("");
+    public static final Logger log = Logger.getLogger(LoggerWrapper.class.getName());
 
     private static LoggerWrapper instance = null;
 

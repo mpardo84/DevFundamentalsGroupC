@@ -205,32 +205,130 @@ public class Search
 
     private boolean isWithinCreatedRange(File file)
     {
+        String istoday=searchCriterial.getTimeOption();
+        boolean isInRange=false;
         BasicFileAttributes fileAttributes;
-        DateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
-            Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
-            return !(testDate.before(searchCriterial.getCreatedStartDate()) || testDate.after(searchCriterial.getCreatedEndDate()));
-        } catch (IOException | ParseException e) {
-            logger.log.severe( functions.getStackTrace(e));
-            e.printStackTrace();
+        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        switch(istoday) {
+            case "Today":
+
+
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
+
+                    String startDate = dateFormat.format(searchCriterial.getTodayDate());
+                    String formatDate = (dateFormat.format(fileAttributes.creationTime().toMillis()));
+
+                    isInRange = ((formatDate.equals(startDate)));
+
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Yesterday":
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
+
+                    String startDate = dateFormat.format(searchCriterial.getYesterdayDate());
+                    String formatDate = (dateFormat.format(fileAttributes.creationTime().toMillis()));
+                    System.out.println("el valor del mcreated date del file es " + formatDate);
+                    System.out.println("el valor del yesterday es " + startDate);
+                    isInRange = ((formatDate.equals(startDate)));
+                    System.out.println("el valor del metodo created for tyesterdayis " + isInRange);
+
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "All Time":
+
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
+                    isInRange = !(testDate.before(searchCriterial.getCreatedStartDate()) || testDate.after(searchCriterial.getCreatedEndDate()));
+
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Time Range":
+
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
+                    isInRange = !(testDate.before(searchCriterial.getCreatedStartDate()) || testDate.after(searchCriterial.getCreatedEndDate()));
+
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
-        return false;
+        return isInRange;
     }
 
     private boolean isWithinAccessedRange(File file)
     {
+
+        String istoday=searchCriterial.getTimeOption();
+        boolean isInRangeAccess=false;
         BasicFileAttributes fileAttributes;
-        DateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
-            Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
-            return !(testDate.before(searchCriterial.getAccessedStartDate()) || testDate.after(searchCriterial.getAccessedEndDate()));
-        } catch (IOException | ParseException e) {
-            logger.log.severe( functions.getStackTrace(e));
-            e.printStackTrace();
+        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        switch(istoday) {
+            case "Today":
+
+
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
+
+                    String startDate = dateFormat.format(searchCriterial.getTodayDate());
+                    String formatDate = (dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
+
+                    isInRangeAccess = ((formatDate.equals(startDate)));
+
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Yesterday":
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
+
+                    String startDate = dateFormat.format(searchCriterial.getYesterdayDate());
+                    String formatDate = (dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
+                    isInRangeAccess = ((formatDate.equals(startDate)));
+
+
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "All Time":
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
+                    isInRangeAccess= !(testDate.before(searchCriterial.getAccessedStartDate()) || testDate.after(searchCriterial.getAccessedEndDate()));
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case "Time Range":
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
+                    isInRangeAccess= !(testDate.before(searchCriterial.getAccessedStartDate()) || testDate.after(searchCriterial.getAccessedEndDate()));
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+
+                break;
         }
-        return false;
+        return isInRangeAccess;
+
     }
 
     private boolean isStringContainedInFile(File file)

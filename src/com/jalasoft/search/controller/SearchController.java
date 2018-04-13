@@ -14,10 +14,7 @@
 package com.jalasoft.search.controller;
 
 import com.jalasoft.search.commond.LoggerWrapper;
-import com.jalasoft.search.model.File;
-import com.jalasoft.search.model.FileObject;
-import com.jalasoft.search.model.Search;
-import com.jalasoft.search.model.SearchCriterial;
+import com.jalasoft.search.model.*;
 import com.jalasoft.search.view.SearchProject;
 
 import java.util.Calendar;
@@ -149,20 +146,26 @@ public class SearchController {
          String createdOption = view.getCreatedOptions();
          switch(createdOption) {
              case "All Time" :
+                 this.model.getSearchCriterial().setTimeOption("All Time");
                  this.model.getSearchCriterial().setCreatedStartDate(new Date(1900-1900,01,01));
                  this.model.getSearchCriterial().setCreatedEndDate(new Date(2099-1900,12,12));
                  break;
              case "Time Range" :
+                 this.model.getSearchCriterial().setTimeOption("Time Range");
                  this.model.getSearchCriterial().setCreatedStartDate(view.getFromCreatedDate());
                  this.model.getSearchCriterial().setCreatedEndDate(view.getToCreatedDate());
                  break;
              case "Today" :
-                 this.model.getSearchCriterial().setCreatedStartDate(today);
-                 this.model.getSearchCriterial().setCreatedEndDate(tomorrow);
+
+                 this.model.getSearchCriterial().setTimeOption("Today");
+                 this.model.getSearchCriterial().setTodayDate(today);
+
                  break;
              case "Yesterday" :
-                 this.model.getSearchCriterial().setCreatedStartDate(yesterday);
-                 this.model.getSearchCriterial().setCreatedEndDate(today);
+
+                 this.model.getSearchCriterial().setTimeOption("Yesterday");
+                 this.model.getSearchCriterial().setYesterdayDate(yesterday);
+
                  break;
          }
          String modifiedOption = view.getModifiedOptions();
@@ -187,20 +190,23 @@ public class SearchController {
          String accessedOption = view.getAccessedOptions();
          switch(accessedOption) {
              case "All Time" :
+                 this.model.getSearchCriterial().setTimeOption("All Time");
                  this.model.getSearchCriterial().setAccessedStartDate(new Date(1900-1900,01,01));
                  this.model.getSearchCriterial().setAccessedEndDate(new Date(2099-1900,12,12));
                  break;
              case "Time Range" :
-                 this.model.getSearchCriterial().setAccessedStartDate(view.getFromModifiedDate());
-                 this.model.getSearchCriterial().setAccessedEndDate(view.getToModifiedDate());
+                 this.model.getSearchCriterial().setTimeOption("Time Range");
+                 this.model.getSearchCriterial().setAccessedStartDate(view.getFromAccessedDate());
+                 this.model.getSearchCriterial().setAccessedEndDate(view.getToAccessedDate());
                  break;
              case "Today" :
-                 this.model.getSearchCriterial().setAccessedStartDate(today);
-                 this.model.getSearchCriterial().setAccessedEndDate(tomorrow);
+                 this.model.getSearchCriterial().setTimeOption("Today");
+                 this.model.getSearchCriterial().setTodayDate(today);
+
                  break;
              case "Yesterday" :
-                 this.model.getSearchCriterial().setAccessedStartDate(yesterday);
-                 this.model.getSearchCriterial().setAccessedEndDate(today);
+                 this.model.getSearchCriterial().setTimeOption("Yesterday");
+                 this.model.getSearchCriterial().setYesterdayDate(yesterday);
                  break;
          }
      }
@@ -365,7 +371,7 @@ public class SearchController {
                     rowData[2]=dir.isHidden();
                     rowData[3]=dir.getDateModified();
                     rowData[4]=String.format("%.2f", dirSize/1024);
-                    rowData[5]="10";
+                    rowData[5]=((Directory)dir).getNumberOfFiles();
                     this.view.getDirTable().addRow(rowData);
                  }
             }
