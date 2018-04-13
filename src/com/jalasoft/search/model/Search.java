@@ -264,6 +264,17 @@ public class Search
                     e.printStackTrace();
                 }
                 break;
+            case "":
+
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
+                    isInRange = !(testDate.before(searchCriterial.getCreatedStartDate()) || testDate.after(searchCriterial.getCreatedEndDate()));
+
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
         return isInRange;
     }
@@ -317,6 +328,16 @@ public class Search
 
                 break;
             case "Time Range":
+                try {
+                    fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
+                    Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
+                    isInRangeAccess= !(testDate.before(searchCriterial.getAccessedStartDate()) || testDate.after(searchCriterial.getAccessedEndDate()));
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case "":
                 try {
                     fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
                     Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.lastAccessTime().toMillis()));
