@@ -20,6 +20,7 @@ import com.jalasoft.search.view.SearchProject;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,6 +53,8 @@ public class SearchController {
         this.model = model;
         this.view.getSearchButton().addActionListener(e -> searchButtonActionListener());
         this.view.getSearchDir().addActionListener(e -> searchButtonDirectoryActionListener());
+        this.view.getSaveButton().addActionListener(e -> saveButtonActionListener());
+        this.view.getLoadButton().addActionListener(e -> loadButtonActionListener());
     }
 
     //Log log = Log.getInstance();
@@ -388,5 +391,15 @@ public class SearchController {
             logger.log.warning( "Entered data for directory are invalid : " + validateResult);
             this.view.setMessage(validateResult);
         }
+    }
+
+    public void saveButtonActionListener(){
+        this.view.openSaveCriteriaDialog();
+        System.out.println("entro al save acction listener del controller "+this.view.getNameCriteria());
+    }
+
+    public void loadButtonActionListener(){
+        this.view.openLoadCriteriaDialog();
+        System.out.println("entro al load acction listener del controller ");
     }
 }

@@ -25,13 +25,18 @@ import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 import java.awt.Font;
+import javax.swing.BorderFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Date;
-
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
 import com.toedter.calendar.JDateChooser;
 
 /**
@@ -65,6 +70,9 @@ public class SearchPanelCriteria extends JPanel {
     private JLabel extensionLabel;
     private JLabel sizeLabel;
     private JLabel defaultSize;
+    private JLabel criteriaLabel;
+    private JLabel detailsCriteria;
+    private JLabel selectedCriteria;
     private JTextField  nameField;
     private JTextField typeField;
     private JTextArea containsField;
@@ -76,6 +84,8 @@ public class SearchPanelCriteria extends JPanel {
     private JButton saveButton;
     private JButton searchButton;
     private JButton cancelButton;
+    private JButton loadButton;
+    private JButton loadCriteriaButton;
     private JSeparator separator;
     private JComboBox readOnlyOptions;
     private JComboBox hiddenOptions;
@@ -83,6 +93,7 @@ public class SearchPanelCriteria extends JPanel {
     private JComboBox modifiedOptions;
     private JComboBox accessedOptions;
     private JComboBox sizeOptions;
+    private JComboBox criteriaOptions;
     private Font negritaFont;
     private JDateChooser fromCreatedDate;
     private JDateChooser toCreatedDate;
@@ -97,6 +108,14 @@ public class SearchPanelCriteria extends JPanel {
     private ImageIcon cancelIcon;
     private ImageIcon searchIcon;
     private ImageIcon browseIcon;
+    private ImageIcon loadIcon;
+    private ImageIcon updateIcon;
+    private String nameCriteria;
+    private DefaultTableModel criteriaTable;
+    private JTable tableC;
+
+
+
 
     public SearchPanelCriteria() {
         setLayout(null);
@@ -106,6 +125,7 @@ public class SearchPanelCriteria extends JPanel {
         searchAttributesSection();
         searchFileTimeSection();
         searchPanelButtons();
+
 
 
     }
@@ -223,9 +243,34 @@ public class SearchPanelCriteria extends JPanel {
         this.readOnlyLabel = readOnlyLabel;
     }
 
+    //get method for the save criteria button
+    public JButton getSaveButton() {
+        return saveButton;
+    }
+
+    //set method for the save criteria button
+    public void setSaveButton(JButton saveButton) {
+        this.saveButton = saveButton;
+    }
+
+    //get method for the load criteria button
+    public JButton getLoadButton() {
+        return loadButton;
+    }
+
+    //set method for the load criteria button
+    public void setLoadButton(JButton loadButton) {
+        this.loadButton = loadButton;
+    }
+
     //method to allows set the message value
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    //method that allows to get the criteria Name
+    public String getNameCriteria() {
+        return nameCriteria;
     }
 
     //This method allows to select a file
@@ -410,18 +455,23 @@ public class SearchPanelCriteria extends JPanel {
 
     //This method allows to create the buttons
     public void searchPanelButtons(){
+        loadIcon = new ImageIcon(
+                this.getClass().getResource("/images/load.png"));
+        loadButton=new JButton("Load Criteria",loadIcon);
+        loadButton.setBounds(25,600,121,27);
         saveIcon = new ImageIcon(
                 this.getClass().getResource("/images/save.png"));
-        saveButton=new JButton("Save",saveIcon);
-        saveButton.setBounds(110,600,90,25);
+        saveButton=new JButton("Save Criteria",saveIcon);
+        saveButton.setBounds(150,600,119,27);
         searchIcon = new ImageIcon(
                 this.getClass().getResource("/images/edit_find.png"));
         searchButton=new JButton("Search",searchIcon);
-        searchButton.setBounds(205,600,100,27);
+        searchButton.setBounds(275,600,100,27);
         cancelIcon = new ImageIcon(
                 this.getClass().getResource("/images/close.png"));
         cancelButton=new JButton("Close",cancelIcon);
-        cancelButton.setBounds(310,600,90,25);
+        cancelButton.setBounds(380,600,90,27);
+        add(loadButton);
         add(saveButton);
         add(searchButton);
         add(cancelButton);
@@ -611,6 +661,65 @@ public class SearchPanelCriteria extends JPanel {
         }
     }
 
+    //this is used for save the criteria dialog
+    public void saveCriteriaDialog(){
+        nameCriteria=JOptionPane.showInputDialog(
+                this,
+                "Criteria Name:",
+                "Save criteria",
+                JOptionPane.PLAIN_MESSAGE);
+
+    }
+
+    public void loadCriteriaDialog(){
+        JFrame frame = new JFrame("Load Criteria");
+        frame.setLayout(null);
+        String[] criteriaValues= new String[] {"Criterio1","Criterio2"};
+        frame.setSize(new Dimension(500,500));
+        frame.setBackground(new Color(204, 229, 255));
+
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setResizable(false);
+        selectedCriteria=new JLabel();
+        selectedCriteria.setBounds(10,10,460,70);
+        Border border=BorderFactory.createEtchedBorder();
+        selectedCriteria.setBorder(BorderFactory.createTitledBorder(border,"SELECT CRITERIA"));
+        criteriaLabel=new JLabel("Criteria:");
+        criteriaLabel.setBounds(60,40,90,25);
+        criteriaOptions= new JComboBox(criteriaValues);
+        criteriaOptions.setBounds(120,40,150,27);
+        updateIcon = new ImageIcon(
+                this.getClass().getResource("/images/refresh.png"));
+        loadCriteriaButton=new JButton("Load",updateIcon);
+        loadCriteriaButton.setBounds(290,40,100,29);
+        loadCriteriaButton.setBorderPainted(true);
+        detailsCriteria=new JLabel();
+        detailsCriteria.setBounds(10,95,460,360);
+        detailsCriteria.setBorder(BorderFactory.createTitledBorder(border,"DETAILS CRITERIAS"));
+        String[] columnNames = {"ID",
+                "NAME",
+                "CRITERIA",
+                "TYPE",
+                };
+
+        Object[][] data = {
+                {"", "", "", ""}};
+        criteriaTable = new DefaultTableModel(data, columnNames);
+        tableC = new JTable(criteriaTable);
+        tableC.setPreferredScrollableViewportSize(new Dimension(300, 70));
+        tableC.setFillsViewportHeight(true);
+        JScrollPane scrollPane = new JScrollPane(tableC);
+        scrollPane.setBounds(18,118,445,330);
+        frame.add(selectedCriteria);
+        frame.add(criteriaLabel);
+        frame.add(criteriaOptions);
+        frame.add(loadCriteriaButton);
+        frame.add(detailsCriteria);
+        frame.add(scrollPane);
+    }
+
 }
+
 
 

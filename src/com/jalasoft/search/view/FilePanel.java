@@ -166,6 +166,30 @@ public class FilePanel extends JPanel{
         return searchPanelResults.getTable();
     }
 
+    //method to get the save button
+    public JButton getSaveButton() {
+        return searchPanelCriteria.getSaveButton();
+    }
+
+    //method to get the name criteria
+    public String getNameCriteria(){
+        return searchPanelCriteria.getNameCriteria();
+    }
+    // method to open the Save Criteria dialog
+    public void openSaveCriteriaDialog(){
+        searchPanelCriteria.saveCriteriaDialog();
+    }
+
+    //method to get the load button
+    public JButton getLoadButton() {
+        return searchPanelCriteria.getLoadButton();
+    }
+
+    // method to open the load Criteria dialog
+    public void openLoadCriteriaDialog(){
+       searchPanelCriteria.loadCriteriaDialog();
+    }
+
 }
 
 
