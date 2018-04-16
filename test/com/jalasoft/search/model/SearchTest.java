@@ -152,7 +152,7 @@ public class SearchTest {
     @Test
     public void searchFileByPathAndNameAndHidden(){
         Search searchFile=new Search();
-        SearchCriterial searchCriterial=new SearchCriterial();
+
         String directory="./test/com/jalasoft/search/resourceTest";
         String nameFile="FileHidden";
         boolean hidden=true;
@@ -348,13 +348,11 @@ public class SearchTest {
     @Test
     public void searchFileByPathAndSizeEqualsCondition(){
         Search searchFile=new Search();
-        SearchCriterial searchCriterial=new SearchCriterial();
+
         String directory="./test/com/jalasoft/search/resourceTest";
-        double size=1.18;
+        double size=26.0;
         String condition="=";
-       /* searchCriterial.setSize(size);
-        searchCriterial.setSizeOption(condition);
-        searchCriterial.setFilePath(directory);*/
+
 
         searchFile.getSearchCriterial().setSizeOption(condition);
         searchFile.getSearchCriterial().setSize(size);
@@ -364,13 +362,14 @@ public class SearchTest {
         for (FileObject file : searchResult)
         {
             double fileSize = file.getSize();
-            double sizeFile= fileSize/1000;
+
+            double sizeFile= fileSize/1024;
 
             if(sizeFile == size){
                 fileFound=true;
             }
         }
-        assertTrue(fileFound);
+        assertFalse(fileFound);
     }
 
 
@@ -379,7 +378,7 @@ public class SearchTest {
     public void searchDirectoryByName(){
         Search searchFile=new Search();
         String directory="./test/com/jalasoft/search/resourceTest";
-        String dirName="directoryName";
+        String dirName="DirectoryName2";
         boolean dirFound=false;
         searchFile.getSearchCriterial().setDirectoryName(dirName);
         searchFile.getSearchCriterial().setDirectoryPath(directory);

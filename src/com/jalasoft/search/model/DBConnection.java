@@ -13,6 +13,9 @@
  */
 package com.jalasoft.search.model;
 
+import com.jalasoft.search.commond.Functions;
+import com.jalasoft.search.commond.LoggerWrapper;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,27 +35,41 @@ public class DBConnection {
 
     private static DBConnection dbcon;
     private static Connection con;
+    LoggerWrapper logger = LoggerWrapper.getInstance();
+    Functions functions = new Functions();
 
-    private DBConnection() throws SQLException, ClassNotFoundException {
+    private DBConnection() {
         init();
     }
 
-    public static DBConnection getInstance() throws SQLException, ClassNotFoundException {
+    public static DBConnection getInstance()  {
         if(dbcon==null){
             dbcon=new DBConnection();
         }
         return dbcon;
     }
 
-    private void init() throws ClassNotFoundException,SQLException
-    {
+    private void init() {
+        try {
 
-        Class.forName("org.sqlite.JDBC");
-        con= DriverManager.getConnection("jdbc:sqlite:search.db");
-        Statement state=con.createStatement();
-        state.execute("Create Table if not exists search(Id integer auto increment,name text,criteria varchar(256),primary Key(id))");
-        System.out.println("BD creada");
 
+            Class.forName("org.sqlite.JDBC");
+
+            con = DriverManager.getConnection("jdbc:sqlite:search.db");
+            Statement state = con.createStatement();
+            String sql = " IF NOT EXIST(SELECT * FROM sys.table WHERE name=N'searchdb') BEGIN CREATE TABLE CRITERIA " +
+                    "(ID INT PRIMARY KEY     NOT NULL, " +
+                    " NAME           TEXT    , " +
+                    " CRITERIAL            CHAR(256)     , " +
+                    " TYPE         TEXT)";
+            state.execute(sql);
+            System.out.println("BD creada");
+
+        } catch (ClassNotFoundException ex) {
+            logger.log.severe( functions.getStackTrace(ex));
+        } catch (SQLException e) {
+            logger.log.severe(functions.getStackTrace(e));
+        }
     }
     public static Connection getConnection(){
         return con;
