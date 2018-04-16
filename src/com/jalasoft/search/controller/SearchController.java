@@ -13,10 +13,19 @@
  */
 package com.jalasoft.search.controller;
 
+import com.jalasoft.search.commond.Functions;
 import com.jalasoft.search.commond.LoggerWrapper;
-import com.jalasoft.search.model.*;
+
+import com.jalasoft.search.model.Search;
+import com.jalasoft.search.model.SearchQuery;
+import com.jalasoft.search.model.FileObject;
+import com.jalasoft.search.model.Directory;
+import com.jalasoft.search.model.File;
+
 import com.jalasoft.search.view.SearchProject;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +51,7 @@ public class SearchController {
 
     // Get loggerWrapper intance
     LoggerWrapper logger = LoggerWrapper.getInstance();
+    Functions functions = new Functions();
 
     /**
     *
@@ -56,9 +66,6 @@ public class SearchController {
         this.view.getSaveButton().addActionListener(e -> saveButtonActionListener());
         this.view.getLoadButton().addActionListener(e -> loadButtonActionListener());
     }
-
-    //Log log = Log.getInstance();
-    //log.searchLog.severe("SearchController class");
 
     /**
     *
@@ -393,13 +400,48 @@ public class SearchController {
         }
     }
 
+    /*
+     *
+     *  Method that implements actions that will be executed after clicking on Save button
+     *
+     */
     public void saveButtonActionListener(){
         this.view.openSaveCriteriaDialog();
-        System.out.println("entro al save acction listener del controller "+this.view.getNameCriteria());
+        SearchQuery query;
+        System.out.println("entro al save action listener del controller "+ this.view.getNameCriteria());
+        try {
+            query = new SearchQuery();
+            query.addCriterial(this.view.getNameCriteria(), "string criteria");
+            System.out.println("datos insertados");
+        } catch (ClassNotFoundException ex) {
+            logger.log.severe( functions.getStackTrace(ex));
+        } catch (SQLException e) {
+            logger.log.severe( functions.getStackTrace(e));
+        }
     }
 
+    /*
+     *
+     *  Method that implements actions that will be executed after clicking on Load button
+     *
+     */
     public void loadButtonActionListener(){
         this.view.openLoadCriteriaDialog();
-        System.out.println("entro al load acction listener del controller ");
+        System.out.println("entro al load action listener del controller ");
+        SearchQuery query;
+        try {
+            query = new SearchQuery();
+            ResultSet  list = query.getAllCriterialSearch();
+            if (!list.next())
+                System.out.println("no hay registros");
+            else do {
+                System.out.println(list.getString("name"));
+            } while (list.next());
+        } catch (ClassNotFoundException ex) {
+            logger.log.severe( functions.getStackTrace(ex));
+        } catch (SQLException e) {
+            logger.log.severe( functions.getStackTrace(e));
+        }
+
     }
 }
