@@ -16,7 +16,11 @@ package com.jalasoft.search.controller;
 import com.jalasoft.search.commond.Functions;
 import com.jalasoft.search.commond.LoggerWrapper;
 
-import com.jalasoft.search.model.*;
+import com.jalasoft.search.model.Search;
+import com.jalasoft.search.model.SearchQuery;
+import com.jalasoft.search.model.FileObject;
+import com.jalasoft.search.model.Directory;
+import com.jalasoft.search.model.File;
 
 import com.jalasoft.search.view.SearchProject;
 
