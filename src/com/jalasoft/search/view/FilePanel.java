@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -189,6 +190,22 @@ public class FilePanel extends JPanel{
     public void openLoadCriteriaDialog(){
        searchPanelCriteria.loadCriteriaDialog();
     }
+
+
+    //method to get the load button
+    public JButton getLoadCriteriaButton() {
+        return searchPanelCriteria.getLoadCriteriaButton();
+    }
+
+    public void setCriteriaValues(String[] criteriaValues) {
+        searchPanelCriteria.setCriteriaValues(criteriaValues);
+    }
+
+    //Method that allows to get the Table for the criteria
+    public DefaultTableModel getCriteriaTable() {
+        return searchPanelCriteria.getCriteriaTable();
+    }
+
 
 }
 

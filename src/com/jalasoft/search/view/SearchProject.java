@@ -17,6 +17,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -292,7 +293,7 @@ public class SearchProject extends JFrame{
     }
 
     //method to get the save button
-    public JButton getSaveButton() {
+    public JButton getSaveCriteriaButton() {
         return filePanel.getSaveButton();
     }
 
@@ -314,6 +315,20 @@ public class SearchProject extends JFrame{
     // method to open the Load Criteria dialog
     public void openLoadCriteriaDialog(){
         filePanel.openLoadCriteriaDialog();
+    }
+
+    //method to get the load button
+    public JButton getLoadCriteriaButton() {
+        return filePanel.getLoadCriteriaButton();
+    }
+
+    public void setCriteriaValues(String[] criteriaValues) {
+
+                filePanel.setCriteriaValues(criteriaValues);
+    }
+    //Method that allows to get the Table for the criteria
+    public DefaultTableModel getCriteriaTable() {
+        return filePanel.getCriteriaTable();
     }
 }
 

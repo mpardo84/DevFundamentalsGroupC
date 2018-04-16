@@ -21,7 +21,7 @@ import com.jalasoft.search.model.SearchQuery;
 import com.jalasoft.search.model.FileObject;
 import com.jalasoft.search.model.Directory;
 import com.jalasoft.search.model.File;
-
+import com.jalasoft.search.model.SearchCriterial;
 import com.jalasoft.search.view.SearchProject;
 
 import java.sql.ResultSet;
@@ -29,6 +29,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,8 +64,8 @@ public class SearchController {
         this.model = model;
         this.view.getSearchButton().addActionListener(e -> searchButtonActionListener());
         this.view.getSearchDir().addActionListener(e -> searchButtonDirectoryActionListener());
-        this.view.getSaveButton().addActionListener(e -> saveButtonActionListener());
-        this.view.getLoadButton().addActionListener(e -> loadButtonActionListener());
+        this.view.getSaveCriteriaButton().addActionListener(e -> saveButtonActionListener());
+        this.view.getLoadCriteriaButton().addActionListener(e -> loadCriteriaButtonActionListener());
     }
 
     /**
@@ -420,20 +421,51 @@ public class SearchController {
 
     /*
      *
-     *  Method that implements actions that will be executed after clicking on Load button
+     *  Method that implements actions that will be executed after clicking on Load button from the Criteria dialog
+     *  This will get the criteria saved and will load this in UI
      *
      */
     public void loadButtonActionListener(){
-        this.view.openLoadCriteriaDialog();
+
+        System.out.println("entro al load action listener del controller para popular lso datos ");
+        // SearchQuery query;
+
+
+    }
+
+    /*
+     *
+     *  Method that implements actions that will be executed after clicking on Load Criteria button
+     *This will get all the criteria data and will display this in the Criteria dialog
+     */
+    public void loadCriteriaButtonActionListener(){
+
+        System.out.println("entro al load action listener del controller para mostrar los criterias ");
         SearchQuery query;
+        ArrayList<String> list;
         try {
             query = new SearchQuery();
-            ResultSet  list = query.getAllCriterialSearch();
-            if (!list.next())
-                System.out.println("no hay registros");
-            else do {
-                System.out.println(list.getString("name"));
-            } while (list.next());
+            query.getNameCriterialSearch();
+             list= query.getListCriteriaName();
+            if (list.isEmpty()) {
+
+                System.out.println("la list es vacia");
+            }
+            else {
+                Object rowData[]=new Object[4];
+                for (String dir : list)
+                {
+
+                    rowData[0]="1";
+                    rowData[1]=dir;
+                    rowData[2]="";
+                    rowData[3]="";
+
+                    this.view.getCriteriaTable().addRow(rowData);
+                }
+                this.view.openLoadCriteriaDialog();
+                this.view.getLoadButton().addActionListener(e -> loadButtonActionListener());
+            }
         } catch (ClassNotFoundException ex) {
             logger.log.severe( functions.getStackTrace(ex));
         } catch (SQLException e) {
@@ -441,4 +473,5 @@ public class SearchController {
         }
 
     }
+
 }
