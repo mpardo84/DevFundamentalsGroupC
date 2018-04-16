@@ -46,6 +46,7 @@ public class SearchProject extends JFrame{
         //initialize variables for tab panel
         try {
 
+            
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
             SwingUtilities.updateComponentTreeUI(this);
 
@@ -68,15 +69,16 @@ public class SearchProject extends JFrame{
             tabbedPane.addTab("Multimedia ",multimediaIcon,multimediaPanel);
             // add the tab panel to the frame
             this.add(tabbedPane);
-            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
+            /*GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
                     .getDefaultScreenDevice();
             w = gd.getDisplayMode().getWidth();
-            h = gd.getDisplayMode().getHeight();
+            h = gd.getDisplayMode().getHeight();*/
 
-            this.setBounds(0, 0,w,h);
+
 
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setSize(w, h);
+            this.setSize(1020, 800);
+            this.setBounds(300, 50,1050,750);
             this.setTitle(title);
             this.setVisible(true);
             this.setResizable(false);
@@ -289,5 +291,29 @@ public class SearchProject extends JFrame{
         return directoryPanel.getDirTable();
     }
 
+    //method to get the save button
+    public JButton getSaveButton() {
+        return filePanel.getSaveButton();
+    }
+
+    //method to get the name criteria
+    public String getNameCriteria(){
+        return filePanel.getNameCriteria();
+    }
+
+    // method to open the Save Criteria dialog
+    public void openSaveCriteriaDialog(){
+        filePanel.openSaveCriteriaDialog();
+    }
+
+    //method to get the load button
+    public JButton getLoadButton() {
+        return filePanel.getLoadButton();
+    }
+
+    // method to open the Load Criteria dialog
+    public void openLoadCriteriaDialog(){
+        filePanel.openLoadCriteriaDialog();
+    }
 }
 
