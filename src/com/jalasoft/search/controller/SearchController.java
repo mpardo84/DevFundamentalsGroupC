@@ -16,11 +16,7 @@ package com.jalasoft.search.controller;
 import com.jalasoft.search.commond.Functions;
 import com.jalasoft.search.commond.LoggerWrapper;
 
-import com.jalasoft.search.model.Search;
-import com.jalasoft.search.model.SearchQuery;
-import com.jalasoft.search.model.FileObject;
-import com.jalasoft.search.model.Directory;
-import com.jalasoft.search.model.File;
+import com.jalasoft.search.model.*;
 
 import com.jalasoft.search.view.SearchProject;
 
@@ -167,13 +163,11 @@ public class SearchController {
                  this.model.getSearchCriterial().setCreatedEndDate(view.getToCreatedDate());
                  break;
              case "Today" :
-
                  this.model.getSearchCriterial().setTimeOption("Today");
                  this.model.getSearchCriterial().setTodayDate(today);
 
                  break;
              case "Yesterday" :
-
                  this.model.getSearchCriterial().setTimeOption("Yesterday");
                  this.model.getSearchCriterial().setYesterdayDate(yesterday);
 
@@ -274,7 +268,6 @@ public class SearchController {
         String modifiedOptionDir = view.getModifiedDirOptions();
         switch(modifiedOptionDir) {
             case "All Time" :
-
                 this.model.getSearchCriterial().setModifiedStartDate(new Date(1900-1900,01,01));
                 this.model.getSearchCriterial().setModifiedEndDate(new Date(2099-1900,12,12));
                 break;
@@ -294,7 +287,6 @@ public class SearchController {
         String accessedOptionDir = view.getAccessedDirOptions();
         switch(accessedOptionDir) {
             case "All Time" :
-                System.out.println("enrto al All times"+accessedOptionDir);
                 this.model.getSearchCriterial().setTimeOption("All Time");
                 this.model.getSearchCriterial().setAccessedStartDate(new Date(1900-1900,01,01));
                 this.model.getSearchCriterial().setAccessedEndDate(new Date(2099-1900,12,12));
@@ -356,6 +348,7 @@ public class SearchController {
             logger.log.warning( "Entered data are invalid : " + validateResult);
             this.view.setMessage(validateResult);
         }
+        this.model.setSearchCriterial(new SearchCriterial());
     }
     /*
      *
@@ -398,6 +391,7 @@ public class SearchController {
             logger.log.warning( "Entered data for directory are invalid : " + validateResult);
             this.view.setMessage(validateResult);
         }
+        this.model.setSearchCriterial(new SearchCriterial());
     }
 
     /*
@@ -427,7 +421,6 @@ public class SearchController {
      */
     public void loadButtonActionListener(){
         this.view.openLoadCriteriaDialog();
-        System.out.println("entro al load action listener del controller ");
         SearchQuery query;
         try {
             query = new SearchQuery();

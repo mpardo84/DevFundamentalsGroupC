@@ -55,6 +55,10 @@ public class Search
         return searchCriterial;
     }
 
+    public void setSearchCriterial(SearchCriterial searchCriterial) {
+        this.searchCriterial = searchCriterial;
+    }
+
     /**
      * This method is going to search a file in a given folder
      *
@@ -212,8 +216,6 @@ public class Search
         DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
         switch(istoday) {
             case "Today":
-
-
                 try {
                     fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
                     Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
@@ -236,8 +238,6 @@ public class Search
                     String formatDate = (dateFormat.format(fileAttributes.creationTime().toMillis()));
 
                     isInRange = ((formatDate.equals(startDate)));
-
-
                 } catch (IOException | ParseException e) {
                     e.printStackTrace();
                 }
@@ -259,7 +259,6 @@ public class Search
                     fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
                     Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
                     isInRange = !(testDate.before(searchCriterial.getCreatedStartDate()) || testDate.after(searchCriterial.getCreatedEndDate()));
-
                 } catch (IOException | ParseException e) {
                     e.printStackTrace();
                 }
@@ -270,7 +269,6 @@ public class Search
                     fileAttributes = Files.readAttributes(Paths.get(file.getAbsolutePath()), BasicFileAttributes.class);
                     Date testDate = dateFormat.parse(dateFormat.format(fileAttributes.creationTime().toMillis()));
                     isInRange = !(testDate.before(searchCriterial.getCreatedStartDate()) || testDate.after(searchCriterial.getCreatedEndDate()));
-
                 } catch (IOException | ParseException e) {
                     e.printStackTrace();
                 }
