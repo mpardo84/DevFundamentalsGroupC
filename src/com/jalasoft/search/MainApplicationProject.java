@@ -45,9 +45,9 @@ public class MainApplicationProject {
         logger.log.info( "Starting search application....." );
 
         // Create instances for View, Model and Controller
-        SearchProject vista = new SearchProject();
-        Search modelo = new Search();
-        SearchController control = new SearchController(vista, modelo);
+        SearchProject view = new SearchProject();
+        Search model = new Search();
+        SearchController controller = new SearchController(view, model);
     }
 
 }
