@@ -115,6 +115,7 @@ public class SearchPanelCriteria extends JPanel {
     private ImageIcon loadIcon;
     private ImageIcon updateIcon;
     private String nameCriteria;
+    private String criteriaID;
     private DefaultTableModel criteriaTable;
     private JTable tableC;
     private  String[] criteriaValues;
@@ -135,7 +136,11 @@ public class SearchPanelCriteria extends JPanel {
 
 
     }
+    //Method that allows to set the table value
+    public void setTable(Object[][] data) {
+        this.data = data;
 
+    }
     //Get method to get the path value from UI
     public String getPathValue() {
         return pathValue.getText();
@@ -309,6 +314,12 @@ public class SearchPanelCriteria extends JPanel {
     public JTable getTableC() {
         return tableC;
     }
+
+    //method to get the criteria ID from the table
+    public String getCriteriaID() {
+        return criteriaID;
+    }
+
 
     //This method allows to select a file
     public void browseFileAction(){
@@ -745,7 +756,9 @@ public class SearchPanelCriteria extends JPanel {
 
         tableC.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
+               criteriaID=tableC.getValueAt(tableC.getSelectedRow(), 0).toString();
                nameCriteria=tableC.getValueAt(tableC.getSelectedRow(), 1).toString();
+
                 criteriaOptions.setText(nameCriteria);
 
             }

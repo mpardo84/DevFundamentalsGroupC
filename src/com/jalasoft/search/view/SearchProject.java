@@ -336,5 +336,10 @@ public class SearchProject extends JFrame{
     public JTable geTableC() {
         return filePanel.geTableC();
     }
+
+    //method to get the ID from the criteria table
+    public String getCriteriaID() {
+        return filePanel.getCriteriaID();
+    }
 }
 
