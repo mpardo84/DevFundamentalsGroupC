@@ -190,7 +190,6 @@ public class FilePanel extends JPanel{
        searchPanelCriteria.loadCriteriaDialog();
     }
 
-
     //method to get the load button
     public JButton getLoadCriteriaButton() {
         return searchPanelCriteria.getLoadCriteriaButton();
@@ -210,6 +209,10 @@ public class FilePanel extends JPanel{
         return searchPanelCriteria.getTableC();
     }
 
+    //method to get the ID from the criteria table
+    public String getCriteriaID() {
+        return searchPanelCriteria.getCriteriaID();
+    }
 
 }
 

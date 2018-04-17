@@ -409,25 +409,14 @@ public class SearchController {
      */
     public void saveButtonActionListener(){
         this.view.openSaveCriteriaDialog();
-        String Name=this.view.getNameCriteria();
-        if(Name.isEmpty() || Name==null){
+        String nameCri=this.view.getNameCriteria();
+        if(nameCri.isEmpty() || nameCri==null){
             this.view.setMessage("Please insert a criteria Name");
         }
         else{
-
-                SearchQuery query;
-                System.out.println("entro al save action listener del controller " + this.view.getNameCriteria());
-                try {
-                    query = new SearchQuery();
-                    //query.deleteTable();
-                  query.addCriterial(this.view.getNameCriteria(), "string criteria","File");
+                    configureModelData();
+                   this.model.saveCriteria(this.model.getSearchCriterial(),nameCri);
                    System.out.println("datos insertados");
-                } catch (ClassNotFoundException ex) {
-                    logger.log.severe(functions.getStackTrace(ex));
-                } catch (SQLException e) {
-                    logger.log.severe(functions.getStackTrace(e));
-                }
-
         }
     }
 
@@ -442,7 +431,9 @@ public class SearchController {
         System.out.println("entro al load action listener del controller para popular lso datos ");
         // SearchQuery query;
         String criteriaSelectedName=this.view.getNameCriteria();
+        String criteriaId=this.view.getCriteriaID();
         System.out.println("el valor del criterio selecionado es"+criteriaSelectedName);
+        System.out.println("el valor del criterio id es"+criteriaId);
 
     }
 
@@ -458,7 +449,8 @@ public class SearchController {
         ArrayList<String> list;
         try {
             query = new SearchQuery();
-            query.getAllCriterialSearch();
+            query.getNameCriterialSearch();
+            this.view.getCriteriaTable().setRowCount(0);
              list= query.getListCriteriaName();
             if (list.isEmpty()) {
 
@@ -466,14 +458,14 @@ public class SearchController {
                 this.view.setMessage("There are no saved criteria");
             }
             else {
-                Object rowData[]=new Object[4];
+                Object rowData[]=new Object[3];
                 for (String dir : list)
                 {
 
                     rowData[0]="1";
                     rowData[1]=dir;
                     rowData[2]="";
-                    rowData[3]="";
+
 
                     this.view.getCriteriaTable().addRow(rowData);
                 }
