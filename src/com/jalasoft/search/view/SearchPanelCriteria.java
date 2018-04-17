@@ -35,6 +35,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Date;
 import javax.swing.JFrame;
+
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import com.toedter.calendar.JDateChooser;
@@ -276,6 +279,7 @@ public class SearchPanelCriteria extends JPanel {
         return nameCriteria;
     }
 
+    //method that allows to get the load criteria button
     public JButton getLoadCriteriaButton() {
         return loadCriteriaButton;
     }
@@ -286,16 +290,7 @@ public class SearchPanelCriteria extends JPanel {
 
     public void setCriteriaValues(String[] criteriaValues) {
         this.criteriaValues = criteriaValues;
-        System.out.println("leego al ui los criterias ");
-        String rowData[]=new String[1];
-        for (String dir : criteriaValues)
-        {
 
-            rowData[0]=dir;
-            System.out.println("el valor en UI"+dir);
-
-
-        }
     }
 
     public DefaultTableModel getCriteriaTable() {
@@ -304,6 +299,14 @@ public class SearchPanelCriteria extends JPanel {
 
     public void setCriteriaTable(DefaultTableModel criteriaTable) {
         this.criteriaTable = criteriaTable;
+    }
+
+    public void setTableC(JTable tableC) {
+        this.tableC = tableC;
+    }
+
+    public JTable getTableC() {
+        return tableC;
     }
 
     //This method allows to select a file
@@ -719,13 +722,15 @@ public class SearchPanelCriteria extends JPanel {
         Border border=BorderFactory.createEtchedBorder();
         selectedCriteria.setBorder(BorderFactory.createTitledBorder(border,"SELECT CRITERIA"));
         criteriaLabel=new JLabel("Criteria Selected:");
-        criteriaLabel.setBounds(60,40,110,25);
-       criteriaOptions= new JLabel();
-        criteriaOptions.setBounds(120,40,150,27);
+        criteriaLabel.setBounds(40,40,110,25);
+        criteriaOptions= new JLabel("No Selected value");
+        criteriaOptions.setBounds(140,40,150,25);
+
+        criteriaOptions.setForeground(Color.BLUE);
         updateIcon = new ImageIcon(
                 this.getClass().getResource("/images/refresh.png"));
         loadButton=new JButton("Load",updateIcon);
-        loadButton.setBounds(290,40,100,29);
+        loadButton.setBounds(310,40,100,29);
         loadButton.setBorderPainted(true);
         detailsCriteria=new JLabel();
         detailsCriteria.setBounds(10,95,460,360);
@@ -735,6 +740,15 @@ public class SearchPanelCriteria extends JPanel {
         tableC.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(tableC);
         scrollPane.setBounds(18,118,445,330);
+
+        tableC.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+               nameCriteria=tableC.getValueAt(tableC.getSelectedRow(), 1).toString();
+                criteriaOptions.setText(nameCriteria);
+
+            }
+        });
+
         frame.add(selectedCriteria);
         frame.add(criteriaLabel);
         frame.add(criteriaOptions);

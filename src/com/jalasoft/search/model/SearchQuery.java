@@ -52,12 +52,13 @@ public class SearchQuery {
      * addCriterial method to insert a search criterial into database
      *
      */
-    public static void addCriterial( String name, String criterialJSON) throws SQLException, ClassNotFoundException  {
+    public static void addCriterial( String name, String criterialJSON,String type) throws SQLException, ClassNotFoundException  {
 
-        String query = "insert into CRITERIA values(?,?,?)";
+        String query = "insert into CRITERIA values(?,?,?,?)";
         try (PreparedStatement statement = con.prepareStatement(query)){
                 statement.setString(2, name);
                 statement.setString(3, criterialJSON);
+                statement.setString(4, type);
                 statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -71,19 +72,22 @@ public class SearchQuery {
      */
     public ResultSet getAllCriterialSearch() throws SQLException, ClassNotFoundException  {
         ResultSet result = null;
-        System.out.println("entro al get All method");
         try (Statement statement = con.createStatement()) {
-            System.out.println("entro a ejecutar el query");
-            result = statement.executeQuery("SELECT id, name, criteria FROM CRITERIA");
+            result = statement.executeQuery("SELECT id, name, criteria,type FROM CRITERIA");
             while (result.next()) {
-                int id = result.getInt("id");
+                String id =String.valueOf(result.getInt("id"));
                 String name = result.getString("name");
                 String criteria = result.getString("criteria");
+                String type = result.getString("type");
 
-
+                ListCriteriaName.add(id);
+                ListCriteriaName.add(name);
+                ListCriteriaName.add(criteria);
+                ListCriteriaName.add(type);
                 System.out.println("ID from controller = " + id);
                 System.out.println("NAME from controller = " + name);
                 System.out.println("criteria from controller = " + criteria);
+                System.out.println("criteria from controller = " + type);
 
             }
         }catch (SQLException e) {
@@ -117,6 +121,16 @@ public class SearchQuery {
     public void setListCriteriaNameData( String name){
 
         ListCriteriaName.add(name);
+
+    }
+    public void deleteTable() {
+        ResultSet result = null;
+        try (Statement statement = con.createStatement()) {
+           statement.executeQuery("DROP TABLE CRITERIA;");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }

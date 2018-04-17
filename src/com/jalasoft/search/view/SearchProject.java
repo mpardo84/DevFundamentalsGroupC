@@ -330,5 +330,10 @@ public class SearchProject extends JFrame{
     public DefaultTableModel getCriteriaTable() {
         return filePanel.getCriteriaTable();
     }
+
+    //Method that allows to get the Table for the criteria
+    public JTable geTableC() {
+        return filePanel.geTableC();
+    }
 }
 
