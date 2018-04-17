@@ -54,7 +54,7 @@ public class SearchQuery {
      */
     public static void addCriterial( String name, String criterialJSON) throws SQLException, ClassNotFoundException  {
 
-        String query = "insert into search values(?,?,?)";
+        String query = "insert into CRITERIA values(?,?,?)";
         try (PreparedStatement statement = con.prepareStatement(query)){
                 statement.setString(2, name);
                 statement.setString(3, criterialJSON);
@@ -74,7 +74,7 @@ public class SearchQuery {
         System.out.println("entro al get All method");
         try (Statement statement = con.createStatement()) {
             System.out.println("entro a ejecutar el query");
-            result = statement.executeQuery("SELECT id, name, criteria FROM search");
+            result = statement.executeQuery("SELECT id, name, criteria FROM CRITERIA");
             while (result.next()) {
                 int id = result.getInt("id");
                 String name = result.getString("name");
@@ -100,7 +100,7 @@ public class SearchQuery {
     public ResultSet getNameCriterialSearch() throws SQLException, ClassNotFoundException  {
         ResultSet result = null;
         try (Statement statement = con.createStatement()) {
-            result = statement.executeQuery("SELECT  name FROM search");
+            result = statement.executeQuery("SELECT  name FROM CRITERIA");
             while (result.next()) {
 
                 String name = result.getString("name");
