@@ -55,15 +55,16 @@ public class DBConnection {
 
             Class.forName("org.sqlite.JDBC");
 
-            con = DriverManager.getConnection("jdbc:sqlite:search.db");
+            con = DriverManager.getConnection("jdbc:sqlite:SEARCH.db");
             Statement state = con.createStatement();
-            String sql = " IF NOT EXIST(SELECT * FROM sys.table WHERE name=N'searchdb') BEGIN CREATE TABLE CRITERIA " +
-                    "(ID INT PRIMARY KEY     NOT NULL, " +
-                    " NAME           TEXT    , " +
-                    " CRITERIAL            CHAR(256)     , " +
-                    " TYPE         TEXT)";
+            String sql= "CREATE TABLE IF NOT EXISTS CRITERIA (\n"
+                    + "	id integer PRIMARY KEY,\n"
+                    + "	name text ,\n"
+                    + "	CRITERIA VARCHAR(255)\n"
+                    + ");";
             state.execute(sql);
-            System.out.println("BD creada");
+            System.out.println("tabla creada");
+
 
         } catch (ClassNotFoundException ex) {
             logger.log.severe( functions.getStackTrace(ex));
