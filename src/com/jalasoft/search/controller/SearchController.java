@@ -24,6 +24,9 @@ import com.jalasoft.search.model.File;
 import com.jalasoft.search.model.SearchCriterial;
 import com.jalasoft.search.view.SearchProject;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -406,16 +409,25 @@ public class SearchController {
      */
     public void saveButtonActionListener(){
         this.view.openSaveCriteriaDialog();
-        SearchQuery query;
-        System.out.println("entro al save action listener del controller "+ this.view.getNameCriteria());
-        try {
-            query = new SearchQuery();
-            query.addCriterial(this.view.getNameCriteria(), "string criteria");
-            System.out.println("datos insertados");
-        } catch (ClassNotFoundException ex) {
-            logger.log.severe( functions.getStackTrace(ex));
-        } catch (SQLException e) {
-            logger.log.severe( functions.getStackTrace(e));
+        String Name=this.view.getNameCriteria();
+        if(Name.isEmpty() || Name==null){
+            this.view.setMessage("Please insert a criteria Name");
+        }
+        else{
+
+                SearchQuery query;
+                System.out.println("entro al save action listener del controller " + this.view.getNameCriteria());
+                try {
+                    query = new SearchQuery();
+                    //query.deleteTable();
+                  query.addCriterial(this.view.getNameCriteria(), "string criteria","File");
+                   System.out.println("datos insertados");
+                } catch (ClassNotFoundException ex) {
+                    logger.log.severe(functions.getStackTrace(ex));
+                } catch (SQLException e) {
+                    logger.log.severe(functions.getStackTrace(e));
+                }
+
         }
     }
 
@@ -429,7 +441,8 @@ public class SearchController {
 
         System.out.println("entro al load action listener del controller para popular lso datos ");
         // SearchQuery query;
-
+        String criteriaSelectedName=this.view.getNameCriteria();
+        System.out.println("el valor del criterio selecionado es"+criteriaSelectedName);
 
     }
 
@@ -445,11 +458,12 @@ public class SearchController {
         ArrayList<String> list;
         try {
             query = new SearchQuery();
-            query.getNameCriterialSearch();
+            query.getAllCriterialSearch();
              list= query.getListCriteriaName();
             if (list.isEmpty()) {
 
                 System.out.println("la list es vacia");
+                this.view.setMessage("There are no saved criteria");
             }
             else {
                 Object rowData[]=new Object[4];
@@ -466,6 +480,8 @@ public class SearchController {
                 this.view.openLoadCriteriaDialog();
                 this.view.getLoadButton().addActionListener(e -> loadButtonActionListener());
             }
+
+
         } catch (ClassNotFoundException ex) {
             logger.log.severe( functions.getStackTrace(ex));
         } catch (SQLException e) {

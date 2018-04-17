@@ -16,8 +16,7 @@ package com.jalasoft.search.view;
 
 import com.jalasoft.search.commond.LoggerWrapper;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -204,6 +203,11 @@ public class FilePanel extends JPanel{
     //Method that allows to get the Table for the criteria
     public DefaultTableModel getCriteriaTable() {
         return searchPanelCriteria.getCriteriaTable();
+    }
+
+    //Method that allows to get the Table for the criteria
+    public JTable geTableC() {
+        return searchPanelCriteria.getTableC();
     }
 
 

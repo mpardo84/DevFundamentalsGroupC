@@ -322,6 +322,7 @@ public class SearchProject extends JFrame{
         return filePanel.getLoadCriteriaButton();
     }
 
+    //method to set the criteria values
     public void setCriteriaValues(String[] criteriaValues) {
 
                 filePanel.setCriteriaValues(criteriaValues);
@@ -329,6 +330,11 @@ public class SearchProject extends JFrame{
     //Method that allows to get the Table for the criteria
     public DefaultTableModel getCriteriaTable() {
         return filePanel.getCriteriaTable();
+    }
+
+    //Method that allows to get the Table for the criteria
+    public JTable geTableC() {
+        return filePanel.geTableC();
     }
 }
 

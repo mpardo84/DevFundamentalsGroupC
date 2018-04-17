@@ -58,9 +58,10 @@ public class DBConnection {
             con = DriverManager.getConnection("jdbc:sqlite:SEARCH.db");
             Statement state = con.createStatement();
             String sql= "CREATE TABLE IF NOT EXISTS CRITERIA (\n"
-                    + "	id integer PRIMARY KEY,\n"
+                    + "	id integer PRIMARY KEY AUTOINCREMENT,\n"
                     + "	name text ,\n"
-                    + "	CRITERIA VARCHAR(255)\n"
+                    + "	CRITERIA VARCHAR(255),\n"
+                    + "	type text \n"
                     + ");";
             state.execute(sql);
             System.out.println("tabla creada");
@@ -75,4 +76,6 @@ public class DBConnection {
     public static Connection getConnection(){
         return con;
     }
+
+
 }
