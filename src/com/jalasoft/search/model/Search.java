@@ -14,6 +14,7 @@
 
 package com.jalasoft.search.model;
 
+import com.google.gson.Gson;
 import com.jalasoft.search.commond.Functions;
 import com.jalasoft.search.commond.LoggerWrapper;
 import org.apache.commons.io.FilenameUtils;
@@ -24,6 +25,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -181,6 +184,44 @@ public class Search
 
     }
 
+    public String saveCriteria(SearchCriterial cri, String nameCriteria)
+    {
+        SearchQuery db = null;
+        try {
+            db = new SearchQuery();
+            Gson gson=new Gson();
+            String criteriaJson=gson.toJson(cri);
+            db.addCriterial(nameCriteria, criteriaJson);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return "Fail";
+        }
+        return "Success";
+    }
+
+    public Map<Integer, SearchCriterial> getAllData(){
+    Map<Integer,SearchCriterial> scMap= new HashMap<>();
+        SearchQuery db= null;
+        try {
+            db = new SearchQuery();
+            ResultSet set=db.getAllCriterialSearch();
+
+            Gson gson=new Gson();
+            while(set.next()){
+
+                SearchCriterial crijson=gson.fromJson(set.getString("criteria"),SearchCriterial.class);
+
+                int id=set.getInt("Id");
+
+                scMap.put(id,crijson);
+
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return scMap;
+    }
+    
     private void setFoundFileObject(File file)
     {
         try {
