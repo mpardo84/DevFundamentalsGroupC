@@ -65,6 +65,8 @@ public class SearchCriterial
     private Date todayDate;
     private Date yesterdayDate;
     private String timeOption;
+    private String criteriaName;
+    private String typeObject;
 
     public SearchCriterial()
     {
@@ -99,6 +101,8 @@ public class SearchCriterial
         this.dateModifiedDir="";
         this.sizeDirOption = "";
         this.timeOption="";
+        this.criteriaName="";
+        this.typeObject="";
     }
 
     /**
@@ -497,5 +501,21 @@ public class SearchCriterial
 
     public void setYesterdayDate(Date yesterdayDate) {
         this.yesterdayDate = yesterdayDate;
+    }
+
+    public String getCriteriaName() {
+        return criteriaName;
+    }
+
+    public void setCriteriaName(String criteriaName) {
+        this.criteriaName = criteriaName;
+    }
+
+    public String getTypeObject() {
+        return typeObject;
+    }
+
+    public void setTypeObject(String typeObject) {
+        this.typeObject = typeObject;
     }
 }

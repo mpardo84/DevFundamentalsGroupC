@@ -71,29 +71,10 @@ public class SearchQuery {
      *
      */
     public ResultSet getAllCriterialSearch() throws SQLException, ClassNotFoundException  {
-        ResultSet result = null;
-        try (Statement statement = con.createStatement()) {
-            result = statement.executeQuery("SELECT id, name, criteria,type FROM CRITERIA");
-            while (result.next()) {
-                String id =String.valueOf(result.getInt("id"));
-                String name = result.getString("name");
-                String criteria = result.getString("criteria");
-                String type = result.getString("type");
+        Statement statement = con.createStatement();
+        ResultSet result = statement.executeQuery("SELECT id, name, criteria,type FROM CRITERIA");
+         return result;
 
-                ListCriteriaName.add(id);
-                ListCriteriaName.add(name);
-                ListCriteriaName.add(criteria);
-                ListCriteriaName.add(type);
-                System.out.println("ID from controller = " + id);
-                System.out.println("NAME from controller = " + name);
-                System.out.println("criteria from controller = " + criteria);
-                System.out.println("criteria from controller = " + type);
-
-            }
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return result;
     }
 
     /**
