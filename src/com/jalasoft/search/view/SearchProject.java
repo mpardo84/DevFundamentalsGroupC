@@ -322,6 +322,7 @@ public class SearchProject extends JFrame{
         return filePanel.getLoadCriteriaButton();
     }
 
+    //method to set the criteria values
     public void setCriteriaValues(String[] criteriaValues) {
 
                 filePanel.setCriteriaValues(criteriaValues);

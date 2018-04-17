@@ -284,27 +284,28 @@ public class SearchPanelCriteria extends JPanel {
         return loadCriteriaButton;
     }
 
+    //Set method  for the "Load Criteria" button that is located in the File search criteria panel
     public void setLoadCriteriaButton(JButton loadCriteriaButton) {
         this.loadCriteriaButton = loadCriteriaButton;
     }
 
+    //set method to set the criterias values for the table
     public void setCriteriaValues(String[] criteriaValues) {
         this.criteriaValues = criteriaValues;
 
     }
 
+    //get method for the criteria table located in the Load dialog
     public DefaultTableModel getCriteriaTable() {
         return criteriaTable;
     }
 
+    //set method for the criteria table located in the Load dialog
     public void setCriteriaTable(DefaultTableModel criteriaTable) {
         this.criteriaTable = criteriaTable;
     }
 
-    public void setTableC(JTable tableC) {
-        this.tableC = tableC;
-    }
-
+   //get method for the table criteria
     public JTable getTableC() {
         return tableC;
     }
@@ -707,6 +708,7 @@ public class SearchPanelCriteria extends JPanel {
 
     }
 
+    //This method is used for open the Load criteria dialog that contains all the criterias in a table
     public void loadCriteriaDialog(){
         JFrame frame = new JFrame("Load Criteria");
         frame.setLayout(null);
@@ -757,6 +759,7 @@ public class SearchPanelCriteria extends JPanel {
         frame.add(scrollPane);
     }
 
+    //This method initialze the criteria table located in the load dialog
     public void initializeTable(){
         String[] columnNames= {"ID",
                 "NAME",

@@ -117,12 +117,21 @@ public class SearchQuery {
         }
         return result;
     }
-
+    /**
+     *
+     * Method to insert the name values into the list
+     *
+     */
     public void setListCriteriaNameData( String name){
 
         ListCriteriaName.add(name);
 
     }
+    /**
+     *
+     * method to delete the Criteria table from database
+     *
+     */
     public void deleteTable() {
         ResultSet result = null;
         try (Statement statement = con.createStatement()) {
