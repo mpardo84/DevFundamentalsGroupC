@@ -14,6 +14,7 @@
 
 package com.jalasoft.search.model;
 
+
 import com.google.gson.Gson;
 import com.jalasoft.search.commond.Functions;
 import com.jalasoft.search.commond.LoggerWrapper;
@@ -184,14 +185,14 @@ public class Search
 
     }
 
-    public String saveCriteria(SearchCriterial cri, String nameCriteria)
+   public String saveCriteria(SearchCriterial cri, String nameCriteria)
     {
         SearchQuery db = null;
         try {
             db = new SearchQuery();
             Gson gson=new Gson();
             String criteriaJson=gson.toJson(cri);
-            db.addCriterial(nameCriteria, criteriaJson);
+            db.addCriterial(nameCriteria, criteriaJson,"File");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             return "Fail";
@@ -199,20 +200,21 @@ public class Search
         return "Success";
     }
 
-    public Map<Integer, SearchCriterial> getAllData(){
+    public Map<Integer,SearchCriterial> getAllData(){
     Map<Integer,SearchCriterial> scMap= new HashMap<>();
-        SearchQuery db= null;
+        //SearchQuery db= null;
         try {
-            db = new SearchQuery();
-            ResultSet set=db.getAllCriterialSearch();
-
+            SearchQuery  db = new SearchQuery();
             Gson gson=new Gson();
-            while(set.next()){
+            ResultSet set=db.getAllCriterialSearch();
+            System.out.println("el resultado devuelto del query es:"+set);
 
+            while(set.next()){
+                System.out.println("entro al Search y tiene datos");
                 SearchCriterial crijson=gson.fromJson(set.getString("criteria"),SearchCriterial.class);
 
                 int id=set.getInt("Id");
-
+                String name=set.getString(2);
                 scMap.put(id,crijson);
 
             }

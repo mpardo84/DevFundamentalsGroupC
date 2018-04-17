@@ -33,7 +33,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Map;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -443,43 +444,23 @@ public class SearchController {
      *This will get all the criteria data and will display this in the Criteria dialog
      */
     public void loadCriteriaButtonActionListener(){
-
-        System.out.println("entro al load action listener del controller para mostrar los criterias ");
-        SearchQuery query;
-        ArrayList<String> list;
-        try {
-            query = new SearchQuery();
-            query.getNameCriterialSearch();
-            this.view.getCriteriaTable().setRowCount(0);
-             list= query.getListCriteriaName();
-            if (list.isEmpty()) {
-
-                System.out.println("la list es vacia");
-                this.view.setMessage("There are no saved criteria");
-            }
-            else {
+        this.view.getCriteriaTable().setRowCount(0);
+        Map<Integer,SearchCriterial> map = this.model.getAllData();
+        if (map.isEmpty()) {
+            this.view.setMessage("There are no saved criteria");
+        }
+        else {
                 Object rowData[]=new Object[3];
-                for (String dir : list)
+                for (Map.Entry<Integer,SearchCriterial> entry : map.entrySet())
                 {
-
-                    rowData[0]="1";
-                    rowData[1]=dir;
-                    rowData[2]="";
-
-
+                    rowData[0]=entry.getKey();
+                    rowData[1]=entry.getValue();
+                    rowData[2]="File";
                     this.view.getCriteriaTable().addRow(rowData);
                 }
                 this.view.openLoadCriteriaDialog();
                 this.view.getLoadButton().addActionListener(e -> loadButtonActionListener());
             }
-
-
-        } catch (ClassNotFoundException ex) {
-            logger.log.severe( functions.getStackTrace(ex));
-        } catch (SQLException e) {
-            logger.log.severe( functions.getStackTrace(e));
-        }
-
     }
 
 }
