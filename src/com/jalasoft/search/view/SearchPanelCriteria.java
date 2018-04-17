@@ -763,7 +763,6 @@ public class SearchPanelCriteria extends JPanel {
     public void initializeTable(){
         String[] columnNames= {"ID",
                 "NAME",
-                "CRITERIA",
                 "TYPE",
         };
 
