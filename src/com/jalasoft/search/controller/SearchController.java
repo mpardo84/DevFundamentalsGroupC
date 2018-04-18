@@ -415,9 +415,11 @@ public class SearchController {
             this.view.setMessage("Please insert a criteria Name");
         }
         else{
-                    configureModelData();
-                   this.model.saveCriteria(this.model.getSearchCriterial(),nameCri);
-                   System.out.println("datos insertados");
+            configureModelData();
+            this.model.getSearchCriterial().setCriteriaName(nameCri);
+            this.model.getSearchCriterial().setTypeObject("file");
+            this.model.saveCriteria(this.model.getSearchCriterial(),nameCri);
+            System.out.println("datos insertados");
         }
     }
 
@@ -454,8 +456,8 @@ public class SearchController {
                 for (Map.Entry<Integer,SearchCriterial> entry : map.entrySet())
                 {
                     rowData[0]=entry.getKey();
-                    rowData[1]=entry.getValue();
-                    rowData[2]="File";
+                    rowData[1]=entry.getValue().getCriteriaName();
+                    rowData[2]=entry.getValue().getTypeObject();
                     this.view.getCriteriaTable().addRow(rowData);
                 }
                 this.view.openLoadCriteriaDialog();
