@@ -388,5 +388,77 @@ public class SearchProject extends JFrame{
     public String getDirCriteriaID() {
         return directoryPanel.getCriteriaID();
     }
+
+    public void setFileName(String fileName){
+        filePanel.setFileName(fileName);
+    }
+
+    //Method that allows to get the path for the field from the SearchPanelCriteria class
+    public void setFilePath(String filePath){
+        filePanel.setFilePath(filePath);
+    }
+    public void setOwner(String owner){
+        filePanel.setOwner(owner);
+    }
+    public void setHidden(String hiddenOption){
+        filePanel.setHidden(hiddenOption);
+    }
+    //Method that allows to get the readOnly option from the SearchPanelCriteria class
+    public void setReadOnly(String readOnly){
+        filePanel.setReadOnly(readOnly);
+    }
+    //Method that allows to get the type option from the SearchPanelCriteria class
+    public void setTypeFile(String typeField){
+        filePanel.setTypeFile(typeField);
+    }
+    //Method that allows to get the contains value from the SearchPanelCriteria class
+    public void setContains(String contains){
+        filePanel.setContains(contains);
+    }
+
+    //Get method to get the created option selected from UI
+    public void setCreatedOptions(String createdOptions) {
+        filePanel.setCreatedOptions(createdOptions);
+    }
+    //Get method to get the modified option selected from UI
+    public void setModifiedOptions(String modifiedOptions) {
+        filePanel.setModifiedOptions(modifiedOptions);
+    }
+    //Get method to get the acessed option selected from UI
+    public void setAccessedOptions(String accessedOptions) {
+        filePanel.setAccessedOptions(accessedOptions);
+    }
+    //Get method to get the  range for the created option selected from UI
+    public void setFromCreatedDate(Date fromCreatedDate) {
+        filePanel.setFromCreatedDate(fromCreatedDate);
+    }
+    //Get method to get the range for the  created option selected from UI
+    public void setToCreatedDate(Date toCreatedDate) {
+        filePanel.setToCreatedDate(toCreatedDate);
+    }
+    //Get method to get the range for the modified option selected from UI
+    public void setFromModifiedDate(Date fromModifiedDate) {
+        filePanel.setFromModifiedDate(fromModifiedDate);
+    }
+    //Get method to get the range for the modified option selected from UI
+    public void setToModifiedDate(Date toModifiedDate) {
+        filePanel.setToModifiedDate(toModifiedDate);
+    }
+    //Get method to get the range for the accessed option selected from UI
+    public void setFromAccessedDate(Date fromAccessDate) {
+        filePanel.setFromAccessedDate(fromAccessDate);
+    }
+    //Get method to get the range for the accessed option selected from UI
+    public void setToAccessedDate(Date toAccessedDate) {
+        filePanel.setToAccessedDate(toAccessedDate);
+    }
+    //Get method to get the size Option value
+    public void setSizeOptions(String sizeOptions) {
+        filePanel.setSizeOptions(sizeOptions);
+    }
+    //Get method to get the size
+    public void setSizeValue(String sizeValue) {
+        filePanel.setSizeValue(sizeValue);
+    }
 }
 
