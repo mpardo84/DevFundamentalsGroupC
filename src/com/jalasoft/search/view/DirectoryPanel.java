@@ -145,4 +145,54 @@ public class DirectoryPanel extends JPanel{
     public DefaultTableModel getDirTable() {
         return searchPanelResults.getDirTableModel();
     }
+
+
+    //Method that allows to get the Table
+    public DefaultTableModel getTable() {
+        return searchPanelResults.getTable();
+    }
+
+    //method to get the save button
+    public JButton getDirSaveButton() {
+        return searchDirectoryCriteria.getDirSaveButton();
+    }
+
+    //method to get the name criteria
+    public String getdirNameCriteria(){
+        return searchDirectoryCriteria.getDirNameCriteria();
+    }
+    // method to open the Save Criteria dialog
+    public void openSaveDirCriteriaDialog(){
+        searchDirectoryCriteria.saveDirCriteriaDialog();
+    }
+
+    //method to get the load button
+    public JButton getDirLoadButton() {
+        return searchDirectoryCriteria.getDirLoadButton();
+    }
+
+    // method to open the load Criteria dialog
+    public void openLoadDirCriteriaDialog(){
+        searchDirectoryCriteria.loadDirCriteriaDialog();
+    }
+
+    //method to get the load button
+    public JButton getLoadDirCriteriaButton() {
+        return searchDirectoryCriteria.getDirLoadCriteriaButton();
+    }
+
+        //Method that allows to get the Table for the criteria
+    public DefaultTableModel getDirCriteriaTable() {
+        return searchDirectoryCriteria.getdirCriteriaTable();
+    }
+
+    //Method that allows to get the Table for the criteria
+    public JTable geTableCDir() {
+        return searchDirectoryCriteria.getTableCDir();
+    }
+
+    //method to get the ID from the criteria table
+    public String getCriteriaID() {
+        return searchDirectoryCriteria.getCriteriaDirID();
+    }
 }

@@ -29,6 +29,20 @@ import java.util.Date;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -58,6 +72,10 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     private JLabel toAccessedLabel;
     private JLabel sizeDirLabel;
     private JLabel defaultDirSize;
+    private JLabel criteriaDirLabel;
+    private JLabel criteriaDirOptions;
+    private JLabel detailsDirCriteria;
+    private JLabel selectedDirCriteria;
     private JTextField  nameDirField;
     private JTextField ownerDirField;
     private JTextField pathDirValue;
@@ -67,6 +85,8 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     private JButton saveDirButton;
     private JButton searchDirButton;
     private JButton closeDirButton;
+    private JButton loadDirButton;
+    private JButton loadDirCriteriaButton;
     private JSeparator separator;
     private JComboBox readOnlyDirOptions;
     private JComboBox hiddenDirOptions;
@@ -87,6 +107,12 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     private ImageIcon cancelIcon;
     private ImageIcon searchIcon;
     private ImageIcon browseIcon;
+    private ImageIcon loadIcon;
+    private ImageIcon updateIcon;
+    private String nameDirCriteria;
+    private String criteriaDirID;
+    private DefaultTableModel criteriaDirTable;
+    private JTable tableCDir;
 
     public SearchDirectoryPanelCriteria() {
          setLayout(null);
@@ -95,6 +121,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         searchAttributesSection();
         searchDirTimeSection();
         searchPanelButtons();
+        initializeDirTable();
     }
 
     //Get method for the fields that the user will insert data
@@ -163,11 +190,6 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         return toAccessedDirDate.getDate();
     }
 
-    //method to allows set the message value
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
 
     //method to allows get the size dir option value
     public String getSizeDirOptions() {
@@ -182,6 +204,67 @@ public class SearchDirectoryPanelCriteria extends JPanel {
     public JButton getSearchDirButton() {
         return searchDirButton;
     }
+
+    //get method for the save criteria button
+    public JButton getDirSaveButton() {
+        return saveDirButton;
+    }
+
+    //set method for the save criteria button
+    public void setDirSaveButton(JButton saveButton) {
+        this.saveDirButton = saveButton;
+    }
+
+    //get method for the load criteria button
+    public JButton getDirLoadButton() {
+        return loadDirButton;
+    }
+
+    //set method for the load criteria button
+    public void setDirLoadButton(JButton loadButton) {
+        this.loadDirButton = loadButton;
+    }
+
+    //method to allows set the message value
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    //method that allows to get the criteria Name
+    public String getDirNameCriteria() {
+        return nameDirCriteria;
+    }
+
+    //method that allows to get the load criteria button
+    public JButton getDirLoadCriteriaButton() {
+        return loadDirCriteriaButton;
+    }
+
+    //Set method  for the "Load Criteria" button that is located in the File search criteria panel
+    public void setDirLoadCriteriaButton(JButton loadCriteriaButton) {
+        this.loadDirCriteriaButton = loadCriteriaButton;
+    }
+
+      //get method for the criteria table located in the Load dialog
+    public DefaultTableModel getdirCriteriaTable() {
+        return criteriaDirTable;
+    }
+
+    //set method for the criteria table located in the Load dialog
+    public void setCriteriaDirTable(DefaultTableModel criteriaTable) {
+        this.criteriaDirTable = criteriaTable;
+    }
+
+    //get method for the table criteria
+    public JTable getTableCDir() {
+        return tableCDir;
+    }
+
+    //method to get the criteria ID from the table
+    public String getCriteriaDirID() {
+        return criteriaDirID;
+    }
+
 
     //This method allows to select a directory
     public void browseDirectoryAction(){
@@ -339,18 +422,23 @@ public class SearchDirectoryPanelCriteria extends JPanel {
 
     //This method allows to create the buttons
     public void searchPanelButtons(){
+        loadIcon = new ImageIcon(
+                this.getClass().getResource("/images/load.png"));
+        loadDirCriteriaButton=new JButton("Load Criteria",loadIcon);
+        loadDirCriteriaButton.setBounds(25,600,121,27);
         saveIcon = new ImageIcon(
                 this.getClass().getResource("/images/save.png"));
-        saveDirButton=new JButton("Save",saveIcon);
-        saveDirButton.setBounds(110,600,90,25);
+        saveDirButton=new JButton("Save Criteria",saveIcon);
+        saveDirButton.setBounds(150,600,119,27);
         searchIcon = new ImageIcon(
                 this.getClass().getResource("/images/edit_find.png"));
         searchDirButton=new JButton("Search",searchIcon);
-        searchDirButton.setBounds(205,600,100,27);
+        searchDirButton.setBounds(275,600,100,27);
         cancelIcon = new ImageIcon(
                 this.getClass().getResource("/images/close.png"));
         closeDirButton=new JButton("Close",cancelIcon);
-        closeDirButton.setBounds(310,600,90,25);
+        closeDirButton.setBounds(380,600,90,27);
+        add(loadDirCriteriaButton);
         add(saveDirButton);
         add(searchDirButton);
         add(closeDirButton);
@@ -540,5 +628,80 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         if (message!="") {
             JOptionPane.showMessageDialog(null,message);
         }
+    }
+
+    //this is used for save the criteria dialog
+    public void saveDirCriteriaDialog(){
+        nameDirCriteria=JOptionPane.showInputDialog(
+                this,
+                "Criteria Name:",
+                "Save criteria",
+                JOptionPane.PLAIN_MESSAGE);
+
+    }
+
+    //This method is used for open the Load criteria dialog that contains all the criterias in a table
+    public void loadDirCriteriaDialog(){
+        JFrame frame = new JFrame("Load Criteria");
+        frame.setLayout(null);
+
+        frame.setSize(new Dimension(500,500));
+        frame.setBackground(new Color(204, 229, 255));
+
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setResizable(false);
+        selectedDirCriteria=new JLabel();
+        selectedDirCriteria.setBounds(10,10,460,70);
+        Border border=BorderFactory.createEtchedBorder();
+        selectedDirCriteria.setBorder(BorderFactory.createTitledBorder(border,"SELECT CRITERIA"));
+        criteriaDirLabel=new JLabel("Criteria Selected:");
+        criteriaDirLabel.setBounds(40,40,110,25);
+        criteriaDirOptions= new JLabel("No Selected value");
+        criteriaDirOptions.setBounds(140,40,150,25);
+
+        criteriaDirOptions.setForeground(Color.BLUE);
+        updateIcon = new ImageIcon(
+                this.getClass().getResource("/images/refresh.png"));
+        loadDirButton=new JButton("Load",updateIcon);
+        loadDirButton.setBounds(310,40,100,29);
+        loadDirButton.setBorderPainted(true);
+        detailsDirCriteria=new JLabel();
+        detailsDirCriteria.setBounds(10,95,460,360);
+        detailsDirCriteria.setBorder(BorderFactory.createTitledBorder(border,"DETAILS CRITERIAS"));
+
+        tableCDir.setPreferredScrollableViewportSize(new Dimension(300, 70));
+        tableCDir.setFillsViewportHeight(true);
+        JScrollPane scrollPane = new JScrollPane(tableCDir);
+        scrollPane.setBounds(18,118,445,330);
+
+        tableCDir.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                criteriaDirID=tableCDir.getValueAt(tableCDir.getSelectedRow(), 0).toString();
+                nameDirCriteria=tableCDir.getValueAt(tableCDir.getSelectedRow(), 1).toString();
+
+                criteriaDirOptions.setText(nameDirCriteria);
+
+            }
+        });
+
+        frame.add(selectedDirCriteria);
+        frame.add(criteriaDirLabel);
+        frame.add(criteriaDirOptions);
+        frame.add(loadDirButton);
+        frame.add(detailsDirCriteria);
+        frame.add(scrollPane);
+    }
+
+    //This method initialze the criteria table located in the load dialog
+    public void initializeDirTable(){
+        String[] columnNames= {"ID",
+                "NAME",
+                "TYPE",
+        };
+
+        Object[][] data = { };
+        criteriaDirTable = new DefaultTableModel(data, columnNames);
+        tableCDir = new JTable(criteriaDirTable);
     }
 }

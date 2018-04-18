@@ -52,6 +52,22 @@ public class SearchTest {
 
     }
 
+    //Negative test-check with empty path for the directory
+    @Test
+    public void searchFileByEmptyPath(){
+        Search searchFile=new Search();
+        String directory="";
+        //searchFile.
+        searchFile.searchFile(directory);
+        List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
+        for (FileObject file : searchResult)
+        {
+            String name=file.getFileName();
+        }
+        assertTrue(searchResult.isEmpty());
+
+    }
+
     //Test that allows to search files by file name, if the result found the file this means the method was able  to search by the name value
     @Test
     public void searchFileByPathAndName(){
@@ -81,7 +97,7 @@ public class SearchTest {
         SearchCriterial searchCriterial=new SearchCriterial();
         String directory="./test/com/jalasoft/search/resourceTest";
         boolean readOnly=true;
-        //searchCriterial.setReadOnly(readOnly);
+
         searchFile.getSearchCriterial().setReadOnly(readOnly);
         searchFile.searchFile(directory);
         List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
@@ -105,8 +121,7 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         String nameFile="FileReadOnly";
         boolean readOnly=true;
-        //searchCriterial.setFileName(nameFile);
-        //searchCriterial.setReadOnly(readOnly);
+
         searchFile.getSearchCriterial().setReadOnly(readOnly);
         searchFile.getSearchCriterial().setFileName(nameFile);
         searchFile.searchFile(directory);
@@ -156,8 +171,7 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         String nameFile="FileHidden";
         boolean hidden=true;
-        //searchCriterial.setFileName(nameFile);
-        //searchCriterial.setHidden(hidden);
+
         searchFile.getSearchCriterial().setHidden(hidden);
         searchFile.getSearchCriterial().setFileName(nameFile);
         searchFile.searchFile(directory);
@@ -181,7 +195,7 @@ public class SearchTest {
         SearchCriterial searchCriterial=new SearchCriterial();
         String directory="./test/com/jalasoft/search/resourceTest";
         String extention="docx";
-        //searchCriterial.setFileType(extention);
+
         searchFile.getSearchCriterial().setFileType(extention);
         searchFile.searchFile(directory);
         List<FileObject> searchResult = searchFile.getSearchCriterial().getFileObjectList();
@@ -206,8 +220,7 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         String extention="docx";
         String name="FileName";
-        //searchCriterial.setFileType(extention);
-        //searchCriterial.setFileName(name);
+
         searchFile.getSearchCriterial().setFileType(extention);
         searchFile.getSearchCriterial().setFileName(name);
         searchFile.searchFile(directory);
@@ -235,10 +248,7 @@ public class SearchTest {
         String name="FileNameReadOnlyAndHidden";
         boolean hidden=true;
         boolean readOnly=true;
-        /*searchCriterial.setFileType(extention);
-        searchCriterial.setFileName(name);
-        searchCriterial.setReadOnly(readOnly);
-        searchCriterial.setHidden(hidden);*/
+
         searchFile.getSearchCriterial().setFileType(extention);
         searchFile.getSearchCriterial().setFileName(name);
         searchFile.getSearchCriterial().setReadOnly(true);
@@ -269,10 +279,7 @@ public class SearchTest {
         String name = "FileNameReadOnlyAndHidden";
         boolean hidden = true;
         boolean readOnly = true;
-        /*
-        searchCriterial.setFileName(name);
-        searchCriterial.setReadOnly(readOnly);
-        searchCriterial.setHidden(hidden);*/
+
         searchFile.getSearchCriterial().setFileName(name);
         searchFile.getSearchCriterial().setHidden(hidden);
         searchFile.getSearchCriterial().setReadOnly(readOnly);
@@ -324,10 +331,6 @@ public class SearchTest {
         String directory="./test/com/jalasoft/search/resourceTest";
         double size=5;
         String condition="<";
-       /* searchCriterial.setSize(size);
-        searchCriterial.setSizeOption(condition);
-        searchCriterial.setFilePath(directory);*/
-
         searchFile.getSearchCriterial().setSizeOption(condition);
         searchFile.getSearchCriterial().setSize(size);
         searchFile.searchFile(directory);
@@ -449,9 +452,7 @@ public class SearchTest {
             Runtime.getRuntime().exec("attrib +H "+directory+"/FileHidden.txt");
             Runtime.getRuntime().exec("attrib +R "+directory+"/FileNameReadOnlyAndHidden.txt");
             Runtime.getRuntime().exec("attrib +H "+directory+"/FileNameReadOnlyAndHidden.txt");
-            Runtime.getRuntime().exec("mkdir " + directory + "/directoryName");
-            Runtime.getRuntime().exec("attrib -R "+directory+"/directoryName");
-            Runtime.getRuntime().exec("mkdir " + directory + "/DirectoryHidden");
+            Runtime.getRuntime().exec("attrib -R "+directory+"/DirectoryName2");
             Runtime.getRuntime().exec("attrib -R "+directory+"/DirectoryHidden");
             Runtime.getRuntime().exec("attrib +H "+directory+"/DirectoryHidden");
 

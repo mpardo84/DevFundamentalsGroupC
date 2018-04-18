@@ -70,6 +70,8 @@ public class SearchController {
         this.view.getSearchDir().addActionListener(e -> searchButtonDirectoryActionListener());
         this.view.getSaveCriteriaButton().addActionListener(e -> saveButtonActionListener());
         this.view.getLoadCriteriaButton().addActionListener(e -> loadCriteriaButtonActionListener());
+        this.view.getDirSaveButton().addActionListener(e -> saveDirButtonActionListener());
+        this.view.getLoadDirCriteriaButton().addActionListener(e -> loadDirCriteriaButtonActionListener());
     }
 
     /**
@@ -409,17 +411,40 @@ public class SearchController {
      *
      */
     public void saveButtonActionListener(){
+        logger.log.info( "Starting saving the criteria data process .......");
         this.view.openSaveCriteriaDialog();
         String nameCri=this.view.getNameCriteria();
         if(nameCri.isEmpty() || nameCri==null){
             this.view.setMessage("Please insert a criteria Name");
+            logger.log.info( "Name criteria was not inserted .......");
         }
         else{
             configureModelData();
             this.model.getSearchCriterial().setCriteriaName(nameCri);
             this.model.getSearchCriterial().setTypeObject("file");
             this.model.saveCriteria(this.model.getSearchCriterial(),nameCri);
-            System.out.println("datos insertados");
+            logger.log.info( "Criteria was saved in the DB .......");
+        }
+    }
+
+    /*
+     *
+     *  Method that implements actions that will be executed after clicking on Save button for Directory
+     *
+     */
+    public void saveDirButtonActionListener(){
+        this.view.openSaveDirCriteriaDialog();
+        String nameCriDir=this.view.getdirNameCriteria();
+        if(nameCriDir.isEmpty() || nameCriDir==null){
+            this.view.setMessage("Please insert a criteria Name");
+            logger.log.info( "Name criteria was not inserted for directory panel .......");
+        }
+        else{
+            configureModelDataDirectory();
+            this.model.getSearchCriterial().setCriteriaName(nameCriDir);
+            this.model.getSearchCriterial().setTypeObject("directory");
+            this.model.saveCriteria(this.model.getSearchCriterial(),nameCriDir);
+            logger.log.info( "Criteria was saved in the DB .......");
         }
     }
 
@@ -430,12 +455,9 @@ public class SearchController {
      *
      */
     public void loadButtonActionListener(){
-
-        System.out.println("entro al load action listener del controller para popular lso datos ");
-        // SearchQuery query;
+        logger.log.info( "The Load button was pressend and the data is sending to UI .......");
         String criteriaSelectedName=this.view.getNameCriteria();
         String criteriaId=this.view.getCriteriaID();
-        System.out.println("el valor del criterio selecionado es"+criteriaSelectedName);
         System.out.println("el valor del criterio id es"+criteriaId);
 
     }
@@ -446,23 +468,62 @@ public class SearchController {
      *This will get all the criteria data and will display this in the Criteria dialog
      */
     public void loadCriteriaButtonActionListener(){
+        logger.log.info( "The Load was open and display the data from the database .......");
         this.view.getCriteriaTable().setRowCount(0);
         Map<Integer,SearchCriterial> map = this.model.getAllData();
         if (map.isEmpty()) {
             this.view.setMessage("There are no saved criteria");
+            logger.log.info( "there is not data in the database .......");
         }
         else {
                 Object rowData[]=new Object[3];
                 for (Map.Entry<Integer,SearchCriterial> entry : map.entrySet())
                 {
-                    rowData[0]=entry.getKey();
-                    rowData[1]=entry.getValue().getCriteriaName();
-                    rowData[2]=entry.getValue().getTypeObject();
-                    this.view.getCriteriaTable().addRow(rowData);
+                    String typeObject=entry.getValue().getTypeObject();
+
+                    if(typeObject.equals("file")) {
+
+                        rowData[0] = entry.getKey();
+                        rowData[1] = entry.getValue().getCriteriaName();
+                        rowData[2] = entry.getValue().getTypeObject();
+                        this.view.getCriteriaTable().addRow(rowData);
+                    }
                 }
                 this.view.openLoadCriteriaDialog();
                 this.view.getLoadButton().addActionListener(e -> loadButtonActionListener());
             }
+        logger.log.info( "The Load dialog completed to load all the data from the database .......");
     }
+    /*
+     *
+     *  Method that implements actions that will be executed after clicking on Load Criteria button for directory panel
+     *This will get all the criteria data and will display this in the Criteria dialog
+     */
+    public void loadDirCriteriaButtonActionListener(){
+        logger.log.info( "The Load was open and display the data from the database for the directory panel .......");
+        this.view.getDirCriteriaTable().setRowCount(0);
+        Map<Integer,SearchCriterial> map = this.model.getAllData();
+        if (map.isEmpty()) {
+            this.view.setMessage("There are no saved criteria");
+            logger.log.info( "there is not data in the database .......");
+        }
+        else {
+            Object rowData[]=new Object[3];
+            for (Map.Entry<Integer,SearchCriterial> entry : map.entrySet())
+            {
+                String typeObject=entry.getValue().getTypeObject();
 
+                if(typeObject.equals("directory")) {
+
+                    rowData[0] = entry.getKey();
+                    rowData[1] = entry.getValue().getCriteriaName();
+                    rowData[2] = entry.getValue().getTypeObject();
+                    this.view.getDirCriteriaTable().addRow(rowData);
+                }
+            }
+            this.view.openLoadDirCriteriaDialog();
+            this.view.getDirLoadButton().addActionListener(e -> loadButtonActionListener());
+        }
+        logger.log.info( "The Load dialog completed to load all the data from the database for directory panel .......");
+    }
 }
