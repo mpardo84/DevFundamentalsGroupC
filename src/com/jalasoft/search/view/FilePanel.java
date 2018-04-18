@@ -60,6 +60,16 @@ public class FilePanel extends JPanel{
         return searchPanelCriteria.getNameField();
     }
 
+    //Method that allows to get the name for the field from the SearchPanelCriteria class
+    public void setFileName(String fileName){
+         searchPanelCriteria.setNameField(fileName);
+    }
+
+    //Method that allows to get the path for the field from the SearchPanelCriteria class
+    public void setFilePath(String filePath){
+         searchPanelCriteria.setPathValue(filePath);
+    }
+
     //Method that allows to get the path for the field from the SearchPanelCriteria class
     public String getFilePath(){
         return searchPanelCriteria.getPathValue();
@@ -69,10 +79,18 @@ public class FilePanel extends JPanel{
     public String getOwner(){
         return searchPanelCriteria.getOwnerField();
     }
+    //Method that allows to get the owner for the field from the SearchPanelCriteria class
+    public void setOwner(String owner){
+         searchPanelCriteria.setOwnerField(owner);
+    }
 
     //Method that allows to get the hidden option from the SearchPanelCriteria class
     public String getHidden(){
         return searchPanelCriteria.getHiddenOptions();
+    }
+    //Method that allows to get the hidden option from the SearchPanelCriteria class
+    public void setHidden(String hiddenOption){
+         searchPanelCriteria.setHiddenOptions(hiddenOption);
     }
 
     //Method that allows to get the readOnly option from the SearchPanelCriteria class
@@ -80,9 +98,18 @@ public class FilePanel extends JPanel{
         return searchPanelCriteria.getReadOnlyOptions();
     }
 
+    //Method that allows to get the readOnly option from the SearchPanelCriteria class
+    public void setReadOnly(String readOnly){
+         searchPanelCriteria.setReadOnlyOptions(readOnly);
+    }
     //Method that allows to get the type option from the SearchPanelCriteria class
     public String getTypeFile(){
         return searchPanelCriteria.getTypeField();
+    }
+
+    //Method that allows to get the type option from the SearchPanelCriteria class
+    public void setTypeFile(String typeField){
+         searchPanelCriteria.setTypeField(typeField);
     }
 
     //Method that allows to get the contains value from the SearchPanelCriteria class
@@ -90,9 +117,19 @@ public class FilePanel extends JPanel{
         return searchPanelCriteria.getContainsField();
     }
 
+    //Method that allows to get the contains value from the SearchPanelCriteria class
+    public void setContains(String contains){
+         searchPanelCriteria.setContainsField(contains);
+    }
+
     //Method that allows to get if the type is a File from the SearchPanelCriteria class
     public String getIsFile(){
         return searchPanelCriteria.getTypeObject();
+    }
+
+    //Get method to get the created option selected from UI
+    public void setCreatedOptions(String createdOptions) {
+         searchPanelCriteria.setCreatedOptions(createdOptions);
     }
 
     //Get method to get the created option selected from UI
@@ -105,9 +142,19 @@ public class FilePanel extends JPanel{
         return searchPanelCriteria.getModifiedOptions();
     }
 
+    //Get method to get the modified option selected from UI
+    public void setModifiedOptions(String modifiedOptions) {
+         searchPanelCriteria.setModifiedOptions(modifiedOptions);
+    }
+
     //Get method to get the acessed option selected from UI
     public String getAccessedOptions() {
         return searchPanelCriteria.getAccessedOptions();
+    }
+
+    //Get method to get the acessed option selected from UI
+    public void setAccessedOptions(String accessedOptions) {
+         searchPanelCriteria.setAccessedOptions(accessedOptions);
     }
 
     //Get method to get the  range for the created option selected from UI
@@ -115,9 +162,19 @@ public class FilePanel extends JPanel{
         return searchPanelCriteria.getFromCreatedDate();
     }
 
+    //Get method to get the  range for the created option selected from UI
+    public void setFromCreatedDate(Date fromCreatedDate) {
+         searchPanelCriteria.setFromCreatedDate(fromCreatedDate);
+    }
+
     //Get method to get the range for the  created option selected from UI
     public Date getToCreatedDate() {
         return searchPanelCriteria.getToCreatedDate();
+    }
+
+    //Get method to get the range for the  created option selected from UI
+    public void setToCreatedDate(Date toCreatedDate) {
+         searchPanelCriteria.setToCreatedDate(toCreatedDate);
     }
 
     //Get method to get the range for the modified option selected from UI
@@ -126,8 +183,18 @@ public class FilePanel extends JPanel{
     }
 
     //Get method to get the range for the modified option selected from UI
+    public void setFromModifiedDate(Date fromModifiedDate) {
+         searchPanelCriteria.setFromModifiedDate(fromModifiedDate);
+    }
+
+    //Get method to get the range for the modified option selected from UI
     public Date getToModifiedDate() {
         return searchPanelCriteria.getToModifiedDate();
+    }
+
+    //Get method to get the range for the modified option selected from UI
+    public void setToModifiedDate(Date toModifiedDate) {
+         searchPanelCriteria.setToModifiedDate(toModifiedDate);
     }
 
     //Get method to get the range for the accessed option selected from UI
@@ -136,8 +203,18 @@ public class FilePanel extends JPanel{
     }
 
     //Get method to get the range for the accessed option selected from UI
+    public void setFromAccessedDate(Date fromAccessDate) {
+         searchPanelCriteria.setFromAccessedDate(fromAccessDate);
+    }
+
+    //Get method to get the range for the accessed option selected from UI
     public Date getToAccessedDate() {
         return searchPanelCriteria.getToAccessedDate();
+    }
+
+    //Get method to get the range for the accessed option selected from UI
+    public void setToAccessedDate(Date toAccessedDate) {
+         searchPanelCriteria.setToAccessedDate(toAccessedDate);
     }
 
     //Get method to get the size Option value
@@ -145,9 +222,20 @@ public class FilePanel extends JPanel{
         return searchPanelCriteria.getSizeOptions();
     }
 
+
+    //Get method to get the size Option value
+    public void setSizeOptions(String sizeOptions) {
+         searchPanelCriteria.setSizeOptions(sizeOptions);
+    }
+
     //Get method to get the size
     public String getSizeValue() {
         return searchPanelCriteria.getSizeValue();
+    }
+
+    //Get method to get the size
+    public void setSizeValue(String sizeValue) {
+         searchPanelCriteria.setSizeValue(sizeValue);
     }
 
     //Method that allows to get the search button

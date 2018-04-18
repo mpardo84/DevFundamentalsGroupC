@@ -146,9 +146,17 @@ public class SearchPanelCriteria extends JPanel {
         return pathValue.getText();
     }
 
+    public void setPathValue(String pathValue) {
+        this.pathValue.setText(pathValue);
+    }
+
     //Get method to get the file name value from UI
     public String getNameField() {
         return nameField.getText();
+    }
+
+    public void setNameField(String nameField) {
+        this.nameField.setText(nameField);
     }
 
     //Get method to get the file owner value from UI
@@ -156,9 +164,17 @@ public class SearchPanelCriteria extends JPanel {
         return ownerField.getText();
     }
 
+    public void setOwnerField(String ownerField) {
+        this.ownerField.setText(ownerField);
+    }
+
     //Get method to get the file type value from UI
     public String getTypeField() {
         return typeField.getText();
+    }
+
+    public void setTypeField(String typeField) {
+        this.typeField.setText(typeField);
     }
 
     //Get method to get the file contains value from UI
@@ -166,15 +182,24 @@ public class SearchPanelCriteria extends JPanel {
         return containsField.getText();
     }
 
+    public void setContainsField(String containsField) {
+        this.containsField.setText(containsField);
+    }
+
     //Get method to get if te file is read only value from UI
     public String getReadOnlyOptions() {
         return (String)readOnlyOptions.getSelectedItem();
+    }
+
+    public void setReadOnlyOptions(String readOnlyOptions) {
+        this.readOnlyOptions.setSelectedItem(readOnlyOptions);
     }
 
     //Get method to get if te file is hidden value from UI
     public String getHiddenOptions() {
         return (String)hiddenOptions.getSelectedItem();
     }
+
 
     //Get Method to set the type of the objetct is this is a File or not
     public String getTypeObject(){
@@ -186,9 +211,17 @@ public class SearchPanelCriteria extends JPanel {
         return (String)createdOptions.getSelectedItem();
     }
 
+    public void setCreatedOptions(String createdOptions) {
+        this.createdOptions.setSelectedItem(createdOptions);
+    }
+
     //Get method to get the modified option selected from UI
     public String getModifiedOptions() {
         return (String)modifiedOptions.getSelectedItem();
+    }
+
+    public void setModifiedOptions(String modifiedOptions) {
+        this.modifiedOptions.setSelectedItem(modifiedOptions);
     }
 
     //Get method to get the acessed option selected from UI
@@ -196,9 +229,17 @@ public class SearchPanelCriteria extends JPanel {
         return (String)accessedOptions.getSelectedItem();
     }
 
+    public void setAccessedOptions(String accessedOptions) {
+        this.accessedOptions.setSelectedItem(accessedOptions);
+    }
+
     //Get method to get the  range for the created option selected from UI
     public Date getFromCreatedDate() {
         return fromCreatedDate.getDate();
+    }
+
+    public void setFromCreatedDate(Date fromCreatedDate) {
+        this.fromCreatedDate.setDate(fromCreatedDate);
     }
 
     //Get method to get the range for the  created option selected from UI
@@ -206,9 +247,17 @@ public class SearchPanelCriteria extends JPanel {
         return toCreatedDate.getDate();
     }
 
+    public void setToCreatedDate(Date toCreatedDate) {
+        this.toCreatedDate.setDate(toCreatedDate);
+    }
+
     //Get method to get the range for the modified option selected from UI
     public Date getFromModifiedDate() {
         return fromModifiedDate.getDate();
+    }
+
+    public void setFromModifiedDate(Date fromModifiedDate) {
+        this.fromModifiedDate.setDate(fromModifiedDate);
     }
 
     //Get method to get the range for the modified option selected from UI
@@ -216,9 +265,17 @@ public class SearchPanelCriteria extends JPanel {
         return toModifiedDate.getDate();
     }
 
+    public void setToModifiedDate(Date toModifiedDate) {
+        this.toModifiedDate.setDate(toModifiedDate);
+    }
+
     //Get method to get the range for the accessed option selected from UI
     public Date getFromAccessedDate() {
         return fromAccessedDate.getDate();
+    }
+
+    public void setFromAccessedDate(Date fromAccessedDate) {
+        this.fromAccessedDate.setDate(fromAccessedDate);
     }
 
     //Get method to get the range for the accessed option selected from UI
@@ -226,14 +283,26 @@ public class SearchPanelCriteria extends JPanel {
         return toAccessedDate.getDate();
     }
 
+    public void setToAccessedDate(Date toAccessedDate) {
+        this.toAccessedDate.setDate(toAccessedDate);
+    }
+
     //Get method to get the size Option value
     public String getSizeOptions() {
         return (String)sizeOptions.getSelectedItem();
     }
 
+    public void setSizeOptions(String sizeOptions) {
+        this.sizeOptions.setSelectedItem(sizeOptions);
+    }
+
     //Get method to get the size
     public String getSizeValue() {
         return sizeValue.getText();
+    }
+
+    public void setSizeValue(String sizeValue) {
+        this.sizeValue.setText(sizeValue);
     }
 
     //Get the search button
@@ -246,13 +315,10 @@ public class SearchPanelCriteria extends JPanel {
         return cancelButton;
     }
 
-    public void setHiddenOptions(JComboBox hiddenOptions) {
-        this.hiddenOptions = hiddenOptions;
+    public void setHiddenOptions(String hiddenOptions) {
+        this.hiddenOptions.setSelectedItem(hiddenOptions);
     }
 
-    public void setReadOnlyLabel(JLabel readOnlyLabel) {
-        this.readOnlyLabel = readOnlyLabel;
-    }
 
     //get method for the save criteria button
     public JButton getSaveButton() {
@@ -711,11 +777,13 @@ public class SearchPanelCriteria extends JPanel {
 
     //this is used for save the criteria dialog
     public void saveCriteriaDialog(){
-        nameCriteria=JOptionPane.showInputDialog(
+       nameCriteria=JOptionPane.showInputDialog(
                 this,
                 "Criteria Name:",
                 "Save criteria",
                 JOptionPane.PLAIN_MESSAGE);
+
+
 
     }
 
