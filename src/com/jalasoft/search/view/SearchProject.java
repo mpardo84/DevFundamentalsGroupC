@@ -287,10 +287,6 @@ public class SearchProject extends JFrame{
         return directoryPanel.getSearchDir();
     }
 
-    //Method that allows to get the Table result for directory
-    public DefaultTableModel getDirTable() {
-        return directoryPanel.getDirTable();
-    }
 
     //method to get the save button
     public JButton getSaveCriteriaButton() {
@@ -340,6 +336,57 @@ public class SearchProject extends JFrame{
     //method to get the ID from the criteria table
     public String getCriteriaID() {
         return filePanel.getCriteriaID();
+    }
+
+    //Method that allows to get the Table
+    public DefaultTableModel getDirTable() {
+        return directoryPanel.getDirTable();
+    }
+
+
+
+    //method to get the save button
+    public JButton getDirSaveButton() {
+        return directoryPanel.getDirSaveButton();
+    }
+
+    //method to get the name criteria
+    public String getdirNameCriteria(){
+        return directoryPanel.getdirNameCriteria();
+    }
+    // method to open the Save Criteria dialog
+    public void openSaveDirCriteriaDialog(){
+        directoryPanel.openSaveDirCriteriaDialog();
+    }
+
+    //method to get the load button
+    public JButton getDirLoadButton() {
+        return directoryPanel.getDirLoadButton();
+    }
+
+    // method to open the load Criteria dialog
+    public void openLoadDirCriteriaDialog(){
+        directoryPanel.openLoadDirCriteriaDialog();
+    }
+
+    //method to get the load button
+    public JButton getLoadDirCriteriaButton() {
+        return directoryPanel.getLoadDirCriteriaButton();
+    }
+
+    //Method that allows to get the Table for the criteria
+    public DefaultTableModel getDirCriteriaTable() {
+        return directoryPanel.getDirCriteriaTable();
+    }
+
+    //Method that allows to get the Table for the criteria
+    public JTable geTableCDir() {
+        return directoryPanel.geTableCDir();
+    }
+
+    //method to get the ID from the criteria table
+    public String getDirCriteriaID() {
+        return directoryPanel.getCriteriaID();
     }
 }
 

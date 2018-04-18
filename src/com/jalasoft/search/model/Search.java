@@ -187,6 +187,7 @@ public class Search
 
    public String saveCriteria(SearchCriterial cri, String nameCriteria)
     {
+        logger.log.info( "It is starting saving data for the Criteria .......");
         SearchQuery db = null;
         try {
             db = new SearchQuery();
@@ -195,22 +196,25 @@ public class Search
             db.addCriterial(nameCriteria, criteriaJson,"File");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+            logger.log.info( "Failed to save the data in the databse .......");
             return "Fail";
         }
+        logger.log.info( "Completed to save the data in the databse .......");
         return "Success";
     }
 
     public Map<Integer,SearchCriterial> getAllData(){
+        logger.log.info( "Its in the Get All data method  .......");
     Map<Integer,SearchCriterial> scMap= new HashMap<>();
-        //SearchQuery db= null;
+
         try {
             SearchQuery  db = new SearchQuery();
             Gson gson=new Gson();
             ResultSet set=db.getAllCriterialSearch();
-            System.out.println("el resultado devuelto del query es:"+set);
+
 
             while(set.next()){
-                System.out.println("entro al Search y tiene datos");
+
                 SearchCriterial crijson=gson.fromJson(set.getString("criteria"),SearchCriterial.class);
 
                 int id=set.getInt("Id");
@@ -221,6 +225,7 @@ public class Search
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        logger.log.info( "complete to obtain All data from DB .......");
         return scMap;
     }
     
