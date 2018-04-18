@@ -458,8 +458,23 @@ public class SearchController {
         logger.log.info( "The Load button was pressend and the data is sending to UI .......");
         String criteriaSelectedName=this.view.getNameCriteria();
         String criteriaId=this.view.getCriteriaID();
-        System.out.println("el valor del criterio id es"+criteriaId);
-
+        System.out.println("el valor del criterio id es "+criteriaId);
+        Map<Integer,SearchCriterial> map = this.model.getAllData();
+        int position = Integer.parseInt(this.view.getCriteriaID());
+        view.setFileName(map.get(position).getFileName());
+        view.setFilePath(map.get(position).getFileDirectory().toString());
+        view.setOwner(map.get(position).getOwnerName());
+        view.setHidden(String.valueOf(map.get(position).isHidden()));
+        view.setReadOnly(String.valueOf(map.get(position).isReadOnly()));
+        view.setTypeFile(map.get(position).getFileType());
+        view.setContains(map.get(position).getFileContains());
+        view.setSizeOptions(map.get(position).getSizeOption());
+        if (map.get(position).getSize() == 0D){
+            view.setSizeValue("");
+        } else{
+            Double size = (map.get(position).getSize()/1024);
+            view.setSizeValue(Double.toString(size));
+        }
     }
 
     /*
