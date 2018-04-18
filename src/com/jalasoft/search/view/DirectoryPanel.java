@@ -195,4 +195,92 @@ public class DirectoryPanel extends JPanel{
     public String getCriteriaID() {
         return searchDirectoryCriteria.getCriteriaDirID();
     }
+
+
+    //Method to set the Read only dir
+    public void setReadOnlyDirOptions(String readOnlyDirOptions) {
+        searchDirectoryCriteria.setReadOnlyDirOptions(readOnlyDirOptions);
+    }
+
+    //Get method to get the hidden value from UI
+    public void setHiddenDirOptions(String hiddenDirOptions) {
+
+        searchDirectoryCriteria.setHiddenDirOptions(hiddenDirOptions);
+    }
+
+    //Get method to get the created option value from UI
+    public void setCreatedDirOptions(String createdDirOptions) {
+        searchDirectoryCriteria.setCreatedDirOptions(createdDirOptions);
+    }
+
+    //Get method to set the modified dir value from UI
+    public void setModifiedDirOptions(String modifiedDirOptions) {
+
+        searchDirectoryCriteria.setModifiedDirOptions(modifiedDirOptions);
+    }
+
+    //Get method to set the accessed dir value from UI
+    public void setAccessedDirOptions(String accessedDirOptions) {
+
+        searchDirectoryCriteria.setAccessedDirOptions(accessedDirOptions);
+    }
+
+    //Get method to set the range for Created date value from UI
+    public void setFromCreatedDirDate(Date fromCreatedDirDate) {
+
+        searchDirectoryCriteria.setFromCreatedDirDate(fromCreatedDirDate);
+    }
+
+    //Get method to get the range for Created date value from UI
+    public void setToCreatedDirDate(Date toCreatedDirDate) {
+
+        searchDirectoryCriteria.setToCreatedDirDate(toCreatedDirDate);
+    }
+
+    //Get method to set the range for Modified date value from UI
+    public void setFromModifiedDirDate(Date fromModifiedDirDate) {
+        searchDirectoryCriteria.setFromModifiedDirDate(fromModifiedDirDate);
+    }
+    //Set method to set the range to modified date
+    public void setToModifiedDirDate(Date toModifiedDirDate) {
+        searchDirectoryCriteria.setToModifiedDirDate(toModifiedDirDate);
+    }
+
+    //Set method to set the range for Accessed date value from UI
+    public void setFromAccessedDirDate(Date fromAccessedDirDate) {
+
+        searchDirectoryCriteria.setFromAccessedDirDate(fromAccessedDirDate);
+    }
+
+    //set method to set the range for accessed date
+    public void setToAccessedDirDate(Date toAccessedDirDate) {
+
+        searchDirectoryCriteria.setToAccessedDirDate(toAccessedDirDate);
+    }
+
+
+    //method to allows set the size dir option value
+    public void setSizeDirOptions(String sizeDirOptions) {
+
+        searchDirectoryCriteria.setSizeDirOptions(sizeDirOptions);
+    }
+
+    //method to allows get the size  value
+    public void setSizeDirValue(String sizeDirValue){
+        searchDirectoryCriteria.setSizeDirValue(sizeDirValue);
+    }
+    //method to set the file owner value from UI
+    public void setOwnerDirField(String ownerDirField) {
+        searchDirectoryCriteria.setOwnerDirField(ownerDirField);
+    }
+
+    //Method for set the name directory field
+    public void setNameDirField(String nameDirField) {
+        searchDirectoryCriteria.setNameDirField(nameDirField);
+    }
+
+    //method for the fields that the user will insert data
+    public void setPathDirValue(String pathDirValue) {
+        searchDirectoryCriteria.setPathDirValue(pathDirValue);
+    }
 }

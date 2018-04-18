@@ -60,7 +60,7 @@ public class DBConnection {
             String sql= "CREATE TABLE IF NOT EXISTS CRITERIA (\n"
                     + "	id integer PRIMARY KEY AUTOINCREMENT,\n"
                     + "	name text ,\n"
-                    + "	CRITERIA VARCHAR(255),\n"
+                    + "	CRITERIA text,\n"
                     + "	type text \n"
                     + ");";
             state.execute(sql);
