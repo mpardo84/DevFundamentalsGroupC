@@ -129,9 +129,20 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         return pathDirValue.getText();
     }
 
+    //method for the fields that the user will insert data
+
+    public void setPathDirValue(String pathDirValue) {
+        this.pathDirValue.setText(pathDirValue);
+    }
+
     //Get method for the fields that the user will insert data
     public String getNameDirField() {
         return nameDirField.getText();
+    }
+
+    //Method for set the name directory field
+    public void setNameDirField(String nameDirField) {
+        this.nameDirField.setText(nameDirField);
     }
 
     //Get method to get the file owner value from UI
@@ -139,9 +150,87 @@ public class SearchDirectoryPanelCriteria extends JPanel {
         return ownerDirField.getText();
     }
 
+    //method to set the file owner value from UI
+    public void setOwnerDirField(String ownerDirField) {
+        this.ownerDirField.setText(ownerDirField);
+    }
+
     //Get method to get the read only value from UI
     public String getReadOnlyDirOptions() {
         return (String)readOnlyDirOptions.getSelectedItem();
+    }
+
+    //Method to set the Read only dir
+    public void setReadOnlyDirOptions(String readOnlyDirOptions) {
+        this.readOnlyDirOptions.setSelectedItem(readOnlyDirOptions);
+    }
+
+    //Get method to get the hidden value from UI
+    public void setHiddenDirOptions(String hiddenDirOptions) {
+
+        this.hiddenDirOptions.setSelectedItem(hiddenDirOptions);
+    }
+
+    //Get method to get the created option value from UI
+    public void setCreatedDirOptions(String createdDirOptions) {
+        this.createdDirOptions.setSelectedItem(createdDirOptions);
+    }
+
+    //Get method to set the modified dir value from UI
+    public void setModifiedDirOptions(String modifiedDirOptions) {
+
+        this.modifiedDirOptions.setSelectedItem(modifiedDirOptions);
+    }
+
+    //Get method to set the accessed dir value from UI
+    public void setAccessedDirOptions(String accessedDirOptions) {
+
+        this.accessedDirOptions.setSelectedItem(accessedDirOptions);
+    }
+
+    //Get method to set the range for Created date value from UI
+    public void setFromCreatedDirDate(Date fromCreatedDirDate) {
+
+        this.fromCreatedDirDate.setDate(fromCreatedDirDate);
+    }
+
+    //Get method to get the range for Created date value from UI
+    public void setToCreatedDirDate(Date toCreatedDirDate) {
+
+        this.toCreatedDirDate.setDate(toCreatedDirDate);
+    }
+
+    //Get method to set the range for Modified date value from UI
+    public void setFromModifiedDirDate(Date fromModifiedDirDate) {
+        this.fromModifiedDirDate.setDate(fromModifiedDirDate);
+    }
+    //Set method to set the range to modified date
+    public void setToModifiedDirDate(Date toModifiedDirDate) {
+        this.toModifiedDirDate.setDate(toModifiedDirDate);
+    }
+
+    //Set method to set the range for Accessed date value from UI
+    public void setFromAccessedDirDate(Date fromAccessedDirDate) {
+
+        this.fromAccessedDirDate.setDate(fromAccessedDirDate);
+    }
+
+    //set method to set the range for accessed date
+    public void setToAccessedDirDate(Date toAccessedDirDate) {
+
+        this.toAccessedDirDate.setDate(toAccessedDirDate);
+    }
+
+
+    //method to allows set the size dir option value
+    public void setSizeDirOptions(String sizeDirOptions) {
+
+        this.sizeDirOptions.setSelectedItem(sizeDirOptions);
+    }
+
+    //method to allows get the size  value
+    public void setSizeDirValue(String sizeDirValue){
+    this.sizeDirValue.setText(sizeDirValue);
     }
 
     //Get method to get the hidden value from UI
@@ -358,7 +447,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
 
     //This method contains the components for the Attribute section in UI
     public void searchAttributesSection(){
-        String[] comboBoxValues = { "False", "True" };
+        String[] comboBoxValues = { "false", "true" };
         attributesLabel=new JLabel("ATTRIBUTES");
         negritaFont=new Font("ITALIC", Font.BOLD, 13);
         attributesLabel.setFont(negritaFont);
