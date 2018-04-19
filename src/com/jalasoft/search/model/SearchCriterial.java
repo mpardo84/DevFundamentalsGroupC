@@ -361,183 +361,374 @@ public class SearchCriterial
         this.ownerDirName = ownerDirName;
     }
 
+    /**
+     * This method is going to set the directory found
+     *
+     * */
     public void setDirectoryFound(FileObject directoryFound) {
         this.directoryFound = directoryFound;
     }
 
+    /**
+     * This method is going to set the file for the directory found
+     *
+     * */
     public void setFileDirectory(File fileDirectory) {
         this.fileDirectory = fileDirectory;
     }
 
+    /**
+     * This method is going to set the list for the files found
+     *
+     * */
     public void setFileObjectList(List<FileObject> fileObjectList) {
         this.fileObjectList = fileObjectList;
     }
 
+    /**
+     * This method is going to set the file found
+     *
+     * */
     public void setFileFound(FileObject fileFound) {
         this.fileFound = fileFound;
     }
 
+    /**
+     * This method is going to set the directory path
+     *
+     * */
     public void setDirectoryPath(File directoryPath) {
         this.directoryPath = directoryPath;
     }
 
+    /**
+     * This method is going to get the owner for the file found
+     *
+     * */
     public String getOwnerName() {
         return this.ownerName;
     }
 
+    /**
+     * This method is going to get the path for the file found
+     *
+     * */
     public File getFileDirectory() {
         return this.fileDirectory;
     }
 
+    /**
+     * This method is going to get the extension for te file found
+     *
+     * */
     public String getFileType() {
         return this.fileType;
     }
 
+    /**
+     * This method is going to get the contains for the file found
+     *
+     * */
     public String getFileContains() {
         return this.fileContains;
     }
 
+    /**
+     * This method is going to get the size for te file found
+     *
+     * */
     public Double getSize() {
         return this.size;
     }
 
+    /**
+     * This method is going to get the directory found
+     *
+     * */
     public FileObject getDirectoryFound() {
         return this.directoryFound;
     }
 
+
+    /**
+     * This method is going to get the file found
+     *
+     * */
     public FileObject getFileFound() {
         return this.fileFound;
     }
 
+    /**
+     * This method is going to get the date modified found
+     *
+     * */
     public Date getDateModified() {
         return this.dateModified;
     }
 
+    /**
+     * This method is going to get the file Name
+     *
+     * */
     public String getFileName() {
         return this.fileName;
     }
 
+    /**
+     * This method is going to get the created Option for the file found
+     *
+     * */
     public String getCreatedOption() {
         return this.createdOption;
     }
 
+    /**
+     * This method is going to get the Modified Option for the file found
+     *
+     * */
     public String getModifiedOption(){return this.modifiedOption;};
 
+    /**
+     * This method is going to get the accessed Option for the file found
+     *
+     * */
     public String getAccessedOption() {
         return this.accessedOption;
     }
 
+    /**
+     * This method is going to get the size option selected by the user
+     *
+     * */
     public String getSizeOption() {
         return this.sizeOption;
     }
 
+    /**
+     * This method is going to get the created end date for the file found
+     *
+     * */
     public Date getCreatedEndDate() {
         return this.createdEndDate;
     }
 
+    /**
+     * This method is going to get the created start date for the file found
+     *
+     * */
     public Date getCreatedStartDate() {
         return this.createdStartDate;
     }
 
+    /**
+     * This method is going to get the modified start date for the file found
+     *
+     * */
     public Date getModifiedStartDate() {
         return this.modifiedStartDate;
     }
 
+    /**
+     * This method is going to get the modified end date for the file found
+     *
+     * */
     public Date getAccessedEndDate() {
         return this.accessedEndDate;
     }
 
+    /**
+     * This method is going to get the accessed start date for the file found
+     *
+     * */
     public Date getAccessedStartDate() {
         return this.accessedStartDate;
     }
 
+    /**
+     * This method is going to get the modified end date for the file found
+     *
+     * */
     public Date getModifiedEndDate() {
         return this.modifiedEndDate;
     }
 
+    /**
+     * This method is going to get the size for the directory
+     *
+     * */
     public Double getSizeDir() {
         return this.sizeDir;
     };
 
+    /**
+     * This method is going to get the path for the directory
+     *
+     * */
     public File getDirectoryPath() {
         return this.directoryPath;
     }
 
+    /**
+     * This method is going to get the data modified for the directory
+     *
+     * */
     public String getDateModifiedDir() {
         return this.dateModifiedDir;
     }
 
+    /**
+     * This method is going to get the directory name for the directory found
+     *
+     * */
     public String getDirectoryName() {
         return this.directoryName;
     }
 
+    /**
+     * This method is going to get the directory owner for the directory found
+     *
+     * */
     public String getOwnerDirName() {
         return this.ownerDirName;
     }
 
+    /**
+     * This method is going to get the directory size for the directory found
+     *
+     * */
     public String getSizeDirOption() {
         return this.sizeDirOption;
     }
 
+    /**
+     * This method is going to get if the file is hidden
+     *
+     * */
     public boolean isHidden() {
         return this.hidden;
     }
 
+    /**
+     * This method is going to get if the file is read only
+     *
+     * */
     public boolean isReadOnly() {
         return this.readOnly;
     }
 
+    /**
+     * This method is going to set the date created for the file
+     *
+     * */
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 
+    /**
+     * This method is going to get the date created for the file
+     *
+     * */
     public Date getDateCreated() {
         return dateCreated;
     }
 
+    /**
+     * This method is going to set the date accessed for the file
+     *
+     * */
     public void setDateAccessed(Date dateAccessed) {
         this.dateAccessed = dateAccessed;
     }
 
+    /**
+     * This method is going to set the date accesed for the file
+     *
+     * */
     public Date getDateAccessed() {
         return dateAccessed;
     }
+
+    /**
+     * This method is going to set the today date
+     *
+     * */
     public void setTodayDate(Date todayDate) {
         this.todayDate = todayDate;
     }
 
+    /**
+     * This method is going to get the today date
+     *
+     * */
     public Date getTodayDate() {
         return todayDate;
     }
 
+    /**
+     * This method is going to set the time option selected for the FIle if this is yesterday,today, all times,etc
+     *
+     * */
     public void setTimeOption(String timeOption) {
         this.timeOption = timeOption;
     }
 
+    /**
+     * This method is going to get the time option selected for the FIle if this is yesterday,today, all times,etc
+     *
+     * */
     public String getTimeOption() {
         return timeOption;
     }
 
+
+    /**
+     * This method is going to get the yesterday day
+     *
+     * */
     public Date getYesterdayDate() {
         return yesterdayDate;
     }
 
+    /**
+     * This method is going to set the yesterday date
+     *
+     * */
     public void setYesterdayDate(Date yesterdayDate) {
         this.yesterdayDate = yesterdayDate;
     }
 
+
+    /**
+     * This method is going to get the Criteria Name
+     *
+     * */
     public String getCriteriaName() {
         return criteriaName;
     }
 
+
+    /**
+     * This method is going to set the Criteria Name
+     *
+     * */
     public void setCriteriaName(String criteriaName) {
         this.criteriaName = criteriaName;
     }
 
+
+
+    /**
+     * This method is going to get the type object if this is a File or Directory
+     *
+     * */
     public String getTypeObject() {
         return typeObject;
     }
 
+    /**
+     * This method is going to set the type object if this is a File or Directory
+     *
+     * */
     public void setTypeObject(String typeObject) {
         this.typeObject = typeObject;
     }

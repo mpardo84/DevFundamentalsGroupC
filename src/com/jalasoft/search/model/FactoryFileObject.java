@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  *
- * This class is going to represent a file object found.
+ * This class is going to represent a factory file object found.
  *
  * @version 1 22 Mar 2018  * @author Marco Mendieta
  */

@@ -15,12 +15,9 @@ package com.jalasoft.search.controller;
 
 import com.jalasoft.search.commond.Functions;
 import com.jalasoft.search.commond.LoggerWrapper;
-
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

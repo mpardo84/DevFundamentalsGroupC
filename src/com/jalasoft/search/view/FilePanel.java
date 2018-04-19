@@ -16,7 +16,9 @@ package com.jalasoft.search.view;
 
 import com.jalasoft.search.commond.LoggerWrapper;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.GridLayout;

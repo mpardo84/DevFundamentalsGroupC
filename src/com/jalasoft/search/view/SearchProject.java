@@ -70,16 +70,9 @@ public class SearchProject extends JFrame{
             tabbedPane.addTab("Multimedia ",multimediaIcon,multimediaPanel);
             // add the tab panel to the frame
             this.add(tabbedPane);
-            /*GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
-                    .getDefaultScreenDevice();
-            w = gd.getDisplayMode().getWidth();
-            h = gd.getDisplayMode().getHeight();*/
-
-
-
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setSize(1020, 800);
-            this.setBounds(300, 50,1050,750);
+            this.setBounds(100, 20,1050,750);
             this.setTitle(title);
             this.setVisible(true);
             this.setResizable(false);
