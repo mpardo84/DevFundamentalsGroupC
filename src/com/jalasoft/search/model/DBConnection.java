@@ -52,7 +52,6 @@ public class DBConnection {
     private void init() {
         try {
 
-
             Class.forName("org.sqlite.JDBC");
 
             con = DriverManager.getConnection("jdbc:sqlite:SEARCH.db");
@@ -64,8 +63,6 @@ public class DBConnection {
                     + "	type text \n"
                     + ");";
             state.execute(sql);
-            System.out.println("tabla creada");
-
 
         } catch (ClassNotFoundException ex) {
             logger.log.severe( functions.getStackTrace(ex));

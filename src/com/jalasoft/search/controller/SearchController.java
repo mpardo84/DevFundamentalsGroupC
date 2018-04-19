@@ -162,6 +162,7 @@ public class SearchController {
          calendar.add(Calendar.DATE,2);
          Date tomorrow = calendar.getTime();
          String createdOption = view.getCreatedOptions();
+         this.model.getSearchCriterial().setCreatedOption(createdOption);
          switch(createdOption) {
              case "All Time" :
                  this.model.getSearchCriterial().setTimeOption("All Time");
@@ -185,6 +186,7 @@ public class SearchController {
                  break;
          }
          String modifiedOption = view.getModifiedOptions();
+         this.model.getSearchCriterial().setModifiedOption(modifiedOption);
          switch(modifiedOption) {
              case "All Time" :
                  this.model.getSearchCriterial().setModifiedStartDate(new Date(1900-1900,01,01));
@@ -204,6 +206,7 @@ public class SearchController {
                  break;
          }
          String accessedOption = view.getAccessedOptions();
+         this.model.getSearchCriterial().setAccessedOption(accessedOption);
          switch(accessedOption) {
              case "All Time" :
                  this.model.getSearchCriterial().setTimeOption("All Time");
@@ -255,7 +258,6 @@ public class SearchController {
         calendar.add(Calendar.DATE,2);
         Date tomorrow = calendar.getTime();
         String createdOptionDir = view.getCreatedDirOptions();
-
         switch(createdOptionDir) {
             case "All Time" :
                 this.model.getSearchCriterial().setTimeOption("All Time");
@@ -450,16 +452,13 @@ public class SearchController {
 
     /*
      *
-     *  Method that implements actions that will be executed after clicking on Load button from the Criteria dialog
-     *  This will get the criteria saved and will load this in UI
+     *  Method that implements actions that will be executed after clicking on Load button from the Criteria dialog for File
+     *  This will get the criteria saved for file and will load this in UI
      *
      */
-    public void loadButtonActionListener(){
-        logger.log.info( "The Load button was pressend and the data is sending to UI .......");
-        String criteriaSelectedName=this.view.getNameCriteria();
-        String criteriaId=this.view.getCriteriaID();
-        System.out.println("el valor del criterio id es "+criteriaId);
-        Map<Integer,SearchCriterial> map = this.model.getAllData();
+    public void loadButtonActionListener() {
+        logger.log.info("Loading selected search criteria for file in UI ........");
+        Map<Integer, SearchCriterial> map = this.model.getAllData();
         int position = Integer.parseInt(this.view.getCriteriaID());
         view.setFileName(map.get(position).getFileName());
         view.setFilePath(map.get(position).getFileDirectory().toString());
@@ -469,11 +468,26 @@ public class SearchController {
         view.setTypeFile(map.get(position).getFileType());
         view.setContains(map.get(position).getFileContains());
         view.setSizeOptions(map.get(position).getSizeOption());
-        if (map.get(position).getSize() == 0D){
+        if (map.get(position).getSize() == 0D) {
             view.setSizeValue("");
-        } else{
-            Double size = (map.get(position).getSize()/1024);
+        } else {
+            Double size = (map.get(position).getSize() / 1024);
             view.setSizeValue(Double.toString(size));
+        }
+        view.setCreatedOptions(map.get(position).getCreatedOption());
+        if (map.get(position).getCreatedOption().equals("Time Range")){
+            view.setFromCreatedDate(map.get(position).getCreatedStartDate());
+            view.setToCreatedDate(map.get(position).getCreatedEndDate());
+        }
+        view.setModifiedOptions(map.get(position).getModifiedOption());
+        if (map.get(position).getModifiedOption().equals("Time Range")){
+            view.setFromModifiedDate(map.get(position).getModifiedStartDate());
+            view.setToModifiedDate(map.get(position).getModifiedEndDate());
+        }
+        view.setAccessedOptions(map.get(position).getAccessedOption());
+        if (map.get(position).getAccessedOption().equals("Time Range")){
+            view.setFromAccessedDate(map.get(position).getAccessedStartDate());
+            view.setToAccessedDate(map.get(position).getAccessedEndDate());
         }
     }
 
@@ -537,8 +551,19 @@ public class SearchController {
                 }
             }
             this.view.openLoadDirCriteriaDialog();
-            this.view.getDirLoadButton().addActionListener(e -> loadButtonActionListener());
+            this.view.getDirLoadButton().addActionListener(e -> loadDirButtonActionListener());
         }
         logger.log.info( "The Load dialog completed to load all the data from the database for directory panel .......");
+    }
+
+    /*
+     *
+     *  Method that implements actions that will be executed after clicking on Load button from the Criteria dialog for Directory
+     *  This will get the criteria saved for directory and will load this in UI
+     *
+     */
+    private void loadDirButtonActionListener() {
+        logger.log.info("Loading selected search criteria for directory in UI ........");
+        Map<Integer, SearchCriterial> map = this.model.getAllData();
     }
 }
