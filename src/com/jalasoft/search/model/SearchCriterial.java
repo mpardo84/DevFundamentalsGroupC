@@ -46,6 +46,8 @@ public class SearchCriterial
     private String sizeOption;
     private String fileContains;
     private String createdOption;
+    private String modifiedOption;
+    private String accessedOption;
     private Date createdStartDate;
     private Date dateCreated;
     private Date dateAccessed;
@@ -85,6 +87,8 @@ public class SearchCriterial
         this.size = 0D;
         this.fileContains = "";
         this.createdOption="";
+        this.modifiedOption="";
+        this.accessedOption="";
         this.createdStartDate = new Date(1900-1900,01,01);
         this.createdEndDate = new Date(2099-1900,12,12);
         this.modifiedStartDate = new Date(1900-1900,01,01);
@@ -159,7 +163,7 @@ public class SearchCriterial
     /**
      * This method is going to set the file hidden option
      *
-     * @param hidden  the hidden file option
+     * @param hidden
      */
     public void setHidden(boolean hidden)
     {
@@ -169,7 +173,7 @@ public class SearchCriterial
     /**
      * This method is going to set the size option
      *
-     * @param sizeOption  the hidden file option
+     * @param sizeOption  t
      */
     public void setSizeOption(String sizeOption) {
         this.sizeOption = sizeOption;
@@ -177,11 +181,24 @@ public class SearchCriterial
     /**
      * This method is going to set the Created option
      *
-     * @param createdOption  the hidden file option
+     * @param createdOption
      */
     public void setCreatedOption(String createdOption) {
         this.createdOption = createdOption;
     }
+    /**
+     * This method is going to set the Modified option
+     *
+     * @param modifiedOption
+     */
+    public void setModifiedOption(String modifiedOption){this.modifiedOption = modifiedOption;}
+    /**
+     * This method is going to set the Accessed option
+     *
+     * @param accessedOption
+     */
+    public void setAccessedOption(String accessedOption){this.accessedOption = accessedOption;}
+
     /**
      * This method is going to set the size of file
      *
@@ -194,7 +211,7 @@ public class SearchCriterial
     /**
      * This method is going to set the contained string in the file
      *
-     * @param fileContains  the hidden file option
+     * @param fileContains
      */
     public void setFileContains(String fileContains) {
         this.fileContains = fileContains;
@@ -204,7 +221,7 @@ public class SearchCriterial
     /**
      * This method is going to set the start date of created date range
      *
-     * @param createdStartDate  the hidden file option
+     * @param createdStartDate
      */
     public void setCreatedStartDate(Date createdStartDate) {
         this.createdStartDate = createdStartDate;
@@ -213,7 +230,7 @@ public class SearchCriterial
     /**
      * This method is going to set the end date of created date range
      *
-     * @param createdEndDateDate  the hidden file option
+     * @param createdEndDateDate
      */
     public void setCreatedEndDate(Date createdEndDateDate) {
         this.createdEndDate = createdEndDateDate;
@@ -404,6 +421,12 @@ public class SearchCriterial
         return this.createdOption;
     }
 
+    public String getModifiedOption(){return this.modifiedOption;};
+
+    public String getAccessedOption() {
+        return this.accessedOption;
+    }
+
     public String getSizeOption() {
         return this.sizeOption;
     }
@@ -434,7 +457,7 @@ public class SearchCriterial
 
     public Double getSizeDir() {
         return this.sizeDir;
-    }
+    };
 
     public File getDirectoryPath() {
         return this.directoryPath;

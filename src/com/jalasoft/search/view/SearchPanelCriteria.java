@@ -502,7 +502,7 @@ public class SearchPanelCriteria extends JPanel {
 
     //This method contains the components for the Attribute section in UI
     public void searchAttributesSection(){
-        String[] comboBoxValues = { "False", "True" };
+        String[] comboBoxValues = { "false", "true" };
         attributesLabel=new JLabel("ATTRIBUTES");
         negritaFont=new Font("ITALIC", Font.BOLD, 12);
         attributesLabel.setFont(negritaFont);
