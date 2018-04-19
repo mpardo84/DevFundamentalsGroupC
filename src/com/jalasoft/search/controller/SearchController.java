@@ -258,6 +258,7 @@ public class SearchController {
         calendar.add(Calendar.DATE,2);
         Date tomorrow = calendar.getTime();
         String createdOptionDir = view.getCreatedDirOptions();
+        this.model.getSearchCriterial().setCreatedOption(createdOptionDir);
         switch(createdOptionDir) {
             case "All Time" :
                 this.model.getSearchCriterial().setTimeOption("All Time");
@@ -279,6 +280,7 @@ public class SearchController {
                 break;
         }
         String modifiedOptionDir = view.getModifiedDirOptions();
+        this.model.getSearchCriterial().setModifiedOption(modifiedOptionDir);
         switch(modifiedOptionDir) {
             case "All Time" :
                 this.model.getSearchCriterial().setModifiedStartDate(new Date(1900-1900,01,01));
@@ -298,6 +300,7 @@ public class SearchController {
                 break;
         }
         String accessedOptionDir = view.getAccessedDirOptions();
+        this.model.getSearchCriterial().setAccessedOption(accessedOptionDir);
         switch(accessedOptionDir) {
             case "All Time" :
                 this.model.getSearchCriterial().setTimeOption("All Time");
@@ -572,5 +575,33 @@ public class SearchController {
     private void loadDirButtonActionListener() {
         logger.log.info("Loading selected search criteria for directory in UI ........");
         Map<Integer, SearchCriterial> map = this.model.getAllData();
+        int criteriaID = Integer.parseInt(this.view.getDirCriteriaID());
+        view.setPathDirValue(map.get(criteriaID).getFileDirectory().toString());
+        view.setNameDirField(map.get(criteriaID).getFileName());
+        view.setOwnerDirField(map.get(criteriaID).getOwnerName());
+        view.setReadOnlyDirOptions(toString().valueOf(map.get(criteriaID).isReadOnly()));
+        view.setHiddenDirOptions(toString().valueOf(map.get(criteriaID).isHidden()));
+        view.setSizeDirOptions(map.get(criteriaID).getSizeOption());
+        if (map.get(criteriaID).getSize()== 0D) {
+            view.setSizeDirValue("");
+        } else {
+            Double size = (map.get(criteriaID).getSize() / 1024);
+            view.setSizeDirValue(Double.toString(size));
+        }
+        view.setCreatedDirOptions(map.get(criteriaID).getCreatedOption());
+        if (map.get(criteriaID).getCreatedOption().equals("Time Range")){
+            view.setFromCreatedDirDate(map.get(criteriaID).getCreatedStartDate());
+            view.setToCreatedDirDate(map.get(criteriaID).getCreatedEndDate());
+        }
+        view.setModifiedDirOptions(map.get(criteriaID).getModifiedOption());
+        if (map.get(criteriaID).getModifiedOption().equals("Time Range")){
+            view.setFromModifiedDirDate(map.get(criteriaID).getModifiedStartDate());
+            view.setToModifiedDirDate(map.get(criteriaID).getModifiedEndDate());
+        }
+        view.setAccessedDirOptions(map.get(criteriaID).getAccessedOption());
+        if (map.get(criteriaID).getAccessedOption().equals("Time Range")){
+            view.setFromAccessedDirDate(map.get(criteriaID).getAccessedStartDate());
+            view.setToAccessedDirDate(map.get(criteriaID).getAccessedEndDate());
+        }
     }
 }
