@@ -766,10 +766,12 @@ public class SearchDirectoryPanelCriteria extends JPanel {
 
         tableCDir.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                criteriaDirID=tableCDir.getValueAt(tableCDir.getSelectedRow(), 0).toString();
-                nameDirCriteria=tableCDir.getValueAt(tableCDir.getSelectedRow(), 1).toString();
+                if(!tableCDir.getSelectionModel().isSelectionEmpty()) {
+                    criteriaDirID = tableCDir.getValueAt(tableCDir.getSelectedRow(), 0).toString();
+                    nameDirCriteria = tableCDir.getValueAt(tableCDir.getSelectedRow(), 1).toString();
 
-                criteriaDirOptions.setText(nameDirCriteria);
+                    criteriaDirOptions.setText(nameDirCriteria);
+                }
 
             }
         });

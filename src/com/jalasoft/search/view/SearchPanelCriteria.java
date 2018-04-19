@@ -824,10 +824,11 @@ public class SearchPanelCriteria extends JPanel {
 
         tableC.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-               criteriaID=tableC.getValueAt(tableC.getSelectedRow(), 0).toString();
-               nameCriteria=tableC.getValueAt(tableC.getSelectedRow(), 1).toString();
-
-                criteriaOptions.setText(nameCriteria);
+                if(!tableC.getSelectionModel().isSelectionEmpty()){
+                    criteriaID=tableC.getValueAt(tableC.getSelectedRow(), 0).toString();
+                    nameCriteria=tableC.getValueAt(tableC.getSelectedRow(), 1).toString();
+                    criteriaOptions.setText(nameCriteria);
+                }
 
             }
         });

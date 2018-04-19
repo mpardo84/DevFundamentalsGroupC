@@ -416,16 +416,20 @@ public class SearchController {
         logger.log.info( "Starting saving the criteria data process .......");
         this.view.openSaveCriteriaDialog();
         String nameCri=this.view.getNameCriteria();
-        if(nameCri.isEmpty() || nameCri==null){
-            this.view.setMessage("Please insert a criteria Name");
-            logger.log.info( "Name criteria was not inserted .......");
+        if(nameCri==null){
+            logger.log.info( "Name criteria dialog was closed .......");
         }
-        else{
-            configureModelData();
-            this.model.getSearchCriterial().setCriteriaName(nameCri);
-            this.model.getSearchCriterial().setTypeObject("file");
-            this.model.saveCriteria(this.model.getSearchCriterial(),nameCri);
-            logger.log.info( "Criteria was saved in the DB .......");
+        else {
+            if (nameCri.isEmpty()) {
+                this.view.setMessage("Please insert a criteria Name");
+                logger.log.info("Name criteria is missing .......");
+            } else {
+                configureModelData();
+                this.model.getSearchCriterial().setCriteriaName(nameCri);
+                this.model.getSearchCriterial().setTypeObject("file");
+                this.model.saveCriteria(this.model.getSearchCriterial(), nameCri);
+                logger.log.info("Criteria was saved in the DB .......");
+            }
         }
     }
 
@@ -437,16 +441,19 @@ public class SearchController {
     public void saveDirButtonActionListener(){
         this.view.openSaveDirCriteriaDialog();
         String nameCriDir=this.view.getdirNameCriteria();
-        if(nameCriDir.isEmpty() || nameCriDir==null){
-            this.view.setMessage("Please insert a criteria Name");
-            logger.log.info( "Name criteria was not inserted for directory panel .......");
-        }
-        else{
-            configureModelDataDirectory();
-            this.model.getSearchCriterial().setCriteriaName(nameCriDir);
-            this.model.getSearchCriterial().setTypeObject("directory");
-            this.model.saveCriteria(this.model.getSearchCriterial(),nameCriDir);
-            logger.log.info( "Criteria was saved in the DB .......");
+        if(nameCriDir==null){
+            logger.log.info( "Name criteria dialog was closed .......");
+        }else {
+            if (nameCriDir.isEmpty()) {
+                this.view.setMessage("Please insert a criteria Name");
+                logger.log.info("Name criteria was not inserted for directory panel .......");
+            } else {
+                configureModelDataDirectory();
+                this.model.getSearchCriterial().setCriteriaName(nameCriDir);
+                this.model.getSearchCriterial().setTypeObject("directory");
+                this.model.saveCriteria(this.model.getSearchCriterial(), nameCriDir);
+                logger.log.info("Criteria was saved in the DB for directory .......");
+            }
         }
     }
 
