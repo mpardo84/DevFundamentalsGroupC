@@ -712,6 +712,7 @@ public class SearchDirectoryPanelCriteria extends JPanel {
             }
         });
     }
+
     //Method to allows validate if the required field is empty
     public void validateRequiredField() {
         if (message!="") {

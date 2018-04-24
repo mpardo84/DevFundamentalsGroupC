@@ -15,7 +15,7 @@ package com.jalasoft.search.model;
 
 /**
  *
- * This class is going to represent a file object found.
+ * This class is going to represent a Directory object found.
  *
  * @version 1 22 Mar 2018  * @author Monica Pardo
  */
@@ -35,10 +35,12 @@ public class Directory extends FileObject{
         this.numberOfFiles=numberOfFiles;
     }
 
+    //This method allows to set the number of files
     public void setNumberOfFiles(int numberOfFiles) {
         this.numberOfFiles = numberOfFiles;
     }
 
+    //This method allows to get the number of files
     public int getNumberOfFiles() {
         return numberOfFiles;
     }

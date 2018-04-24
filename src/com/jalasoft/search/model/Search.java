@@ -131,6 +131,11 @@ public class Search
             }
     }
 
+    /**
+     * This method is going to search a directory in a given folder
+     *
+     * @param fileDir  the name of the directory to search the file
+     * */
     public void searchDirectory(String fileDir)
     {
         searchCriterial.setFileDirectory(fileDir);
@@ -145,7 +150,7 @@ public class Search
                         if (dir.isHidden() == searchCriterial.isHidden()) {
                             if (dir.canWrite() != searchCriterial.isReadOnly()) {
                                 try {
-                                   // BasicFileAttributes attributes = Files.readAttributes(filePath, BasicFileAttributes.class);
+
                                     if (Files.getOwner(Paths.get(dir.getAbsolutePath())).getName().toLowerCase()
                                             .contains(searchCriterial.getOwnerName().toLowerCase())) {
 
@@ -185,6 +190,13 @@ public class Search
 
     }
 
+    /**
+     * This method is going to save the Criteria given the criteria object and the name for the criteria
+     *
+     * @param cri  the criterial object
+     * @param nameCriteria  the name for the criterial saved by the user
+     * */
+
    public String saveCriteria(SearchCriterial cri, String nameCriteria)
     {
         logger.log.info( "It is starting saving data for the Criteria .......");
@@ -193,7 +205,7 @@ public class Search
             db = new SearchQuery();
             Gson gson=new Gson();
             String criteriaJson=gson.toJson(cri);
-            db.addCriterial(nameCriteria, criteriaJson,"File");
+            db.addCriterial(nameCriteria, criteriaJson,cri.getTypeObject());
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             logger.log.info( "Failed to save the data in the databse .......");
@@ -203,6 +215,10 @@ public class Search
         return "Success";
     }
 
+    /**
+     * This method is going to get All the data from the database
+     *
+     * * */
     public Map<Integer,SearchCriterial> getAllData(){
         logger.log.info( "Its in the Get All data method  .......");
     Map<Integer,SearchCriterial> scMap= new HashMap<>();
@@ -228,7 +244,11 @@ public class Search
         logger.log.info( "complete to obtain All data from DB .......");
         return scMap;
     }
-    
+
+    /**
+     * This method is going to set in the SearhcCriteria the files found in the system
+     *@param file this is the File object
+     * * */
     private void setFoundFileObject(File file)
     {
         try {
@@ -249,6 +269,10 @@ public class Search
         }
     }
 
+    /**
+     * This method is going to check if the file is in the modified range selected by the user
+     *@param file this is the File object
+     * * */
     private boolean isWithinModifiedRange(File file)
     {
         Date testDate = new Date(file.lastModified());
@@ -256,6 +280,10 @@ public class Search
         return !(testDate.before(searchCriterial.getModifiedStartDate()) || testDate.after(searchCriterial.getModifiedEndDate()));
     }
 
+    /**
+     * This method is going to check if the file is in the created range selected by the user
+     *@param file this is the File object
+     * * */
     private boolean isWithinCreatedRange(File file)
     {
         String istoday=searchCriterial.getTimeOption();
@@ -325,6 +353,10 @@ public class Search
         return isInRange;
     }
 
+    /**
+     * This method is going to check if the file is in the acccessed range selected by the user
+     *@param file this is the File object
+     * * */
     private boolean isWithinAccessedRange(File file)
     {
 
@@ -398,6 +430,10 @@ public class Search
 
     }
 
+    /**
+     * This method is going to check if a string is contains into the file
+     *@param file this is the File object
+     * * */
     private boolean isStringContainedInFile(File file)
     {
         try {
@@ -419,6 +455,10 @@ public class Search
         return false;
     }
 
+    /**
+     * This method is going to check if the directory was found in the system
+     *@param file this is the File object
+     * * */
     private void setFoundDirectoryObject(File file)
     {
         int numberOfFiles = 0;

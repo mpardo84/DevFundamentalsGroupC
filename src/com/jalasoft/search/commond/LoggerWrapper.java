@@ -14,8 +14,7 @@ public class LoggerWrapper {
 
     public static LoggerWrapper getInstance() {
         if(instance == null) {
-            //prepareLogger();
-            instance = new LoggerWrapper ();
+           instance = new LoggerWrapper ();
         }
         return instance;
     }

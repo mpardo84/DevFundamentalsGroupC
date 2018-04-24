@@ -89,7 +89,6 @@ public class SearchQuery {
             while (result.next()) {
 
                 String name = result.getString("name");
-                System.out.println("NAME from search query = " + name);
                 ListCriteriaName.add(name);
 
             }
